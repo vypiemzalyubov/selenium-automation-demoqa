@@ -1,4 +1,4 @@
-pytest
-requests
-selenium
-webdriver-manager
+pytest~=7.4.4
+requests~=2.31.0
+selenium~=4.16.0
+webdriver-manager~=4.0.1
