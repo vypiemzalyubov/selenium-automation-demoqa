@@ -1,5 +1,6 @@
 import random
 import time
+from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 from locators.elements_page_locators import CheckBoxPageLocators, RadioButtonPageLocators, TextBoxPageLocators, WebTablePageLocators
 from pages.base_page import BasePage
@@ -8,7 +9,11 @@ from utils.generator import generated_person
 
 class TextBoxPage(BasePage):
 
+    page_url = "https://demoqa.com/text-box"
     locators = TextBoxPageLocators()
+    
+    def __init__(self, page_url: str):
+        super().__init__(page_url)
 
     def fill_all_fields(self):
         person_info = next(generated_person())
@@ -33,7 +38,11 @@ class TextBoxPage(BasePage):
 
 class CheckBoxPage(BasePage):
 
+    page_url = "https://demoqa.com/checkbox"
     locators = CheckBoxPageLocators()
+    
+    def __init__(self, page_url: str):
+        super().__init__(page_url)
 
     def open_full_list(self):
         self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
@@ -60,7 +69,11 @@ class CheckBoxPage(BasePage):
 
 class RadioButtonPage(BasePage):
 
+    page_url = "https://demoqa.com/radio-button"
     locators = RadioButtonPageLocators()
+    
+    def __init__(self, page_url: str):
+        super().__init__(page_url)
 
     def click_on_the_radio_button(self, choice):
         choices = {"yes": self.locators.YES_RADIOBUTTON,
@@ -75,10 +88,14 @@ class RadioButtonPage(BasePage):
 
 class WebTablePage(BasePage):
 
+    page_url = "https://demoqa.com/webtables"
     locators = WebTablePageLocators()
+    
+    def __init__(self, page_url: str):
+        super().__init__(page_url)
 
     def add_new_person(self):
-        count=1
+        count = 1
         while count != 0:
             person_info = next(generated_person())
             firstname = person_info.firstname

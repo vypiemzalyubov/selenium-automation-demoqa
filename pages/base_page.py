@@ -9,8 +9,8 @@ class BasePage:
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
 
-    def open(self, page_url: str):
-        self.driver.get(page_url)
+    def open(self):
+        self.driver.get(self.page_url)
 
     def element_is_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
