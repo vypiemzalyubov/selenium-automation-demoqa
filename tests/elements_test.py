@@ -29,6 +29,7 @@ class TestCheckBox:
         output_result = check_box_page.get_output_result()
         assert input_checkbox == output_result, "Checkboxes have not been selected"
 
+
 class TestRadioButton:
 
     def test_radio_button(self, driver: WebDriver):
@@ -73,7 +74,7 @@ class TestRadioButton:
 
 #     def test_web_table_delete_person(self, driver: WebDriver):
 #         web_table_page = WebTablePage(driver)
-#         web_table_page.open("https://demoqa.com/webtables")            
+#         web_table_page.open("https://demoqa.com/webtables")
 #         email = web_table_page.add_new_person()[3]
 #         web_table_page.search_some_person(email)
 #         web_table_page.delete_person()
