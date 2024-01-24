@@ -1,6 +1,6 @@
 import random
-from data.data import Person
 from faker import Faker
+from data.data import Person
 
 faker_ru = Faker("ru_RU")
 Faker.seed()
