@@ -9,11 +9,7 @@ from utils.generator import generated_person
 
 class TextBoxPage(BasePage):
 
-    page_url = "https://demoqa.com/text-box"
     locators = TextBoxPageLocators()
-    
-    def __init__(self, page_url: str):
-        super().__init__(page_url)
 
     def fill_all_fields(self):
         person_info = next(generated_person())
@@ -38,11 +34,7 @@ class TextBoxPage(BasePage):
 
 class CheckBoxPage(BasePage):
 
-    page_url = "https://demoqa.com/checkbox"
     locators = CheckBoxPageLocators()
-    
-    def __init__(self, page_url: str):
-        super().__init__(page_url)
 
     def open_full_list(self):
         self.element_is_visible(self.locators.EXPAND_ALL_BUTTON).click()
@@ -69,11 +61,7 @@ class CheckBoxPage(BasePage):
 
 class RadioButtonPage(BasePage):
 
-    page_url = "https://demoqa.com/radio-button"
     locators = RadioButtonPageLocators()
-    
-    def __init__(self, page_url: str):
-        super().__init__(page_url)
 
     def click_on_the_radio_button(self, choice):
         choices = {"yes": self.locators.YES_RADIOBUTTON,
@@ -88,11 +76,7 @@ class RadioButtonPage(BasePage):
 
 class WebTablePage(BasePage):
 
-    page_url = "https://demoqa.com/webtables"
     locators = WebTablePageLocators()
-    
-    def __init__(self, page_url: str):
-        super().__init__(page_url)
 
     def add_new_person(self):
         count = 1
@@ -113,23 +97,21 @@ class WebTablePage(BasePage):
             self.element_is_visible(self.locators.DEPARTMENT_INPUT).send_keys(department)
             self.element_is_visible(self.locators.SUBMIT).click()
             count -= 1
-            return [firstname, lastname, str(age), email, str(salary), department]
-        
+        return [firstname, lastname, str(age), email, str(salary), department]
+
     def check_new_added_person(self):
         people_list = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
-        data = []
-        for item in people_list:
-            data.append(item.text.splitlines())
+        data = [item.text.splitlines() for item in people_list]
         return data
-    
+
     def search_some_person(self, key_word):
         self.element_is_visible(self.locators.SEARCH_INPUT).send_keys(key_word)
 
     def check_search_person(self):
         delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
-        row = delete_button.find_element('xpath', self.locators.ROW_PARENT)
+        row = delete_button.find_element("xpath", self.locators.ROW_PARENT)
         return row.text.splitlines()
-    
+
     def update_person_info(self):
         person_info = next(generated_person())
         age = person_info.age
@@ -144,26 +126,20 @@ class WebTablePage(BasePage):
 
     def check_deleted_person(self):
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
-    
-    def select_up_to_some_rows(self):
+
+    def select_rows_count(self):
+        self.remove_footer()
+        self.remove_fixedban()
         count = [5, 10, 20, 50, 100]
         data = []
         for x in count:
             count_row_button = self.element_is_visible(self.locators.COUNT_ROW_LIST)
             self.go_to_element(count_row_button)
             count_row_button.click()
-            self.element_is_visible((By.CSS_SELECTOR, f'option[value="{x}"]')).click()
-            data.append(self.check_count_rows())
-        return data    
+            self.element_is_visible((By.CSS_SELECTOR, f"option[value='{x}']")).click()
+            data.append(self._check_count_rows())
+        return data
 
-    def check_count_rows(self):
+    def _check_count_rows(self):
         list_rows = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
         return len(list_rows)
-    
-    def remove_footer(self):
-        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
-        print('\nRemove Footer')
-        
-    def remove_fixedban(self):
-        self.driver.execute_script("document.getElementById('fixedban').style.display = 'none'")
-        print('\nRemove Fixedban')

@@ -5,8 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class BasePage:
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver, page_url: str):
         self.driver = driver
+        self.page_url = page_url
         self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
 
     def open(self):
@@ -32,3 +33,9 @@ class BasePage:
 
     def go_to_element(self, element):
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
+
+    def remove_footer(self):
+        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
+
+    def remove_fixedban(self):
+        self.driver.execute_script("document.getElementById('fixedban').style.display = 'none'")
