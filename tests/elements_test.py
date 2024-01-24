@@ -2,7 +2,7 @@ import random
 import time
 
 from selenium.webdriver.chrome.webdriver import WebDriver
-from pages.elements_page import CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
+from pages.elements_page import ButtonsPage, CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
 
 
 class TestTextBox:
@@ -86,3 +86,16 @@ class TestWebTable:
         web_table_page.open()
         count = web_table_page.select_rows_count()
         assert count == [5, 10, 20, 50, 100], "The number of rows in the table has not been changed or has not been chahged incorrectly"
+
+
+class TestButtonPage:
+
+    def test_different_click_on_the_buttons(self, driver):
+        button_page = ButtonsPage(driver, "https://demoqa.com/buttons")
+        button_page.open()
+        double = button_page.click_on_different_button("double")
+        right = button_page.click_on_different_button("right")
+        click = button_page.click_on_different_button("click")
+        assert double == "You have done a double click", "The double click button was not pressed"
+        assert right == "You have done a right click", "The right click button was not pressed"
+        assert click == "Click Me", "The dynamic click button was not pressed"
