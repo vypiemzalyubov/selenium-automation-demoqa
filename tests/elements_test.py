@@ -1,6 +1,8 @@
 import random
 import time
 
+import pytest
+
 from pages.elements_page import ButtonsPage, CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
 
 
@@ -31,19 +33,27 @@ class TestCheckBox:
 
 class TestRadioButton:
 
-    def test_radio_button(self):
+    def test_yes_radio_button(self):
         radio_button_page = RadioButtonPage(self.driver, "https://demoqa.com/radio-button")
         radio_button_page.open()
         radio_button_page.click_on_the_radio_button("yes")
         output_yes = radio_button_page.get_output_result()
+        assert output_yes == "Yes", "The radio button 'Yes' has not been selected"
+
+    def test_impressive_radio_button(self):
+        radio_button_page = RadioButtonPage(self.driver, "https://demoqa.com/radio-button")
+        radio_button_page.open()
         radio_button_page.click_on_the_radio_button("impressive")
         output_impressive = radio_button_page.get_output_result()
+        assert output_impressive == "Impressive", "The radio button 'Impressive' has not been selected"
+
+    @pytest.mark.xfail(reason="BUG-01: The radio button 'No' has not been selected")
+    def test_no_radio_button(self):
+        radio_button_page = RadioButtonPage(self.driver, "https://demoqa.com/radio-button")
+        radio_button_page.open()
         radio_button_page.click_on_the_radio_button("no")
         output_no = radio_button_page.get_output_result()
-        assert output_yes == "Yes", "\"Yes\" has not been selected"
-        assert output_impressive == "Impressive", "\"Impressive\" has not been selected"
-        assert output_no != "No", "\"No\" has been selected, but it should not be"
-
+        assert output_no == "No", "The radio button 'No' has not been selected"
 
 class TestWebTable:
 

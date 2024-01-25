@@ -60,11 +60,11 @@ class WebTablePageLocators:
 
 class ButtonsPageLocators:
 
-    DOUBLE_BUTTON = ("xpath", "//button[text()='Double Click Me']")
-    RIGHT_CLICK_BUTTON = ("xpath", "//button[text()='Right Click Me']")
-    CLICK_ME_BUTTON = ("xpath", "//button[text()='Click Me']")
+    DOUBLE_BUTTON = (By.XPATH, "//button[text()='Double Click Me']")
+    RIGHT_CLICK_BUTTON = (By.XPATH, "//button[text()='Right Click Me']")
+    CLICK_ME_BUTTON = (By.XPATH, "//button[text()='Click Me']")
 
     # result
-    SUCCESS_DOUBLE = ("xpath", "//p[@id='doubleClickMessage']")
-    SUCCESS_RIGHT = ("xpath", "//p[@id='rightClickMessage']")
-    SUCCESS_CLICK_ME = ("xpath", "//p[@id='dynamicClickMessage']")
+    SUCCESS_DOUBLE = (By.XPATH, "//p[@id='doubleClickMessage']")
+    SUCCESS_RIGHT = (By.XPATH, "//p[@id='rightClickMessage']")
+    SUCCESS_CLICK_ME = (By.XPATH, "//p[@id='dynamicClickMessage']")
