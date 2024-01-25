@@ -1,7 +1,6 @@
 import random
 import time
 
-from selenium.webdriver.chrome.webdriver import WebDriver
 from pages.elements_page import ButtonsPage, CheckBoxPage, RadioButtonPage, TextBoxPage, WebTablePage
 
 
@@ -92,7 +91,7 @@ class TestWebTable:
 
 class TestButtonPage:
 
-    def test_different_click_on_the_buttons(self, driver):
+    def test_different_click_on_the_buttons(self):
         button_page = ButtonsPage(self.driver, "https://demoqa.com/buttons")
         button_page.open()
         double = button_page.click_on_different_button("double")
