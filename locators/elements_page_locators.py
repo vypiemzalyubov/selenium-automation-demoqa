@@ -35,7 +35,7 @@ class RadioButtonPageLocators:
 
 
 class WebTablePageLocators:
-    
+
     # add person form
     ADD_BUTTON = (By.CSS_SELECTOR, "button[id='addNewRecordButton']")
     FIRSTNAME_INPUT = (By.CSS_SELECTOR, "input[id='firstName']")
@@ -68,3 +68,9 @@ class ButtonsPageLocators:
     SUCCESS_DOUBLE = (By.XPATH, "//p[@id='doubleClickMessage']")
     SUCCESS_RIGHT = (By.XPATH, "//p[@id='rightClickMessage']")
     SUCCESS_CLICK_ME = (By.XPATH, "//p[@id='dynamicClickMessage']")
+
+
+class LinksPageLocators:
+
+    SIMPLE_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
+    BAD_REQUEST = (By.CSS_SELECTOR, "a[id='bad-request']")
