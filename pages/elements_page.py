@@ -159,8 +159,8 @@ class ButtonsPage(BasePage):
             return self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
         
         if type_click == "click":
-            self.element_is_visible(self.locators.DOUBLE_BUTTON).click()
-            return self.check_clicked_on_the_button(self.locators.CLICK_ME_BUTTON)
+            self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_CLICK_ME)
 
     def check_clicked_on_the_button(self, element):
         return self.element_is_present(element).text
