@@ -72,5 +72,18 @@ class ButtonsPageLocators:
 
 class LinksPageLocators:
 
-    SIMPLE_LINK = (By.CSS_SELECTOR, "a[id='simpleLink']")
-    BAD_REQUEST = (By.CSS_SELECTOR, "a[id='bad-request']")
+    # new tab
+    SIMPLE_LINK = (By.XPATH, "//a[@id='simpleLink']")
+    DYNAMIC_LINK = (By.XPATH, "//a[@id='dynamicLink']")
+
+    # 4xx
+    CREATED = (By.XPATH, "//a[@id='created']")
+    NO_CONTENT = (By.XPATH, "//a[@id='no-content']")
+    MOVED = (By.XPATH, "//a[@id='moved']")
+    BAD_REQUEST = (By.XPATH, "//a[@id='bad-request']")
+    UNAUTHORIZED = (By.XPATH, "//a[@id='unauthorized']")
+    FORBIDDEN = (By.XPATH, "//a[@id='forbidden']")
+    NOT_FOUND = (By.XPATH, "//a[@id='invalid-url']")
+
+    # response field
+    RESPONSE_FIELD = (By.XPATH, "//p[@id='linkResponse']")
