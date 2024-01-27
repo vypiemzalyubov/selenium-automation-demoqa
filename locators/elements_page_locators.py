@@ -87,3 +87,19 @@ class LinksPageLocators:
 
     # response field
     RESPONSE_FIELD = (By.XPATH, "//p[@id='linkResponse']")
+
+
+class UploadAndDownloadPageLocators:
+
+    UPLOAD_FILE = (By.CSS_SELECTOR, "input[id='uploadFile']")
+    UPLOADED_RESULT = (By.CSS_SELECTOR, "p[id='uploadedFilePath']")
+
+    DOWNLOAD_FILE = (By.CSS_SELECTOR, "a[id='downloadButton']")
+
+
+class DynamicPropertiesPageLocators:
+
+    COLOR_CHANGE_BUTTON_BEFORE = (By.CSS_SELECTOR, "button[id='colorChange']")
+    COLOR_CHANGE_BUTTON_AFTER = (By.CSS_SELECTOR, "button[class*='text-danger']")
+    VISIBLE_AFTER_FIVE_SECONDS_BUTTON = (By.CSS_SELECTOR, "button[id='visibleAfter']")
+    ENABLE_BUTTON = (By.CSS_SELECTOR, "button[id='enableAfter']")

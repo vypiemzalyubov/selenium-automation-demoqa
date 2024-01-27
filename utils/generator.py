@@ -1,3 +1,4 @@
+import os
 import random
 from faker import Faker
 from data.data import Person
@@ -8,7 +9,8 @@ Faker.seed()
 
 def generated_person():
     yield Person(
-        full_name=faker_ru.first_name() + " " + faker_ru.last_name() + " " + faker_ru.middle_name(),
+        full_name=faker_ru.first_name() + " " + faker_ru.last_name() +
+        " " + faker_ru.middle_name(),
         firstname=faker_ru.first_name(),
         lastname=faker_ru.last_name(),
         age=random.randint(10, 80),
@@ -18,3 +20,10 @@ def generated_person():
         current_address=faker_ru.address(),
         permanent_address=faker_ru.address(),
     )
+
+
+def generated_file():
+    path = fr"{os.getcwd()}\data\text_file{random.randint(0,999)}.txt"
+    with open(path, "w+") as file:
+        file.write(f"Hello {random.randint(0,999)}")
+    return file.name, path

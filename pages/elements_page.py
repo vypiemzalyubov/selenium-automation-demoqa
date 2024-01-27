@@ -1,11 +1,22 @@
+import base64
+import os
 import random
 import time
+
 import requests
 
-from selenium.webdriver.common.by import By
-from locators.elements_page_locators import ButtonsPageLocators, CheckBoxPageLocators, LinksPageLocators, RadioButtonPageLocators, TextBoxPageLocators, WebTablePageLocators
+from selenium.common.exceptions import TimeoutException
+from locators.elements_page_locators import ButtonsPageLocators, \
+    CheckBoxPageLocators, \
+    DynamicPropertiesPageLocators, \
+    LinksPageLocators, \
+    RadioButtonPageLocators, \
+    TextBoxPageLocators, \
+    UploadAndDownloadPageLocators, \
+    WebTablePageLocators
 from pages.base_page import BasePage
-from utils.generator import generated_person
+from utils.generator import generated_file, generated_person
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class TextBoxPage(BasePage):
@@ -65,10 +76,11 @@ class RadioButtonPage(BasePage):
     locators = RadioButtonPageLocators()
 
     def click_on_the_radio_button(self, choice):
-        choices = {"yes": self.locators.YES_RADIOBUTTON,
-                  "impressive": self.locators.IMPRESSIVE_RADIOBUTTON,
-                  "no": self.locators.NO_RADIOBUTTON
-                  }
+        choices = {
+            "yes": self.locators.YES_RADIOBUTTON,
+            "impressive": self.locators.IMPRESSIVE_RADIOBUTTON,
+            "no": self.locators.NO_RADIOBUTTON
+        }
         self.element_is_visible(choices[choice]).click()
 
     def get_output_result(self):
@@ -137,7 +149,7 @@ class WebTablePage(BasePage):
             count_row_button = self.element_is_visible(self.locators.COUNT_ROW_LIST)
             self.go_to_element(count_row_button)
             count_row_button.click()
-            self.element_is_visible((By.CSS_SELECTOR, f"option[value='{x}']")).click()
+            self.element_is_visible(("xpath", f"//option[@value='{x}']")).click()
             data.append(self._check_count_rows())
         return data
 
@@ -154,18 +166,18 @@ class ButtonsPage(BasePage):
         if type_click == "double":
             self.action_double_click(self.element_is_visible(self.locators.DOUBLE_BUTTON))
             return self.check_clicked_on_the_button(self.locators.SUCCESS_DOUBLE)
-            
+
         if type_click == "right":
             self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
             return self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
-        
+
         if type_click == "click":
             self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
             return self.check_clicked_on_the_button(self.locators.SUCCESS_CLICK_ME)
 
     def check_clicked_on_the_button(self, element):
         return self.element_is_present(element).text
-    
+
 
 class LinksPage(BasePage):
 
@@ -189,3 +201,53 @@ class LinksPage(BasePage):
         broken_link = self.element_is_visible(locator_name).click()
         response_field = self.element_is_present(self.locators.RESPONSE_FIELD)
         return response_field.text
+
+
+class UploadAndDownloadPage(BasePage):
+
+    locators = UploadAndDownloadPageLocators()
+
+    def upload_file(self):
+        file_name, path = generated_file()
+        self.element_is_present(self.locators.UPLOAD_FILE).send_keys(path)
+        os.remove(path)
+        uploaded_text = self.element_is_present(self.locators.UPLOADED_RESULT).text
+        return file_name.split('\\')[-1], uploaded_text.split('\\')[-1]
+
+    def download_file(self):
+        image_link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute("href")
+        link_byte = base64.b64decode(image_link)
+        path_name_file = fr"{os.getcwd()}\data\image_file{random.randint(0,999)}.jpg"
+        with open(path_name_file, "wb+") as f:
+            offset = link_byte.find(b"\xff\xd8")
+            f.write(link_byte[offset:])
+            check_file_exists = os.path.exists(path_name_file)
+            f.close()
+        os.remove(path_name_file)
+        return check_file_exists
+
+
+class DynamicPropertiesPage(BasePage):
+
+    locators = DynamicPropertiesPageLocators()
+
+    def check_enable_button(self):
+        try:
+            self.element_is_clickable(self.locators.ENABLE_BUTTON)
+        except TimeoutException:
+            return False
+        return True
+
+    def check_changed_of_color(self):
+        color_button_before = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON_BEFORE)
+        color_before = color_button_before.value_of_css_property("color")
+        color_button_after = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON_AFTER)
+        color_after = color_button_after.value_of_css_property("color")
+        return color_before, color_after
+
+    def check_appear_of_button(self):
+        try:
+            self.element_is_visible(self.locators.VISIBLE_AFTER_FIVE_SECONDS_BUTTON)
+        except TimeoutException:
+            return False
+        return True
