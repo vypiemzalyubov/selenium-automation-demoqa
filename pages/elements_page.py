@@ -1,7 +1,6 @@
 import base64
 import os
 import random
-import time
 
 import requests
 
@@ -16,7 +15,6 @@ from locators.elements_page_locators import ButtonsPageLocators, \
     WebTablePageLocators
 from pages.base_page import BasePage
 from utils.generator import generated_file, generated_person
-from selenium.webdriver.support.ui import WebDriverWait
 
 
 class TextBoxPage(BasePage):
@@ -142,7 +140,6 @@ class WebTablePage(BasePage):
 
     def select_rows_count(self):
         self.remove_footer()
-        self.remove_fixedban()
         count = [5, 10, 20, 50, 100]
         data = []
         for x in count:
