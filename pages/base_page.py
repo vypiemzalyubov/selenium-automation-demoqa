@@ -35,9 +35,11 @@ class BasePage:
     def go_to_element(self, element):
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
 
-    def remove_footer(self):
-        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
-        self.driver.execute_script("document.getElementById('fixedban').style.display = 'none'")
+    def switch_to_window(self, window_number: int):
+        self.driver.switch_to.window(self.driver.window_handles[window_number])
+
+    def switch_to_alert(self):
+        return self.wait.until(EC.alert_is_present())
 
     def action_double_click(self, element):
         action = ActionChains(self.driver)
@@ -48,3 +50,7 @@ class BasePage:
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
+
+    def remove_footer(self):
+        self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
+        self.driver.execute_script("document.getElementById('fixedban').style.display = 'none'")
