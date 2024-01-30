@@ -13,3 +13,8 @@ class UIRoutes(str, Enum):
     FORM = "/automation-practice-form"
     BROWSER_WINDOWS = "/browser-windows"
     ALERTS = "/alerts"
+    FRAMES = "/frames"
+    NESTED_FRAMES = "/nestedframes"
+
+    def __str__(self) -> str:
+        return self.value

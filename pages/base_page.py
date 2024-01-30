@@ -6,21 +6,23 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 from utils.logger import logger
+from utils.config import settings
 
 
 class BasePage:
 
     def __init__(self, driver: WebDriver, page: str):
         self.driver = driver
+        self.base_page = settings.base_page
         self.page = page
         self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
 
     @allure.step("Open a browser")
     def open(self):
         logger.info(
-            f"Opening page {self.page}"
+            f"Opening page {self.base_page}{self.page}"
         )
-        self.driver.get(self.page)
+        self.driver.get(f"{self.base_page}{self.page}")
 
     @allure.step("Find a visible element")
     def element_is_visible(self, locator):
@@ -84,6 +86,20 @@ class BasePage:
             "Switch to alert"
         )
         return self.wait.until(EC.alert_is_present())
+
+    @allure.step("Switch to frame")
+    def switch_to_frame(self, frame):
+        logger.info(
+            f"Switch to frame"
+        )        
+        self.wait.until(EC.frame_to_be_available_and_switch_to_it(frame))
+
+    @allure.step("Switch to default content")
+    def switch_to_default_content(self):
+        logger.info(
+            "Switch to default content"
+        )
+        self.driver.switch_to.default_content()
 
     @allure.step("Double click")
     def action_double_click(self, element):

@@ -4,8 +4,9 @@ import random
 
 import allure
 import requests
-
 from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.chrome.webdriver import WebDriver
+
 from locators.elements_page_locators import (
     ButtonsPageLocators,
     CheckBoxPageLocators,
@@ -15,14 +16,18 @@ from locators.elements_page_locators import (
     TextBoxPageLocators,
     UploadAndDownloadPageLocators,
     WebTablePageLocators
-) 
+)
 from pages.base_page import BasePage
 from utils.generator import generated_file, generated_person
+from utils.routes import UIRoutes
 
 
 class TextBoxPage(BasePage):
 
     locators = TextBoxPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.TEXT_BOX)
 
     @allure.step("Fill in all fields")
     def fill_all_fields(self):
@@ -50,6 +55,9 @@ class TextBoxPage(BasePage):
 class CheckBoxPage(BasePage):
 
     locators = CheckBoxPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.CHECKBOX)
 
     @allure.step("Open full list")
     def open_full_list(self):
@@ -82,6 +90,9 @@ class RadioButtonPage(BasePage):
 
     locators = RadioButtonPageLocators()
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.RADIO_BUTTON)
+
     @allure.step("Click on the radiobutton")
     def click_on_the_radio_button(self, choice):
         choices = {
@@ -99,6 +110,9 @@ class RadioButtonPage(BasePage):
 class WebTablePage(BasePage):
 
     locators = WebTablePageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.WEB_TABLES)
 
     @allure.step("Add new person")
     def add_new_person(self):
@@ -179,7 +193,10 @@ class ButtonsPage(BasePage):
 
     locators = ButtonsPageLocators()
 
-    @allure.step("Click on different  buttons")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.BUTTONS)
+
+    @allure.step("Click on different buttons")
     def click_on_different_button(self, type_click):
         if type_click == "double":
             self.action_double_click(self.element_is_visible(self.locators.DOUBLE_BUTTON))
@@ -201,6 +218,9 @@ class ButtonsPage(BasePage):
 class LinksPage(BasePage):
 
     locators = LinksPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.LINKS)
 
     @allure.step("Check simple link")
     def check_new_tab_link(self, link_locator: str):
@@ -228,6 +248,9 @@ class UploadAndDownloadPage(BasePage):
 
     locators = UploadAndDownloadPageLocators()
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.UPLOAD_DOWNLOAD)
+
     @allure.step("Upload file")
     def upload_file(self):
         file_name, path = generated_file()
@@ -253,6 +276,9 @@ class UploadAndDownloadPage(BasePage):
 class DynamicPropertiesPage(BasePage):
 
     locators = DynamicPropertiesPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.DYNAMIC_PROPERTIES)
 
     @allure.step("Check enable button")
     def check_enable_button(self):

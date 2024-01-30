@@ -8,16 +8,16 @@ from pages.alerts_frame_windows_page import (
     FramesPage,
     NestedFramesPage,
     ModalDialogsPage
-) 
+)
 from utils.routes import UIRoutes
 
 
-@allure.suite("Alerts, Frame & Windows")
+@allure.feature("Browser Windows Page")
 class TestBrowserWindows:
 
     @allure.title("Checking the opening of a new tab")
     def test_new_tab(self):
-        browser_windows_page = BrowserWindowsPage(self.driver, f"https://demoqa.com{UIRoutes.BROWSER_WINDOWS}")
+        browser_windows_page = BrowserWindowsPage(self.driver)
         browser_windows_page.open()
         text_result = browser_windows_page.check_opened_interface("tab")
         assert text_result == "This is a sample page", \
@@ -25,7 +25,7 @@ class TestBrowserWindows:
 
     @allure.title("Checking the opening of a new window")
     def test_new_window(self):
-        browser_windows_page = BrowserWindowsPage(self.driver, f"https://demoqa.com{UIRoutes.BROWSER_WINDOWS}")
+        browser_windows_page = BrowserWindowsPage(self.driver)
         browser_windows_page.open()
         text_result = browser_windows_page.check_opened_interface("window")
         assert text_result == "This is a sample page", \
@@ -37,7 +37,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of an alert")
     def test_see_alert(self):
-        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
+        alert_page = AlertsPage(self.driver)
         alert_page.open()
         alert_text = alert_page.check_see_alert()
         assert alert_text == "You clicked a button", \
@@ -45,7 +45,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of the alert after 5 seconds")
     def test_alert_appear_after_5_sec(self):
-        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
+        alert_page = AlertsPage(self.driver)
         alert_page.open()
         alert_text = alert_page.check_alert_appear_after_5_sec()
         assert alert_text == "This alert appeared after 5 seconds", \
@@ -53,7 +53,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the acceptance of the alert")
     def test_accept_alert(self):
-        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
+        alert_page = AlertsPage(self.driver)
         alert_page.open()
         alert_text = alert_page.check_action_alert("accept")
         assert alert_text == "You selected Ok", \
@@ -61,7 +61,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the dismission of the alert")
     def test_dismiss_alert(self):
-        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
+        alert_page = AlertsPage(self.driver)
         alert_page.open()
         alert_text = alert_page.check_action_alert("dismiss")
         assert alert_text == "You selected Cancel", \
@@ -69,34 +69,39 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of the alert with prompt")
     def test_prompt_alert(self):
-        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
+        alert_page = AlertsPage(self.driver)
         alert_page.open()
         text, alert_text = alert_page.check_prompt_alert()
         assert text in alert_text, \
             "Alert did not show up"
 
 
-# @allure.feature("Frame Page")
-# class TestFramesPage:
+@allure.feature("Frame Page")
+class TestFramesPage:
 
-#     @allure.title("Check the page with frames")
-#     def test_frames(self):
-#         frame_page = FramesPage(self.driver, "https://demoqa.com/frames")
-#         frame_page.open()
-#         result_frame1 = frame_page.check_frame("frame1")
-#         result_frame2 = frame_page.check_frame("frame2")
-#         assert result_frame1 == ["This is a sample page", "500px", "350px"], "The frame does not exist"
-#         assert result_frame2 == ["This is a sample page", "100px", "100px"], "The frame does not exist"
+    @allure.title("Check the page with frames")
+    def test_frames(self):
+        frame_page = FramesPage(self.driver)
+        frame_page.open()
+        result_frame1 = frame_page.check_frame("frame1")
+        result_frame2 = frame_page.check_frame("frame2")
+        assert result_frame1 == ["This is a sample page", "500px", "350px"], \
+            "The frame does not exist"
+        assert result_frame2 == ["This is a sample page", "100px", "100px"], \
+            "The frame does not exist"
 
-# @allure.feature("Nested Page")
-# class TestNestedFramesPage:
-#     @allure.title("Check the page with nested frames")
-#     def test_nested_frames(self):
-#         nested_frame_page = NestedFramesPage(self.driver, "https://demoqa.com/nestedframes")
-#         nested_frame_page.open()
-#         parent_text, child_text = nested_frame_page.check_nested_frame()
-#         assert parent_text == "Parent frame", "Nested frame does not exist"
-#         assert child_text == "Child Iframe", "Nested frame does not exist"
+@allure.feature("Nested Page")
+class TestNestedFramesPage:
+
+    @allure.title("Check the page with nested frames")
+    def test_nested_frames(self):
+        nested_frame_page = NestedFramesPage(self.driver)
+        nested_frame_page.open()
+        parent_text, child_text = nested_frame_page.check_nested_frame()
+        assert parent_text == "Parent frame", \
+            "Nested frame does not exist"
+        assert child_text == "Child Iframe", \
+            "Nested frame does not exist"
 
 
 # @allure.feature("Modal Dialog Page")

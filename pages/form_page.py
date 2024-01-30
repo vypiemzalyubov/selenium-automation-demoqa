@@ -7,11 +7,15 @@ from selenium.webdriver.chrome.webdriver import WebDriver
 from locators.form_page_locators import FormPageLocators
 from pages.base_page import BasePage
 from utils.generator import generated_person, generated_file, generated_subject
+from utils.routes import UIRoutes
 
 
 class FormPage(BasePage):
 
     locators = FormPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.FORM)
 
     @allure.step("Fill in all fields")
     def fill_form_fields(self):

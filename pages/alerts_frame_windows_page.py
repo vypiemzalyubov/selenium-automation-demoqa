@@ -2,6 +2,7 @@ import random
 import time
 
 import allure
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 from locators.alerts_frame_windows_locators import (
     BrowserWindowsPageLocators,
@@ -11,11 +12,15 @@ from locators.alerts_frame_windows_locators import (
     ModalDialogsPageLocators
 )
 from pages.base_page import BasePage
+from utils.routes import UIRoutes
 
 
 class BrowserWindowsPage(BasePage):
 
     locators = BrowserWindowsPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.BROWSER_WINDOWS)
 
     @allure.step("Check opened new tab or window")
     def check_opened_interface(self, interface: str):
@@ -32,6 +37,9 @@ class BrowserWindowsPage(BasePage):
 class AlertsPage(BasePage):
 
     locators = AlertsPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.ALERTS)
 
     @allure.step("Get text from alert")
     def check_see_alert(self):
@@ -70,37 +78,43 @@ class FramesPage(BasePage):
 
     locators = FramesPageLocators()
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.FRAMES)
+
     @allure.step("Check frame")
-    def check_frame(self, frame_num):
-        if frame_num == "frame1":
+    def check_frame(self, frame_number: str):
+        if frame_number == "frame1":
             frame = self.element_is_present(self.locators.FIRST_FRAME)
             width = frame.get_attribute("width")
             height = frame.get_attribute("height")
-            self.driver.switch_to.frame(frame)
-            text = self.element_is_present(self.locators.TITLE_FRAME).text
-            self.driver.switch_to.default_content()
-            return [text, width, height]
-        if frame_num == "frame2":
+            self.switch_to_frame(frame)
+            frame_text = self.element_is_present(self.locators.TITLE_FRAME).text
+            self.switch_to_default_content()
+            return [frame_text, width, height]
+        if frame_number == "frame2":
             frame = self.element_is_present(self.locators.SECOND_FRAME)
             width = frame.get_attribute("width")
             height = frame.get_attribute("height")
-            self.driver.switch_to.frame(frame)
-            text = self.element_is_present(self.locators.TITLE_FRAME).text
-            self.driver.switch_to.default_content()
-            return [text, width, height]
+            self.switch_to_frame(frame)
+            frame_text = self.element_is_present(self.locators.TITLE_FRAME).text
+            self.switch_to_default_content()
+            return [frame_text, width, height]
 
 
 class NestedFramesPage(BasePage):
 
     locators = NestedFramesPageLocators()
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.NESTED_FRAMES)
+
     @allure.step("Check nested frame")
     def check_nested_frame(self):
         parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
-        self.driver.switch_to.frame(parent_frame)
+        self.switch_to_frame(parent_frame)
         parent_text = self.element_is_present(self.locators.PARENT_TEXT).text
         child_frame = self.element_is_present(self.locators.CHILD_FRAME)
-        self.driver.switch_to.frame(child_frame)
+        self.switch_to_frame(child_frame)
         child_text = self.element_is_present(self.locators.CHILD_TEXT).text
         return parent_text, child_text
 
