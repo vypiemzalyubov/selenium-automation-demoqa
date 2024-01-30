@@ -2,14 +2,16 @@ import time
 
 import allure
 
-from pages.alerts_frame_windows_page import BrowserWindowsPage, \
-    AlertsPage, \
-    FramesPage, \
-    NestedFramesPage, \
+from pages.alerts_frame_windows_page import (
+    BrowserWindowsPage,
+    AlertsPage,
+    FramesPage,
+    NestedFramesPage,
     ModalDialogsPage
+) 
 
 
-@allure.feature("Browser Windows")
+@allure.suite("Alerts, Frame & Windows")
 class TestBrowserWindows:
 
     @allure.title("Checking the opening of a new tab")

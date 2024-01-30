@@ -3,11 +3,13 @@ import time
 
 import allure
 
-from locators.alerts_frame_windows_locators import BrowserWindowsPageLocators, \
-    AlertsPageLocators, \
-    FramesPageLocators, \
-    NestedFramesPageLocators, \
+from locators.alerts_frame_windows_locators import (
+    BrowserWindowsPageLocators,
+    AlertsPageLocators,
+    FramesPageLocators,
+    NestedFramesPageLocators,
     ModalDialogsPageLocators
+)
 from pages.base_page import BasePage
 
 

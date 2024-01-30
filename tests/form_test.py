@@ -1,11 +1,9 @@
 import allure
 
-import time
 from pages.form_page import FormPage
 
 
-
-@allure.feature("FormPage")
+@allure.suite("Forms")
 class TestFormPage:
 
     @allure.title("Check form")
