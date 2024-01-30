@@ -2,6 +2,7 @@ import os
 
 import allure
 from selenium.webdriver import Keys
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 from locators.form_page_locators import FormPageLocators
 from pages.base_page import BasePage

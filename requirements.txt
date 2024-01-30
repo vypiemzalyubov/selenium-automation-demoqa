@@ -1,4 +1,6 @@
 allure-pytest~=2.13.2
+pydantic~=2.6.0
+pydantic-settings~=2.1.0
 pytest~=7.4.4
 requests~=2.31.0
 selenium~=4.16.0

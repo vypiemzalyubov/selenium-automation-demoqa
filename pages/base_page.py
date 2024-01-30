@@ -10,17 +10,17 @@ from utils.logger import logger
 
 class BasePage:
 
-    def __init__(self, driver: WebDriver, page_url: str):
+    def __init__(self, driver: WebDriver, page: str):
         self.driver = driver
-        self.page_url = page_url
+        self.page = page
         self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
 
     @allure.step("Open a browser")
     def open(self):
         logger.info(
-            f"Opening page {self.page_url}"
+            f"Opening page {self.page}"
         )
-        self.driver.get(self.page_url)
+        self.driver.get(self.page)
 
     @allure.step("Find a visible element")
     def element_is_visible(self, locator):
@@ -67,29 +67,29 @@ class BasePage:
     @allure.step("Go to specified element")
     def go_to_element(self, element):
         logger.info(
-            f"Scroll to element {element}"
-        )        
+            f"Scroll to element {element.accessible_name}"
+        )
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 
     @allure.step("Switch to new window")
     def switch_to_window(self, window_number: int):
         logger.info(
             f"Switch to the window with the number {window_number}"
-        )         
+        )
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
     @allure.step("Switch to alert")
     def switch_to_alert(self):
         logger.info(
             "Switch to alert"
-        )        
+        )
         return self.wait.until(EC.alert_is_present())
 
     @allure.step("Double click")
     def action_double_click(self, element):
         logger.info(
             f"Double click on an element {element}"
-        )        
+        )
         action = ActionChains(self.driver)
         action.double_click(element)
         action.perform()
@@ -98,7 +98,7 @@ class BasePage:
     def action_right_click(self, element):
         logger.info(
             f"Right-click on an element {element}"
-        )        
+        )
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
