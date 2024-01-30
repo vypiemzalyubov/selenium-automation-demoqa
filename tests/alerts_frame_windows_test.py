@@ -9,6 +9,7 @@ from pages.alerts_frame_windows_page import (
     NestedFramesPage,
     ModalDialogsPage
 ) 
+from utils.routes import UIRoutes
 
 
 @allure.suite("Alerts, Frame & Windows")
@@ -16,7 +17,7 @@ class TestBrowserWindows:
 
     @allure.title("Checking the opening of a new tab")
     def test_new_tab(self):
-        browser_windows_page = BrowserWindowsPage(self.driver, "https://demoqa.com/browser-windows")
+        browser_windows_page = BrowserWindowsPage(self.driver, f"https://demoqa.com{UIRoutes.BROWSER_WINDOWS}")
         browser_windows_page.open()
         text_result = browser_windows_page.check_opened_interface("tab")
         assert text_result == "This is a sample page", \
@@ -24,7 +25,7 @@ class TestBrowserWindows:
 
     @allure.title("Checking the opening of a new window")
     def test_new_window(self):
-        browser_windows_page = BrowserWindowsPage(self.driver, "https://demoqa.com/browser-windows")
+        browser_windows_page = BrowserWindowsPage(self.driver, f"https://demoqa.com{UIRoutes.BROWSER_WINDOWS}")
         browser_windows_page.open()
         text_result = browser_windows_page.check_opened_interface("window")
         assert text_result == "This is a sample page", \
@@ -36,7 +37,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of an alert")
     def test_see_alert(self):
-        alert_page = AlertsPage(self.driver, "https://demoqa.com/alerts")
+        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
         alert_page.open()
         alert_text = alert_page.check_see_alert()
         assert alert_text == "You clicked a button", \
@@ -44,7 +45,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of the alert after 5 seconds")
     def test_alert_appear_after_5_sec(self):
-        alert_page = AlertsPage(self.driver, "https://demoqa.com/alerts")
+        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
         alert_page.open()
         alert_text = alert_page.check_alert_appear_after_5_sec()
         assert alert_text == "This alert appeared after 5 seconds", \
@@ -52,7 +53,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the acceptance of the alert")
     def test_accept_alert(self):
-        alert_page = AlertsPage(self.driver, "https://demoqa.com/alerts")
+        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
         alert_page.open()
         alert_text = alert_page.check_action_alert("accept")
         assert alert_text == "You selected Ok", \
@@ -60,7 +61,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the dismission of the alert")
     def test_dismiss_alert(self):
-        alert_page = AlertsPage(self.driver, "https://demoqa.com/alerts")
+        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
         alert_page.open()
         alert_text = alert_page.check_action_alert("dismiss")
         assert alert_text == "You selected Cancel", \
@@ -68,7 +69,7 @@ class TestAlertsPage:
 
     @allure.title("Checking the opening of the alert with prompt")
     def test_prompt_alert(self):
-        alert_page = AlertsPage(self.driver, "https://demoqa.com/alerts")
+        alert_page = AlertsPage(self.driver, f"https://demoqa.com{UIRoutes.ALERTS}")
         alert_page.open()
         text, alert_text = alert_page.check_prompt_alert()
         assert text in alert_text, \

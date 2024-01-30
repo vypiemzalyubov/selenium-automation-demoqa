@@ -3,9 +3,9 @@ import os
 import allure
 from selenium.webdriver import Keys
 
-from utils.generator import generated_person, generated_file, generated_subject
 from locators.form_page_locators import FormPageLocators
 from pages.base_page import BasePage
+from utils.generator import generated_person, generated_file, generated_subject
 
 
 class FormPage(BasePage):
