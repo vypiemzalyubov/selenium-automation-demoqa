@@ -1,9 +1,10 @@
 import os
 import random
 from faker import Faker
-from data.data import Person
+from models.models import Color, Date, Person
 
 faker_ru = Faker("ru_RU")
+fake_en = Faker('En')
 Faker.seed()
 
 
@@ -24,7 +25,7 @@ def generated_person():
 
 
 def generated_file():
-    path = fr"{os.getcwd()}\data\text_file{random.randint(0,999)}.txt"
+    path = fr"{os.getcwd()}\utils\text_file{random.randint(0,999)}.txt"
     with open(path, "w+") as file:
         file.write(f"Hello {random.randint(0,999)}")
     return file.name, path
@@ -33,4 +34,20 @@ def generated_file():
 def generated_subject():
     subjects = ["Hindi", "English", "Maths", "Physics", "Chemistry", "Biology", "Computer Science",
                 "Commerce", "Accounting", "Economics", "Arts", "Social Studies", "History", "Civics"]
-    return subjects[random.randint(0,13)]
+    return subjects[random.randint(0, 13)]
+
+
+def generated_color():
+    yield Color(
+        color_name=["Red", "Blue", "Green", "Yellow", "Purple",
+                    "Black", "White", "Voilet", "Indigo", "Magenta", "Aqua"]
+    )
+
+
+def generated_date():
+    yield Date(
+        year=fake_en.year(),
+        month=fake_en.month_name(),
+        day=fake_en.day_of_month(),
+        time="12:00"
+    )

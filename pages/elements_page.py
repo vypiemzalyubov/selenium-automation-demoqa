@@ -263,7 +263,7 @@ class UploadAndDownloadPage(BasePage):
     def download_file(self):
         image_link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute("href")
         link_byte = base64.b64decode(image_link)
-        path_name_file = fr"{os.getcwd()}\data\image_file{random.randint(0,999)}.jpg"
+        path_name_file = fr"{os.getcwd()}\utils\image_file{random.randint(0,999)}.jpg"
         with open(path_name_file, "wb+") as f:
             offset = link_byte.find(b"\xff\xd8")
             f.write(link_byte[offset:])
