@@ -10,7 +10,7 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope="function", autouse=True)
-def driver(request):
+def driver(request: pytest.FixtureRequest):
     chrome_option = Options()
     chrome_option.page_load_strategy = "eager"
     chrome_option.add_argument("--window-size=1920,1080")
