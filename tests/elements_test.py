@@ -167,26 +167,26 @@ class TestLinksPage:
 
     @allure.title("Checking the link for a new tab")
     @pytest.mark.parametrize(
-        "link_locator",
+        "locator_name",
         ["SIMPLE_LINK", "DYNAMIC_LINK"]
     )
-    def test_check_new_tab_link(self, link_locator):
+    def test_check_new_tab_link(self, locator_name):
         links_page = LinksPage(self.driver)
         links_page.open()
-        link_href, current_url = links_page.check_new_tab_link(link_locator)
+        link_href, current_url = links_page.check_new_tab_link(locator_name)
         assert link_href == current_url, \
             f"The link is broken or url incorrect. Expected: {link_href}. Actual: {current_url}"
 
     @allure.title("Checking a broken link")
     @pytest.mark.parametrize(
-        "link_locator",
+        "locator_name",
         ["CREATED", "NO_CONTENT", "MOVED", "BAD_REQUEST", "UNAUTHORIZED", "FORBIDDEN", "NOT_FOUND"]
     )
-    def test_check_broken_link(self, link_locator):
+    def test_check_broken_link(self, locator_name):
         links_page = LinksPage(self.driver)
         links_page.open()
-        response_text = links_page.check_broken_link(link_locator)
-        expected_word = link_locator.replace("_", " ").title()
+        response_text = links_page.check_broken_link(locator_name)
+        expected_word = locator_name.replace("_", " ").title()
         assert expected_word in response_text, \
             f"The expected word is missing from the response field. Expected: {expected_word}. Actual: {response_text}"
 

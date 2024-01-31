@@ -223,9 +223,9 @@ class LinksPage(BasePage):
         super().__init__(driver, page=UIRoutes.LINKS)
 
     @allure.step("Check simple link")
-    def check_new_tab_link(self, link_locator: str):
-        locator_name = getattr(self.locators, link_locator)
-        new_tab_link = self.element_is_visible(locator_name)
+    def check_new_tab_link(self, locator_name: str):
+        locator = getattr(self.locators, locator_name)
+        new_tab_link = self.element_is_visible(locator)
         link_href = new_tab_link.get_attribute('href')
         request = requests.get(link_href)
         if request.status_code == 200:
@@ -237,9 +237,9 @@ class LinksPage(BasePage):
             return link_href, request.status_code
 
     @allure.step("Check broken link")
-    def check_broken_link(self, link_locator: str):
-        locator_name = getattr(self.locators, link_locator)
-        broken_link = self.element_is_visible(locator_name).click()
+    def check_broken_link(self, locator_name: str):
+        locator = getattr(self.locators, locator_name)
+        broken_link = self.element_is_visible(locator).click()
         response_field = self.element_is_present(self.locators.RESPONSE_FIELD)
         return response_field.text
 

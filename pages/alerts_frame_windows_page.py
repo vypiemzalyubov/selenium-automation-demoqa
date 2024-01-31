@@ -123,13 +123,29 @@ class ModalDialogsPage(BasePage):
 
     locators = ModalDialogsPageLocators()
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.MODAL_DIALOGS)
+
     @allure.step("Check modal dialogs")
-    def check_modal_dialogs(self):
-        self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
-        title_small = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
-        body_small_text = self.element_is_visible(self.locators.BODY_SMALL_MODAL).text
-        self.element_is_visible(self.locators.SMALL_MODAL_CLOSE_BUTTON).click()
-        self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
-        title_large = self.element_is_visible(self.locators.TITLE_LARGE_MODAL).text
-        body_large_text = self.element_is_visible(self.locators.BODY_LARGE_MODAL).text
-        return [title_small, len(body_small_text)], [title_large, len(body_large_text)]
+    def check_modal_dialogs(self, size: str, method: str):
+        if size == "small":
+            self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
+            title_text = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
+            body_text = self.element_is_visible(self.locators.BODY_SMALL_MODAL).text
+            self._closing_method(method, "SMALL_MODAL_CLOSE_BUTTON")
+            return title_text, body_text
+        else:
+            self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
+            title_text = self.element_is_visible(self.locators.TITLE_LARGE_MODAL).text
+            body_text = self.element_is_visible(self.locators.BODY_LARGE_MODAL).text
+            self._closing_method(method, "LARGE_MODAL_CLOSE_BUTTON")
+            return title_text, body_text
+
+    def _closing_method(self, method: str, locator_name: str):
+        locator = getattr(self.locators, locator_name)
+        if method == "button":
+            self.element_is_visible(locator).click()
+        elif method == "cross":
+            self.element_is_visible(self.locators.MODAL_CLOSE_CROSS).click()
+        else:
+            self.element_is_visible(self.locators.CLOSE_OVERLAY).click()

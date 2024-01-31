@@ -1,6 +1,7 @@
 import time
 
 import allure
+import pytest
 
 from pages.alerts_frame_windows_page import (
     BrowserWindowsPage,
@@ -104,14 +105,33 @@ class TestNestedFramesPage:
             "Nested frame does not exist"
 
 
-# @allure.feature("Modal Dialog Page")
-# class TestModalDialogsPage:
+@allure.feature("Modal Dialog Page")
+class TestModalDialogsPage:
 
-#     @allure.title("Check the page with modal dialogs")
-#     def test_modal_dialogs(self):
-#         modal_dialogs_page = ModalDialogsPage(self.driver, "https://demoqa.com/modal-dialogs")
-#         modal_dialogs_page.open()
-#         small, large = modal_dialogs_page.check_modal_dialogs()
-#         assert small[1] < large[1], "text from large dialog is less than text from small dialog"
-#         assert small[0] == "Small Modal", "The header is not 'Small modal'"
-#         assert large[0] == "Large Modal", "The header is not 'Large modal'"
+    @allure.title("Check the page with small modal dialogs")
+    @pytest.mark.parametrize(
+        "method",
+        ["button", "cross", "overlay"]
+    )
+    def test_small_modal_dialogs(self, method):
+        modal_dialogs_page = ModalDialogsPage(self.driver)
+        modal_dialogs_page.open()
+        title_small, body_small_text = modal_dialogs_page.check_modal_dialogs("small", method)
+        assert title_small == "Small Modal", \
+            "The header is not 'Small modal'"
+        assert "This is a small modal" in body_small_text, \
+            "Small modal body doesn't content 'This is a small modal'"
+
+    @allure.title("Check the page with large modal dialogs")
+    @pytest.mark.parametrize(
+        "method",
+        ["button", "cross", "overlay"]
+    )
+    def test_large_modal_dialogs(self, method):
+        modal_dialogs_page = ModalDialogsPage(self.driver)
+        modal_dialogs_page.open()
+        title_large, body_large_text = modal_dialogs_page.check_modal_dialogs("large", method)
+        assert title_large == "Large Modal", \
+            "The header is not 'Large Modal'"
+        assert "Lorem Ipsum" in body_large_text, \
+            "Small modal body doesn't content 'Lorem Ipsum'"
