@@ -5,11 +5,11 @@ load_dotenv(find_dotenv(".env.example"))
 
 
 class UISettings(BaseSettings):
-    base_page: str
+    BASE_PAGE: str
 
     @property
     def base_page(self):
-        return self.base_page
+        return self.BASE_PAGE
 
     class ConfigDict:
         env_file = ".env.example"
