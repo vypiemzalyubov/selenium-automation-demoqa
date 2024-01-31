@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 from utils.logger import logger
-from utils.config import settings
+from utils.settings import settings
 
 
 class BasePage:
