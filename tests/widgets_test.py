@@ -25,11 +25,11 @@ class TestAccordianPage:
         second_title, second_content = accordian_page.check_accordian("second")
         third_title, third_content = accordian_page.check_accordian("third")
         assert first_title == "What is Lorem Ipsum?" and first_content > 0, \
-            "Incorrect title or missing text"
+            "Incorrect title or missing text for first accordian"
         assert second_title == "Where does it come from?" and second_content > 0, \
-            "Incorrect title or missing text"
+            "Incorrect title or missing text for second accordian"
         assert third_title == "Why do we use it?" and third_content > 0, \
-            "Incorrect title or missing text"
+            "Incorrect title or missing text for third accordian"
 
 # @allure.feature("Autocomplete page")
 # class TestAutoCompletePage:
@@ -39,7 +39,7 @@ class TestAccordianPage:
 #         autocomplete_page.open()
 #         colors = autocomplete_page.fill_input_multi()
 #         colors_result = autocomplete_page.check_color_in_multi()
-#         assert colors == colors_result, "the added colors are missing in the input"
+#         assert colors == colors_result, "The added color is missing in the input"
 
 #     @allure.title("Check deletions from the multi autocomplete")
 #     def test_remove_value_from_multi(self):

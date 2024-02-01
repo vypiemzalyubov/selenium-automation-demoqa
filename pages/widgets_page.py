@@ -10,12 +10,12 @@ from selenium.webdriver.support.select import Select
 from utils.generator import generated_color, generated_date
 from locators.widgets_page_locators import (
     AccordianPageLocators,
-    AutoCompletePageLocators, 
+    AutoCompletePageLocators,
     DatePickerPageLocators,
-    SliderPageLocators, 
-    ProgressBarPageLocators, 
-    TabsPageLocators, 
-    ToolTipsPageLocators, 
+    SliderPageLocators,
+    ProgressBarPageLocators,
+    TabsPageLocators,
+    ToolTipsPageLocators,
     MenuPageLocators
 )
 from pages.base_page import BasePage
@@ -30,7 +30,7 @@ class AccordianPage(BasePage):
         super().__init__(driver, page=UIRoutes.ACCORDEAN)
 
     @allure.step("Check accordian widget")
-    def check_accordian(self, accordian_num: str):
+    def check_accordian(self, accordian_number: str):
         accordian = {
             "first": {
                 "title": self.locators.SECTION_FIRST,
@@ -45,20 +45,37 @@ class AccordianPage(BasePage):
                 "content": self.locators.SECTION_CONTENT_THIRD
             },
         }
-        section_title = self.element_is_visible(accordian[accordian_num]["title"])
+        section_title = self.element_is_visible(accordian[accordian_number]["title"])
         section_title.click()
         try:
-            section_content = self.element_is_visible(accordian[accordian_num]["content"]).text
+            section_content = self.element_is_visible(accordian[accordian_number]["content"]).text
+            self._check_invisible_accordean(accordian_number)
         except TimeoutException:
             section_title.click()
-            section_content = self.element_is_visible(accordian[accordian_num]["content"]).text
+            section_content = self.element_is_visible(accordian[accordian_number]["content"]).text
+            self._check_invisible_accordean(accordian_number)
         return [section_title.text, len(section_content)]
+
+    def _check_invisible_accordean(self, accordian_number: str):
+        if accordian_number == "first":
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_SECOND)
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_THIRD)
+        elif accordian_number == "second":
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_FIRST)
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_THIRD)
+        else:
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_FIRST)
+            self.element_is_not_visible(self.locators.SECTION_CONTENT_SECOND)
 
 
 class AutoCompletePage(BasePage):
+
     locators = AutoCompletePageLocators()
 
-    @allure.step("fill multi autocomplete input")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.AUTO_COMPLETE)
+
+    @allure.step("Fill multi autocomplete input")
     def fill_input_multi(self):
         colors = random.sample(next(generated_color()).color_name, k=random.randint(2, 5))
         for color in colors:
@@ -67,7 +84,7 @@ class AutoCompletePage(BasePage):
             input_multi.send_keys(Keys.ENTER)
         return colors
 
-    @allure.step("remove value from multi autocomplete")
+    @allure.step("Remove value from multi autocomplete")
     def remove_value_from_multi(self):
         count_value_before = len(self.elements_are_present(self.locators.MULTI_VALUE))
         remove_button_list = self.elements_are_visible(self.locators.MULTI_VALUE_REMOVE)
@@ -77,7 +94,7 @@ class AutoCompletePage(BasePage):
         count_value_after = len(self.elements_are_present(self.locators.MULTI_VALUE))
         return count_value_before, count_value_after
 
-    @allure.step("check colors in multi autocomplete")
+    @allure.step("Check colors in multi autocomplete")
     def check_color_in_multi(self):
         color_list = self.elements_are_present(self.locators.MULTI_VALUE)
         colors = []
@@ -85,7 +102,7 @@ class AutoCompletePage(BasePage):
             colors.append(color.text)
         return colors
 
-    @allure.step("fill single autocomplete input")
+    @allure.step("Fill single autocomplete input")
     def fill_input_single(self):
         color = random.sample(next(generated_color()).color_name, k=1)
         input_single = self.element_is_clickable(self.locators.SINGLE_INPUT)
@@ -93,7 +110,7 @@ class AutoCompletePage(BasePage):
         input_single.send_keys(Keys.ENTER)
         return color[0]
 
-    @allure.step("check color in single autocomplete")
+    @allure.step("Check color in single autocomplete")
     def check_color_in_single(self):
         color = self.element_is_visible(self.locators.SINGLE_VALUE)
         return color.text

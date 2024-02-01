@@ -17,6 +17,7 @@ class UIRoutes(str, Enum):
     NESTED_FRAMES = "/nestedframes"
     MODAL_DIALOGS = "/modal-dialogs"
     ACCORDEAN = "/accordian"
+    AUTO_COMPLETE = "/auto-complete"
 
     def __str__(self) -> str:
         return self.value

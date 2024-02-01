@@ -29,42 +29,60 @@ class BasePage:
         logger.info(
             f"{locator} - Check if this element is visible"
         )
-        return self.wait.until(EC.visibility_of_element_located(locator))
+        return self.wait.until(
+            EC.visibility_of_element_located(locator),
+            message=f"Can't find element by locator {locator}"
+        )
 
     @allure.step("Find visible elements")
     def elements_are_visible(self, locator):
         logger.info(
             f"{locator} - Check if these elements are visible"
         )
-        return self.wait.until(EC.visibility_of_all_elements_located(locator))
+        return self.wait.until(
+            EC.visibility_of_all_elements_located(locator),
+            message=f"Can't find elements by locator {locator}"
+        )
 
     @allure.step("Find a present element")
     def element_is_present(self, locator):
         logger.info(
             f"{locator} - Check if this element is present"
         )
-        return self.wait.until(EC.presence_of_element_located(locator))
+        return self.wait.until(
+            EC.presence_of_element_located(locator),
+            message=f"Can't find element by locator {locator}"
+        )
 
     @allure.step("Find present elements")
     def elements_are_present(self, locator):
         logger.info(
             f"{locator} - Check if these elements are present"
         )
-        return self.wait.until(EC.presence_of_all_elements_located(locator))
+        return self.wait.until(
+            EC.presence_of_all_elements_located(locator),
+            message=f"Can't find elements by locator {locator}"
+        )
 
     @allure.step("Find a not visible element")
     def element_is_not_visible(self, locator):
         logger.info(
             f"{locator} - Check if this element is not visible"
         )
-        return self.wait.until(EC.invisibility_of_element_located(locator))
+        return self.wait.until(
+            EC.invisibility_of_element_located(locator),
+            message=f"Element was found by locator {locator} but should not"
+        )
 
     @allure.step("Find clickable elements")
     def element_is_clickable(self, locator):
         logger.info(
             f"{locator} - Check if this element is clickable"
         )
-        return self.wait.until(EC.element_to_be_clickable(locator))
+        return self.wait.until(
+            EC.element_to_be_clickable(locator),
+            message=f"Can't find element by locator {locator}"
+        )
 
     @allure.step("Go to specified element")
     def go_to_element(self, element):
@@ -91,7 +109,7 @@ class BasePage:
     def switch_to_frame(self, frame):
         logger.info(
             f"Switch to frame"
-        )        
+        )
         self.wait.until(EC.frame_to_be_available_and_switch_to_it(frame))
 
     @allure.step("Switch to default content")
