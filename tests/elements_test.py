@@ -15,6 +15,7 @@ from pages.elements_page import (
 )
 
 
+@allure.suite("Elements")
 @allure.feature("Text Box Page")
 class TestTextBox:
 
@@ -34,6 +35,7 @@ class TestTextBox:
             "The permanent address does not match"
 
 
+@allure.suite("Elements")
 @allure.feature("Check Box Page")
 class TestCheckBox:
 
@@ -49,6 +51,7 @@ class TestCheckBox:
             "Checkboxes have not been selected"
 
 
+@allure.suite("Elements")
 @allure.feature("Radio Button Page")
 class TestRadioButton:
 
@@ -81,6 +84,7 @@ class TestRadioButton:
             "The radio button 'No' has not been selected"
 
 
+@allure.suite("Elements")
 @allure.feature("Web Tables Page")
 class TestWebTable:
 
@@ -134,6 +138,7 @@ class TestWebTable:
             "The number of rows in the table has not been changed or has not been changed incorrectly"
 
 
+@allure.suite("Elements")
 @allure.feature("Buttons Page")
 class TestButtonPage:
 
@@ -162,6 +167,7 @@ class TestButtonPage:
             "The dynamic click button was not pressed"
 
 
+@allure.suite("Elements")
 @allure.feature("Links Page")
 class TestLinksPage:
 
@@ -191,6 +197,7 @@ class TestLinksPage:
             f"The expected word is missing from the response field. Expected: {expected_word}. Actual: {response_text}"
 
 
+@allure.suite("Elements")
 @allure.feature("Upload and Download Page")
 class TestUploadAndDownload:
 
@@ -212,6 +219,7 @@ class TestUploadAndDownload:
             "The file has not been downloaded"
 
 
+@allure.suite("Elements")
 @allure.feature("Dynamic Properties Page")
 class TestDynamicPropertiesPage:
 

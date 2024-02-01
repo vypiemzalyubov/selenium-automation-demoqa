@@ -14,6 +14,7 @@ from pages.widgets_page import (
 )
 
 
+@allure.suite("Widgets")
 @allure.feature("Accordian Page")
 class TestAccordianPage:
 
@@ -31,6 +32,8 @@ class TestAccordianPage:
         assert third_title == "Why do we use it?" and third_content > 0, \
             "Incorrect title or missing text for third accordian"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Autocomplete page")
 # class TestAutoCompletePage:
 #     @allure.title("Check the autocomplete is filled")
@@ -57,6 +60,8 @@ class TestAccordianPage:
 #         color_result = autocomplete_page.check_color_in_single()
 #         assert color == color_result, "the added colors are missing in the input"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Date Picker Page")
 # class TestDatePickerPage:
 #     @allure.title("Check change date")
@@ -73,6 +78,8 @@ class TestAccordianPage:
 #         value_date_before, value_date_after = date_picker_page.select_date_and_time()
 #         assert value_date_before != value_date_after, "the date and time have not been changed"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Slider Page")
 # class TestSliderPage:
 #     @allure.title("Check moved slider")
@@ -82,6 +89,8 @@ class TestAccordianPage:
 #         before, after = slider.change_slider_value()
 #         assert before != after, "the slider value has not been changed"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Progress Bar Page")
 # class TestProgressBarPage:
 #     @allure.title("Check changed progress bar")
@@ -91,6 +100,8 @@ class TestAccordianPage:
 #         before, after = progress_bar.change_progress_bar_value()
 #         assert before != after, "the progress bar value has not been changed"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Test Tabs Page")
 # class TestTabsPage:
 #     @allure.title("Check switched tabs")
@@ -106,6 +117,8 @@ class TestAccordianPage:
 #         assert use_button == "Use" and use_content != 0, "the tab "use" was not pressed or the text is missing"
 #         assert more_button == "More" and what_content != 0, "the tab "more" was not pressed or the text is missing"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Tool Tips")
 # class TestToolTips:
 #     @allure.title("Check tool tips ")
@@ -118,6 +131,8 @@ class TestAccordianPage:
 #         assert contrary_text == "You hovered over the Contrary", "hover missing or incorrect content"
 #         assert section_text == "You hovered over the 1.10.32", "hover missing or incorrect content"
 
+
+# @allure.suite("Widgets")
 # @allure.feature("Menu Page")
 # class TestMenuPage:
 #     @allure.title("Check all of the menu items")

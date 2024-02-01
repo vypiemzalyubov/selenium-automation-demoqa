@@ -10,9 +10,9 @@ from pages.alerts_frame_windows_page import (
     NestedFramesPage,
     ModalDialogsPage
 )
-from utils.routes import UIRoutes
 
 
+@allure.suite("Alerts, Frame & Windows")
 @allure.feature("Browser Windows Page")
 class TestBrowserWindows:
 
@@ -33,6 +33,7 @@ class TestBrowserWindows:
             "the new window has not opened or an incorrect window has opened"
 
 
+@allure.suite("Alerts, Frame & Windows")
 @allure.feature("Alerts Page")
 class TestAlertsPage:
 
@@ -77,6 +78,7 @@ class TestAlertsPage:
             "Alert did not show up"
 
 
+@allure.suite("Alerts, Frame & Windows")
 @allure.feature("Frame Page")
 class TestFramesPage:
 
@@ -91,6 +93,8 @@ class TestFramesPage:
         assert result_frame2 == ["This is a sample page", "100px", "100px"], \
             "The frame does not exist"
 
+
+@allure.suite("Alerts, Frame & Windows")
 @allure.feature("Nested Page")
 class TestNestedFramesPage:
 
@@ -105,6 +109,7 @@ class TestNestedFramesPage:
             "Nested frame does not exist"
 
 
+@allure.suite("Alerts, Frame & Windows")
 @allure.feature("Modal Dialog Page")
 class TestModalDialogsPage:
 

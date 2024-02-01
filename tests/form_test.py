@@ -3,6 +3,7 @@ import allure
 from pages.form_page import FormPage
 
 
+@allure.suite("Forms")
 @allure.feature("Form Page")
 class TestFormPage:
 
