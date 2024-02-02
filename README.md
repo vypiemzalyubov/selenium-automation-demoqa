@@ -29,6 +29,7 @@ selenium-automation-demoqa/
 │   └── settings.py
 ├── env.example
 ├── .gitignore
+├── LICENSE
 ├── conftest.py
 ├── pytest.ini
 ├── README.md
