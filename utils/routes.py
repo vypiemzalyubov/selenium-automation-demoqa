@@ -18,6 +18,7 @@ class UIRoutes(str, Enum):
     MODAL_DIALOGS = "/modal-dialogs"
     ACCORDEAN = "/accordian"
     AUTO_COMPLETE = "/auto-complete"
+    DATE_PICKER = "/date-picker"
 
     def __str__(self) -> str:
         return self.value

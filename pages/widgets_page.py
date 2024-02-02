@@ -126,9 +126,13 @@ class AutoCompletePage(BasePage):
 
 
 class DatePickerPage(BasePage):
+
     locators = DatePickerPageLocators()
 
-    @allure.step("change date")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.DATE_PICKER)
+
+    @allure.step("Change date")
     def select_date(self):
         date = next(generated_date())
         input_date = self.element_is_visible(self.locators.DATE_INPUT)
@@ -140,7 +144,7 @@ class DatePickerPage(BasePage):
         value_date_after = input_date.get_attribute("value")
         return value_date_before, value_date_after
 
-    @allure.step("change select date and time")
+    @allure.step("Change select date and time")
     def select_date_and_time(self):
         date = next(generated_date())
         input_date = self.element_is_visible(self.locators.DATE_AND_TIME_INPUT)
@@ -156,12 +160,12 @@ class DatePickerPage(BasePage):
         value_date_after = input_date_after.get_attribute("value")
         return value_date_before, value_date_after
 
-    @allure.step("select date by text")
+    @allure.step("Select date by text")
     def set_date_by_text(self, element, value):
         select = Select(self.element_is_present(element))
         select.select_by_visible_text(value)
 
-    @allure.step("select date item from list")
+    @allure.step("Select date item from list")
     def set_date_item_from_list(self, elements, value):
         item_list = self.elements_are_present(elements)
         for item in item_list:
