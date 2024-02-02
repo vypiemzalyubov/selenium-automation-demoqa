@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -15,7 +17,7 @@ class Person(BaseModel):
 
 
 class Color(BaseModel):
-    color_name:  list | None = None
+    color_name:  List[str] | None = None
 
 
 class Date(BaseModel):

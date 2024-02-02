@@ -94,6 +94,15 @@ class AutoCompletePage(BasePage):
         count_value_after = len(self.elements_are_present(self.locators.MULTI_VALUE))
         return count_value_before, count_value_after
 
+    @allure.step("Remove all values from multi autocomplete by cross")
+    def remove_all_values_from_multi(self):
+        self.element_is_visible(self.locators.REMOVE_ALL_VALUES).click()
+        try:
+            self.element_is_not_visible(self.locators.MULTI_VALUE)
+            return 0
+        except TimeoutException as e:
+            print(e)
+
     @allure.step("Check colors in multi autocomplete")
     def check_color_in_multi(self):
         color_list = self.elements_are_present(self.locators.MULTI_VALUE)

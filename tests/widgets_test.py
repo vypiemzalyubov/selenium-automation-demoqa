@@ -33,32 +33,45 @@ class TestAccordianPage:
             "Incorrect title or missing text for third accordian"
 
 
-# @allure.suite("Widgets")
-# @allure.feature("Autocomplete page")
-# class TestAutoCompletePage:
-#     @allure.title("Check the autocomplete is filled")
-#     def test_fill_multi_autocomplete(self):
-#         autocomplete_page = AutoCompletePage(self.driver, "https://demoqa.com/auto-complete")
-#         autocomplete_page.open()
-#         colors = autocomplete_page.fill_input_multi()
-#         colors_result = autocomplete_page.check_color_in_multi()
-#         assert colors == colors_result, "The added color is missing in the input"
+@allure.suite("Widgets")
+@allure.feature("Autocomplete page")
+class TestAutoCompletePage:
 
-#     @allure.title("Check deletions from the multi autocomplete")
-#     def test_remove_value_from_multi(self):
-#         autocomplete_page = AutoCompletePage(self.driver, "https://demoqa.com/auto-complete")
-#         autocomplete_page.open()
-#         autocomplete_page.fill_input_multi()
-#         count_value_before, count_value_after = autocomplete_page.remove_value_from_multi()
-#         assert count_value_before != count_value_after, "value was not deleted"
+    @allure.title("Check the autocomplete is filled")
+    def test_fill_multi_autocomplete(self):
+        autocomplete_page = AutoCompletePage(self.driver)
+        autocomplete_page.open()
+        colors = autocomplete_page.fill_input_multi()
+        colors_result = autocomplete_page.check_color_in_multi()
+        assert colors == colors_result, \
+            "The added color is missing in the input"
 
-#     @allure.title("Check deletions from the single autocomplete")
-#     def test_fill_single_autocomplete(self):
-#         autocomplete_page = AutoCompletePage(self.driver, "https://demoqa.com/auto-complete")
-#         autocomplete_page.open()
-#         color = autocomplete_page.fill_input_single()
-#         color_result = autocomplete_page.check_color_in_single()
-#         assert color == color_result, "the added colors are missing in the input"
+    @allure.title("Check deletions from the multi autocomplete")
+    def test_remove_value_from_multi(self):
+        autocomplete_page = AutoCompletePage(self.driver)
+        autocomplete_page.open()
+        autocomplete_page.fill_input_multi()
+        count_value_before, count_value_after = autocomplete_page.remove_value_from_multi()
+        assert count_value_before != count_value_after, \
+            "Value was not deleted"
+
+    @allure.title("Check deletions from the multi autocomplete by cross")
+    def test_remove_all_values_from_multi_by_cross(self):
+        autocomplete_page = AutoCompletePage(self.driver)
+        autocomplete_page.open()
+        autocomplete_page.fill_input_multi()
+        count_value = autocomplete_page.remove_all_values_from_multi()
+        assert count_value == 0, \
+            "Not all values have been deleted"
+
+    @allure.title("Check deletions from the single autocomplete")
+    def test_fill_single_autocomplete(self):
+        autocomplete_page = AutoCompletePage(self.driver)
+        autocomplete_page.open()
+        color = autocomplete_page.fill_input_single()
+        color_result = autocomplete_page.check_color_in_single()
+        assert color == color_result, \
+            "the added colors are missing in the input"
 
 
 # @allure.suite("Widgets")
