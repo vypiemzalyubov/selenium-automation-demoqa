@@ -1,9 +1,12 @@
-import allure
+from typing import List
 
+import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.select import Select
 
 from utils.logger import logger
 from utils.settings import settings
@@ -25,7 +28,7 @@ class BasePage:
         self.driver.get(f"{self.base_page}{self.page}")
 
     @allure.step("Find a visible element")
-    def element_is_visible(self, locator):
+    def element_is_visible(self, locator) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is visible"
         )
@@ -35,7 +38,7 @@ class BasePage:
         )
 
     @allure.step("Find visible elements")
-    def elements_are_visible(self, locator):
+    def elements_are_visible(self, locator) -> List[WebElement]:
         logger.info(
             f"{locator} - Check if these elements are visible"
         )
@@ -45,7 +48,7 @@ class BasePage:
         )
 
     @allure.step("Find a present element")
-    def element_is_present(self, locator):
+    def element_is_present(self, locator) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is present"
         )
@@ -55,7 +58,7 @@ class BasePage:
         )
 
     @allure.step("Find present elements")
-    def elements_are_present(self, locator):
+    def elements_are_present(self, locator) -> List[WebElement]:
         logger.info(
             f"{locator} - Check if these elements are present"
         )
@@ -65,7 +68,7 @@ class BasePage:
         )
 
     @allure.step("Find a not visible element")
-    def element_is_not_visible(self, locator):
+    def element_is_not_visible(self, locator) -> bool | WebElement:
         logger.info(
             f"{locator} - Check if this element is not visible"
         )
@@ -75,7 +78,7 @@ class BasePage:
         )
 
     @allure.step("Find clickable elements")
-    def element_is_clickable(self, locator):
+    def element_is_clickable(self, locator) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is clickable"
         )
@@ -85,11 +88,19 @@ class BasePage:
         )
 
     @allure.step("Go to specified element")
-    def go_to_element(self, element):
+    def go_to_element(self, element: WebElement):
         logger.info(
             f"Scroll to element {element.accessible_name}"
         )
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
+
+    @allure.step("Select element by value")
+    def select_element_by_value(self, element: WebElement, value):
+        logger.info(
+            f"Select element {element} by value {value}"
+        )        
+        select = Select(self.element_is_present(element))        
+        select.select_by_visible_text(value)
 
     @allure.step("Switch to new window")
     def switch_to_window(self, window_number: int):
@@ -120,7 +131,7 @@ class BasePage:
         self.driver.switch_to.default_content()
 
     @allure.step("Double click")
-    def action_double_click(self, element):
+    def action_double_click(self, element: WebElement):
         logger.info(
             f"Double click on an element {element}"
         )
@@ -129,7 +140,7 @@ class BasePage:
         action.perform()
 
     @allure.step("Right click")
-    def action_right_click(self, element):
+    def action_right_click(self, element: WebElement):
         logger.info(
             f"Right-click on an element {element}"
         )
@@ -138,7 +149,7 @@ class BasePage:
         action.perform()
 
     @allure.step("Drag and drop by offset")
-    def action_drag_and_drop_by_offset(self, element, x_coords, y_coords):
+    def action_drag_and_drop_by_offset(self, element: WebElement, x_coords, y_coords):
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(element, x_coords, y_coords)
         action.perform()
@@ -150,7 +161,7 @@ class BasePage:
         action.perform()
 
     @allure.step("Move cursor to element")
-    def action_move_to_element(self, element):
+    def action_move_to_element(self, element: WebElement):
         action = ActionChains(self.driver)
         action.move_to_element(element)
         action.perform()

@@ -74,37 +74,38 @@ class TestAutoCompletePage:
             "The added colors are missing in the input"
 
 
-# @allure.suite("Widgets")
-# @allure.feature("Date Picker Page")
-# class TestDatePickerPage:
+@allure.suite("Widgets")
+@allure.feature("Date Picker Page")
+class TestDatePickerPage:
         
-#     @allure.title("Check change date")
-#     def test_change_date(self):
-#         date_picker_page = DatePickerPage(self.driver)
-#         date_picker_page.open()
-#         value_date_before, value_date_after = date_picker_page.select_date()
-#         assert value_date_before != value_date_after, \
-#             "The date has not been changed"
+    @allure.title("Check change date")
+    def test_change_date(self):
+        date_picker_page = DatePickerPage(self.driver)
+        date_picker_page.open()
+        value_date_before, value_date_after = date_picker_page.select_date()
+        assert value_date_before != value_date_after, \
+            "The date has not been changed"
 
-#     @allure.title("Check change date and time")
-#     def test_change_date_and_time(self):
-#         date_picker_page = DatePickerPage(self.driver)
-#         date_picker_page.open()
-#         value_date_before, value_date_after = date_picker_page.select_date_and_time()
-#         assert value_date_before != value_date_after, \
-#             "The date and time have not been changed"
+    @allure.title("Check change date and time")
+    def test_change_date_and_time(self):
+        date_picker_page = DatePickerPage(self.driver)
+        date_picker_page.open()
+        value_date_before, value_date_after = date_picker_page.select_date_and_time()
+        assert value_date_before != value_date_after, \
+            "The date and time have not been changed"
 
 
-# @allure.suite("Widgets")
-# @allure.feature("Slider Page")
-# class TestSliderPage:
-#     @allure.title("Check moved slider")
-#     def test_slider(self):
-#         slider = SliderPage(self.driver, "https://demoqa.com/slider")
-#         slider.open()
-#         before, after = slider.change_slider_value()
-#         assert before != after, \
-#             "The slider value has not been changed"
+@allure.suite("Widgets")
+@allure.feature("Slider Page")
+class TestSliderPage:
+    
+    @allure.title("Check moved slider")
+    def test_slider(self):
+        slider = SliderPage(self.driver)
+        slider.open()
+        before, after = slider.change_slider_value()
+        assert before != after, \
+            "The slider value has not been changed"
 
 
 # @allure.suite("Widgets")

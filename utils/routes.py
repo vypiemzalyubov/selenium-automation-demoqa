@@ -19,6 +19,7 @@ class UIRoutes(str, Enum):
     ACCORDEAN = "/accordian"
     AUTO_COMPLETE = "/auto-complete"
     DATE_PICKER = "/date-picker"
+    SLIDER = "/slider"
 
     def __str__(self) -> str:
         return self.value

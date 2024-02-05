@@ -5,7 +5,6 @@ import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
-from selenium.webdriver.support.select import Select
 
 from utils.generator import generated_color, generated_date
 from locators.widgets_page_locators import (
@@ -138,9 +137,9 @@ class DatePickerPage(BasePage):
         input_date = self.element_is_visible(self.locators.DATE_INPUT)
         value_date_before = input_date.get_attribute("value")
         input_date.click()
-        self.set_date_by_text(self.locators.DATE_SELECT_MONTH, date.month)
-        self.set_date_by_text(self.locators.DATE_SELECT_YEAR, date.year)
-        self.set_date_item_from_list(self.locators.DATE_SELECT_DAY_LIST, date.day)
+        self.select_element_by_value(self.locators.DATE_SELECT_MONTH, date.month)
+        self.select_element_by_value(self.locators.DATE_SELECT_YEAR, date.year)
+        self._set_date_item_from_list(self.locators.DATE_SELECT_DAY_LIST, date.day)
         value_date_after = input_date.get_attribute("value")
         return value_date_before, value_date_after
 
@@ -151,22 +150,17 @@ class DatePickerPage(BasePage):
         value_date_before = input_date.get_attribute("value")
         input_date.click()
         self.element_is_clickable(self.locators.DATE_AND_TIME_MONTH).click()
-        self.set_date_item_from_list(self.locators.DATE_AND_TIME_MONTH_LIST, date.month)
+        self._set_date_item_from_list(self.locators.DATE_AND_TIME_MONTH_LIST, date.month)
         self.element_is_clickable(self.locators.DATE_AND_TIME_YEAR).click()
-        self.set_date_item_from_list(self.locators.DATE_AND_TIME_YEAR_LIST, "2020")
-        self.set_date_item_from_list(self.locators.DATE_SELECT_DAY_LIST, date.day)
-        self.set_date_item_from_list(self.locators.DATE_AND_TIME_TIME_LIST, date.time)
+        self._set_date_item_from_list(self.locators.DATE_AND_TIME_YEAR_LIST, "2020")
+        self._set_date_item_from_list(self.locators.DATE_SELECT_DAY_LIST, date.day)
+        self._set_date_item_from_list(self.locators.DATE_AND_TIME_TIME_LIST, date.time)
         input_date_after = self.element_is_visible(self.locators.DATE_AND_TIME_INPUT)
         value_date_after = input_date_after.get_attribute("value")
         return value_date_before, value_date_after
 
-    @allure.step("Select date by text")
-    def set_date_by_text(self, element, value):
-        select = Select(self.element_is_present(element))
-        select.select_by_visible_text(value)
-
     @allure.step("Select date item from list")
-    def set_date_item_from_list(self, elements, value):
+    def _set_date_item_from_list(self, elements, value: str):
         item_list = self.elements_are_present(elements)
         for item in item_list:
             if item.text == value:
@@ -175,7 +169,11 @@ class DatePickerPage(BasePage):
 
 
 class SliderPage(BasePage):
+
     locators = SliderPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.SLIDER)
 
     @allure.step("change slider value")
     def change_slider_value(self):
