@@ -1,10 +1,12 @@
 import random
 import time
+from typing import List
 
 import allure
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 
 from utils.generator import generated_color, generated_date
 from locators.widgets_page_locators import (
@@ -160,7 +162,7 @@ class DatePickerPage(BasePage):
         return value_date_before, value_date_after
 
     @allure.step("Select date item from list")
-    def _set_date_item_from_list(self, elements, value: str):
+    def _set_date_item_from_list(self, elements: List[WebElement], value: str):
         item_list = self.elements_are_present(elements)
         for item in item_list:
             if item.text == value:
