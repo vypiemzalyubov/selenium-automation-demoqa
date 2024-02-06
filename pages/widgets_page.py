@@ -195,12 +195,25 @@ class ProgressBarPage(BasePage):
 
     @allure.step("Change progress bar value")
     def change_progress_bar_value(self):
-        value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).text
+        value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute("aria-valuenow")
         progress_bar_button = self.element_is_clickable(self.locators.PROGRESS_BAR_BUTTON)
         progress_bar_button.click()
         time.sleep(random.randint(4, 6))
         progress_bar_button.click()
-        value_after = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).text
+        value_after = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute("aria-valuenow")
+        return value_before, value_after
+
+    @allure.step("Change progress bar value")
+    def change_full_progress_bar(self, reset: str = None):
+        value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute("aria-valuenow")
+        progress_bar_button = self.element_is_clickable(self.locators.PROGRESS_BAR_BUTTON)
+        progress_bar_button.click()
+        reset_button = self.element_is_clickable(self.locators.RESET_BUTTON)
+        if reset:
+            reset_button.click()
+            value_after = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute("aria-valuenow")
+        else:
+            value_after = self.element_is_present(self.locators.PROGRESS_BAR_SUCCESS_VALUE).get_attribute("aria-valuenow")
         return value_before, value_after
 
 
@@ -212,21 +225,25 @@ class TabsPage(BasePage):
         super().__init__(driver, page=UIRoutes.TABS)
 
     @allure.step("Check tabs")
-    def check_tabs(self, name_tab):
-        tabs = {"what":
-                    {"title": self.locators.TABS_WHAT,
-                     "content": self.locators.TABS_WHAT_CONTENT},
-                "origin":
-                    {"title": self.locators.TABS_ORIGIN,
-                     "content": self.locators.TABS_ORIGIN_CONTENT},
-                "use":
-                    {"title": self.locators.TABS_USE,
-                     "content": self.locators.TABS_USE_CONTENT},
-                "more":
-                    {"title": self.locators.TABS_MORE,
-                     "content": self.locators.TABS_MORE_CONTENT},
-                }
-
+    def check_tabs(self, name_tab: str):
+        tabs = {
+            "what": {
+                "title": self.locators.TABS_WHAT,
+                "content": self.locators.TABS_WHAT_CONTENT
+            },
+            "origin": {
+                "title": self.locators.TABS_ORIGIN,
+                "content": self.locators.TABS_ORIGIN_CONTENT
+            },
+            "use": {
+                "title": self.locators.TABS_USE,
+                "content": self.locators.TABS_USE_CONTENT
+            },
+            "more": {
+                "title": self.locators.TABS_MORE,
+                "content": self.locators.TABS_MORE_CONTENT
+            },
+        }
         button = self.element_is_visible(tabs[name_tab]["title"])
         button.click()
         what_content = self.element_is_visible(tabs[name_tab]["content"]).text

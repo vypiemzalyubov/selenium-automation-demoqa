@@ -120,6 +120,24 @@ class TestProgressBarPage:
         assert before != after, \
             "The progress bar value has not been changed"
 
+    @allure.title("Check full progress bar")
+    def test_full_progress_bar(self):
+        progress_bar = ProgressBarPage(self.driver)
+        progress_bar.open()
+        before, after = progress_bar.change_full_progress_bar()
+        assert before != after, \
+            "The progress bar value has not been changed"
+        assert int(after) == 100, \
+            "The progress bar value is not equal to 100"
+
+    @allure.title("Check progress bar after reset")
+    def test_reset_progress_bar(self):
+        progress_bar = ProgressBarPage(self.driver)
+        progress_bar.open()
+        before, after = progress_bar.change_full_progress_bar("reset")
+        assert before == after, \
+            "The progress bar value has not been changed after pressing 'Reset'"
+
 
 @allure.suite("Widgets")
 @allure.feature("Test Tabs Page")

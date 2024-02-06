@@ -18,7 +18,7 @@ class BasePage:
         self.driver = driver
         self.page = page
         self.base_page = settings.base_page
-        self.wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
+        self.wait = WebDriverWait(driver, timeout=15, poll_frequency=1)
 
     @allure.step("Open a browser")
     def open(self):
