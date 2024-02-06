@@ -20,6 +20,8 @@ class UIRoutes(str, Enum):
     AUTO_COMPLETE = "/auto-complete"
     DATE_PICKER = "/date-picker"
     SLIDER = "/slider"
+    PROGRESS_BAR = "/progress-bar"
+    TABS = "/tabs"
 
     def __str__(self) -> str:
         return self.value

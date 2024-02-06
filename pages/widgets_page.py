@@ -177,7 +177,7 @@ class SliderPage(BasePage):
     def __init__(self, driver: WebDriver):
         super().__init__(driver, page=UIRoutes.SLIDER)
 
-    @allure.step("change slider value")
+    @allure.step("Change slider value")
     def change_slider_value(self):
         value_before = self.element_is_visible(self.locators.SLIDER_VALUE).get_attribute("value")
         slider_input = self.element_is_visible(self.locators.INPUT_SLIDER)
@@ -187,9 +187,13 @@ class SliderPage(BasePage):
 
 
 class ProgressBarPage(BasePage):
+
     locators = ProgressBarPageLocators()
 
-    @allure.step("change progress bar value")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.PROGRESS_BAR)
+
+    @allure.step("Change progress bar value")
     def change_progress_bar_value(self):
         value_before = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).text
         progress_bar_button = self.element_is_clickable(self.locators.PROGRESS_BAR_BUTTON)
@@ -201,9 +205,13 @@ class ProgressBarPage(BasePage):
 
 
 class TabsPage(BasePage):
+
     locators = TabsPageLocators()
 
-    @allure.step("check tabs")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.TABS)
+
+    @allure.step("Check tabs")
     def check_tabs(self, name_tab):
         tabs = {"what":
                     {"title": self.locators.TABS_WHAT,

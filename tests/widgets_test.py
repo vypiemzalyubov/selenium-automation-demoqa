@@ -108,37 +108,39 @@ class TestSliderPage:
             "The slider value has not been changed"
 
 
-# @allure.suite("Widgets")
-# @allure.feature("Progress Bar Page")
-# class TestProgressBarPage:
-#     @allure.title("Check changed progress bar")
-#     def test_progress_bar(self):
-#         progress_bar = ProgressBarPage(self.driver, "https://demoqa.com/progress-bar")
-#         progress_bar.open()
-#         before, after = progress_bar.change_progress_bar_value()
-#         assert before != after, \
-#             "The progress bar value has not been changed"
+@allure.suite("Widgets")
+@allure.feature("Progress Bar Page")
+class TestProgressBarPage:
+
+    @allure.title("Check changed progress bar")
+    def test_progress_bar(self):
+        progress_bar = ProgressBarPage(self.driver)
+        progress_bar.open()
+        before, after = progress_bar.change_progress_bar_value()
+        assert before != after, \
+            "The progress bar value has not been changed"
 
 
-# @allure.suite("Widgets")
-# @allure.feature("Test Tabs Page")
-# class TestTabsPage:
-#     @allure.title("Check switched tabs")
-#     def test_tabs(self):
-#         tabs = TabsPage(self.driver, "https://demoqa.com/tabs")
-#         tabs.open()
-#         what_button, what_content = tabs.check_tabs("what")
-#         origin_button, origin_content = tabs.check_tabs("origin")
-#         use_button, use_content = tabs.check_tabs("use")
-#         more_button, more_content = tabs.check_tabs("more")
-#         assert what_button == "What" and what_content != 0, \
-#             "The tab 'what' was not pressed or the text is missing"
-#         assert origin_button == "Origin" and origin_content != 0, \
-#             "The tab 'origin' was not pressed or the text is missing"
-#         assert use_button == "Use" and use_content != 0, \
-#             "The tab 'use' was not pressed or the text is missing"
-#         assert more_button == "More" and what_content != 0, \
-#             "The tab 'more' was not pressed or the text is missing"
+@allure.suite("Widgets")
+@allure.feature("Test Tabs Page")
+class TestTabsPage:
+
+    @allure.title("Check switched tabs")
+    def test_tabs(self):
+        tabs = TabsPage(self.driver)
+        tabs.open()
+        what_button, what_content = tabs.check_tabs("what")
+        origin_button, origin_content = tabs.check_tabs("origin")
+        use_button, use_content = tabs.check_tabs("use")
+        more_button, more_content = tabs.check_tabs("more")
+        assert what_button == "What" and what_content != 0, \
+            "The tab 'what' was not pressed or the text is missing"
+        assert origin_button == "Origin" and origin_content != 0, \
+            "The tab 'origin' was not pressed or the text is missing"
+        assert use_button == "Use" and use_content != 0, \
+            "The tab 'use' was not pressed or the text is missing"
+        assert more_button == "More" and what_content != 0, \
+            "The tab 'more' was not pressed or the text is missing"
 
 
 # @allure.suite("Widgets")
