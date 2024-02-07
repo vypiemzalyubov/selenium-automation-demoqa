@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -28,7 +28,7 @@ class BasePage:
         self.driver.get(f"{self.base_page}{self.page}")
 
     @allure.step("Find a visible element")
-    def element_is_visible(self, locator) -> WebElement:
+    def element_is_visible(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is visible"
         )
@@ -38,7 +38,7 @@ class BasePage:
         )
 
     @allure.step("Find visible elements")
-    def elements_are_visible(self, locator) -> List[WebElement]:
+    def elements_are_visible(self, locator: Tuple[str, str]) -> List[WebElement]:
         logger.info(
             f"{locator} - Check if these elements are visible"
         )
@@ -48,7 +48,7 @@ class BasePage:
         )
 
     @allure.step("Find a present element")
-    def element_is_present(self, locator) -> WebElement:
+    def element_is_present(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is present"
         )
@@ -58,7 +58,7 @@ class BasePage:
         )
 
     @allure.step("Find present elements")
-    def elements_are_present(self, locator) -> List[WebElement]:
+    def elements_are_present(self, locator: Tuple[str, str]) -> List[WebElement]:
         logger.info(
             f"{locator} - Check if these elements are present"
         )
@@ -68,7 +68,7 @@ class BasePage:
         )
 
     @allure.step("Find a not visible element")
-    def element_is_not_visible(self, locator) -> bool | WebElement:
+    def element_is_not_visible(self, locator: Tuple[str, str]) -> bool | WebElement:
         logger.info(
             f"{locator} - Check if this element is not visible"
         )
@@ -78,7 +78,7 @@ class BasePage:
         )
 
     @allure.step("Find clickable elements")
-    def element_is_clickable(self, locator) -> WebElement:
+    def element_is_clickable(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
             f"{locator} - Check if this element is clickable"
         )
