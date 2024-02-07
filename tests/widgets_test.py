@@ -140,7 +140,7 @@ class TestProgressBarPage:
 
 
 @allure.suite("Widgets")
-@allure.feature("Test Tabs Page")
+@allure.feature("Tabs Page")
 class TestTabsPage:
 
     @allure.title("Check switched tabs")
