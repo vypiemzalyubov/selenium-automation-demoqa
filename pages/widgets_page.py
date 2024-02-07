@@ -246,8 +246,8 @@ class TabsPage(BasePage):
         }
         button = self.element_is_visible(tabs[name_tab]["title"])
         button.click()
-        what_content = self.element_is_visible(tabs[name_tab]["content"]).text
-        return button.text, len(what_content)
+        content = self.element_is_visible(tabs[name_tab]["content"]).text
+        return button.text, len(content)
 
 
 class ToolTipsPage(BasePage):
