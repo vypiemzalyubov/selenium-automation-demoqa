@@ -159,18 +159,27 @@ class BasePage:
 
     @allure.step("Drag and drop element to element")
     def action_drag_and_drop_to_element(self, what, where):
+        logger.info(
+            f"Drag element {what} and drop to {where}"
+        )         
         action = ActionChains(self.driver)
         action.drag_and_drop(what, where)
         action.perform()
 
     @allure.step("Move cursor to element")
     def action_move_to_element(self, element: WebElement):
+        logger.info(
+            f"Move element {element}"
+        )         
         action = ActionChains(self.driver)
         action.move_to_element(element)
         action.perform()
 
     @allure.step("Remove footer")
     def remove_footer(self):
+        logger.info(
+            "Remove footer and fixedban"
+        )        
         self.driver.execute_script(
             "document.getElementsByTagName('footer')[0].remove();")
         self.driver.execute_script(
