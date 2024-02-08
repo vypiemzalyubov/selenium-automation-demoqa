@@ -251,9 +251,13 @@ class TabsPage(BasePage):
 
 
 class ToolTipsPage(BasePage):
+
     locators = ToolTipsPageLocators()
 
-    @allure.step("get text from tool tip")
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.TOOL_TIPS)
+
+    @allure.step("Get text from tool tip")
     def get_text_from_tool_tips(self, hover_elem, wait_elem):
         element = self.element_is_present(hover_elem)
         self.action_move_to_element(element)
@@ -262,7 +266,7 @@ class ToolTipsPage(BasePage):
         text = tool_tip_text.text
         return text
 
-    @allure.step("check tool tip")
+    @allure.step("Check tool tip")
     def check_tool_tips(self):
         tool_tip_text_button = self.get_text_from_tool_tips(self.locators.BUTTON, self.locators.TOOL_TIP_BUTTON)
         tool_tip_text_field = self.get_text_from_tool_tips(self.locators.FIELD, self.locators.TOOL_TIP_FIELD)
@@ -273,7 +277,11 @@ class ToolTipsPage(BasePage):
 
 
 class MenuPage(BasePage):
+
     locators = MenuPageLocators()
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver, page=UIRoutes.MENU)
 
     @allure.step("check menu item")
     def check_menu(self):

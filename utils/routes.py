@@ -22,6 +22,8 @@ class UIRoutes(str, Enum):
     SLIDER = "/slider"
     PROGRESS_BAR = "/progress-bar"
     TABS = "/tabs"
+    TOOL_TIPS = "/tool-tips"
+    MENU = "/menu"
 
     def __str__(self) -> str:
         return self.value
