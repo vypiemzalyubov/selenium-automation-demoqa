@@ -4,13 +4,13 @@ import allure
 import pytest
 
 from pages.widgets_page import (
-    AccordianPage, 
-    AutoCompletePage, 
-    DatePickerPage, 
-    SliderPage, 
-    ProgressBarPage, 
+    AccordianPage,
+    AutoCompletePage,
+    DatePickerPage,
+    SliderPage,
+    ProgressBarPage,
     TabsPage,
-    ToolTipsPage, 
+    ToolTipsPage,
     MenuPage
 )
 
@@ -78,7 +78,7 @@ class TestAutoCompletePage:
 @allure.suite("Widgets")
 @allure.feature("Date Picker Page")
 class TestDatePickerPage:
-        
+
     @allure.title("Check change date")
     def test_change_date(self):
         date_picker_page = DatePickerPage(self.driver)
@@ -99,7 +99,7 @@ class TestDatePickerPage:
 @allure.suite("Widgets")
 @allure.feature("Slider Page")
 class TestSliderPage:
-    
+
     @allure.title("Check moved slider")
     def test_slider(self):
         slider = SliderPage(self.driver)
@@ -144,38 +144,23 @@ class TestProgressBarPage:
 @allure.feature("Tabs Page")
 class TestTabsPage:
 
-    @allure.title("Check out the switchable 'What' tab")
-    def test_what_tab(self):
+    @allure.title("Check switched tabs")
+    @pytest.mark.parametrize(
+        "tab_name",
+        [
+            pytest.param("what"),
+            pytest.param("origin"),
+            pytest.param("use"),
+            pytest.param("more", marks=pytest.mark.xfail(
+                reason="BUG-02: The 'More' tab is not clickable"))
+        ]
+    )
+    def test_tabs(self, tab_name):
         tabs = TabsPage(self.driver)
         tabs.open()
-        what_button, what_content = tabs.check_tabs("what")
-        assert what_button == "What" and what_content != 0, \
-            "The tab 'What' was not pressed or the text is missing"
-
-    @allure.title("Check out the switchable 'Origin' tab")
-    def test_origin_tab(self):
-        tabs = TabsPage(self.driver)
-        tabs.open()
-        origin_button, origin_content = tabs.check_tabs("origin")
-        assert origin_button == "Origin" and origin_content != 0, \
-            "The tab 'Origin' was not pressed or the text is missing"
-        
-    @allure.title("Check out the switchable 'Use' tab")
-    def test_use_tab(self):
-        tabs = TabsPage(self.driver)
-        tabs.open()
-        use_button, use_content = tabs.check_tabs("use")
-        assert use_button == "Use" and use_content != 0, \
-            "The tab 'use' was not pressed or the text is missing"
-        
-    @pytest.mark.xfail(reason="BUG-02: The 'More' tab is not clickable")    
-    @allure.title("Check out the switchable 'More' tab")
-    def test_more_tab(self):
-        tabs = TabsPage(self.driver)
-        tabs.open()
-        more_button, more_content = tabs.check_tabs("more")
-        assert more_button == "More" and more_content != 0, \
-            "The tab 'more' was not pressed or the text is missing"
+        button_text, content = tabs.check_tabs(tab_name)
+        assert button_text.lower() == tab_name and content != 0, \
+            f"The tab '{tab_name}' was not pressed or the text is missing"
 
 
 # @allure.suite("Widgets")
