@@ -283,7 +283,7 @@ class MenuPage(BasePage):
     def __init__(self, driver: WebDriver):
         super().__init__(driver, page=UIRoutes.MENU)
 
-    @allure.step("check menu item")
+    @allure.step("Check menu item")
     def check_menu(self):
         menu_item_list = self.elements_are_present(self.locators.MENU_ITEM_LIST)
         data = []
