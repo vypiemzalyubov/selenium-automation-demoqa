@@ -35,3 +35,16 @@ selenium-automation-demoqa/
 ├── README.md
 ├── requirements.txt
 ```
+
+## Running in Docker
+
+```bash
+# Build an image named "api-testing-runner"
+docker build -t selenium-runner .
+
+# Starts the container and automatically deletes on exit
+docker run -rm selenium-runner
+
+# Running with Docker Compose
+docker-compose up --build
+```
