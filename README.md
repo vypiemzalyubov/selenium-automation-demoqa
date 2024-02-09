@@ -42,8 +42,8 @@ selenium-automation-demoqa/
 # Build an image named "selenium-runner"
 docker build -t selenium-runner .
 
-# Starts the container and automatically deletes on exit
-docker run --rm selenium-runner
+# Starts the container, bind mount a volume and automatically deletes on exit
+docker run --rm -v /selenium-automation-demoqa/docker-results/:/allure-results/ selenium-runner
 
 # Running with Docker Compose
 docker-compose up --build
