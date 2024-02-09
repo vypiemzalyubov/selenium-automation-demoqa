@@ -39,7 +39,7 @@ selenium-automation-demoqa/
 ## Running in Docker
 
 ```bash
-# Build an image named "api-testing-runner"
+# Build an image named "selenium-runner"
 docker build -t selenium-runner .
 
 # Starts the container and automatically deletes on exit
