@@ -18,3 +18,4 @@ venv.bak/
 
 # Allure
 allure-results/
+docker-results/
