@@ -225,7 +225,7 @@ class TabsPage(BasePage):
         super().__init__(driver, page=UIRoutes.TABS)
 
     @allure.step('Check tabs')
-    def check_tabs(self, name_tab: str) -> Tuple[str, int]:
+    def check_tabs(self, tab_name: str) -> Tuple[str, int]:
         tabs = {
             'what': {
                 'title': self.locators.TABS_WHAT,
@@ -244,9 +244,9 @@ class TabsPage(BasePage):
                 'content': self.locators.TABS_MORE_CONTENT
             },
         }
-        button = self.element_is_visible(tabs[name_tab]['title'])
+        button = self.element_is_visible(tabs[tab_name]['title'])
         button.click()
-        content = self.element_is_visible(tabs[name_tab]['content']).text
+        content = self.element_is_visible(tabs[tab_name]['content']).text
         return button.text, len(content)
 
 
