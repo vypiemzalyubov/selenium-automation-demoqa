@@ -20,167 +20,167 @@ class BasePage:
         self.base_page = settings.base_page
         self.wait = WebDriverWait(driver, timeout=15, poll_frequency=1)
 
-    @allure.step("Open a browser")
+    @allure.step('Open a browser')
     def open(self):
         logger.info(
-            f"Opening page {self.base_page}{self.page}"
+            f'Opening page "{self.base_page}{self.page}"'
         )
-        self.driver.get(f"{self.base_page}{self.page}")
+        self.driver.get(f'{self.base_page}{self.page}')
 
-    @allure.step("Find a visible element")
+    @allure.step('Find a visible element')
     def element_is_visible(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
-            f"{locator} - Check if this element is visible"
+            f'{locator} - Check if this element is visible'
         )
         return self.wait.until(
             EC.visibility_of_element_located(locator),
-            message=f"Can't find element by locator {locator}"
+            message=f'Cannot find element by locator {locator}'
         )
 
-    @allure.step("Find visible elements")
+    @allure.step('Find visible elements')
     def elements_are_visible(self, locator: Tuple[str, str]) -> List[WebElement]:
         logger.info(
-            f"{locator} - Check if these elements are visible"
+            f'{locator} - Check if these elements are visible'
         )
         return self.wait.until(
             EC.visibility_of_all_elements_located(locator),
-            message=f"Can't find elements by locator {locator}"
+            message=f'Cannot find elements by locator {locator}'
         )
 
-    @allure.step("Find a present element")
+    @allure.step('Find a present element')
     def element_is_present(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
-            f"{locator} - Check if this element is present"
+            f'{locator} - Check if this element is present'
         )
         return self.wait.until(
             EC.presence_of_element_located(locator),
-            message=f"Can't find element by locator {locator}"
+            message=f'Cannot find element by locator {locator}'
         )
 
-    @allure.step("Find present elements")
+    @allure.step('Find present elements')
     def elements_are_present(self, locator: Tuple[str, str]) -> List[WebElement]:
         logger.info(
-            f"{locator} - Check if these elements are present"
+            f'{locator} - Check if these elements are present'
         )
         return self.wait.until(
             EC.presence_of_all_elements_located(locator),
-            message=f"Can't find elements by locator {locator}"
+            message=f'Cannot find elements by locator {locator}'
         )
 
-    @allure.step("Find a not visible element")
+    @allure.step('Find a not visible element')
     def element_is_not_visible(self, locator: Tuple[str, str]) -> bool | WebElement:
         logger.info(
-            f"{locator} - Check if this element is not visible"
+            f'{locator} - Check if this element is not visible'
         )
         return self.wait.until(
             EC.invisibility_of_element_located(locator),
-            message=f"Element was found by locator {locator} but should not"
+            message=f'Element was found by locator {locator} but should not'
         )
 
-    @allure.step("Find clickable elements")
+    @allure.step('Find clickable elements')
     def element_is_clickable(self, locator: Tuple[str, str]) -> WebElement:
         logger.info(
-            f"{locator} - Check if this element is clickable"
+            f'{locator} - Check if this element is clickable'
         )
         return self.wait.until(
             EC.element_to_be_clickable(locator),
-            message=f"Can't find element by locator {locator}"
+            message=f'Cannot find element by locator {locator}'
         )
 
-    @allure.step("Go to specified element")
+    @allure.step('Go to specified element')
     def go_to_element(self, element: WebElement):
         logger.info(
-            f"Scroll to element {element.accessible_name}"
+            f'Scroll to element "{element.accessible_name}"'
         )
-        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+        self.driver.execute_script('arguments[0].scrollIntoView();', element)
 
-    @allure.step("Select element by value")
+    @allure.step('Select element by value')
     def select_element_by_value(self, element: WebElement, value):
         logger.info(
-            f"Select element {element} by value {value}"
-        )        
-        select = Select(self.element_is_present(element))        
+            f'Select element "{element}" by value "{value}"'
+        )
+        select = Select(self.element_is_present(element))
         select.select_by_visible_text(value)
 
-    @allure.step("Switch to new window")
+    @allure.step('Switch to new window')
     def switch_to_window(self, window_number: int):
         logger.info(
-            f"Switch to the window with the number {window_number}"
+            f'Switch to the window with the number "{window_number}"'
         )
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
-    @allure.step("Switch to alert")
+    @allure.step('Switch to alert')
     def switch_to_alert(self):
         logger.info(
-            "Switch to alert"
+            'Switch to alert'
         )
         return self.wait.until(EC.alert_is_present())
 
-    @allure.step("Switch to frame")
+    @allure.step('Switch to frame')
     def switch_to_frame(self, frame):
         logger.info(
-            f"Switch to frame"
+            f'Switch to frame'
         )
         self.wait.until(EC.frame_to_be_available_and_switch_to_it(frame))
 
-    @allure.step("Switch to default content")
+    @allure.step('Switch to default content')
     def switch_to_default_content(self):
         logger.info(
-            "Switch to default content"
+            'Switch to default content'
         )
         self.driver.switch_to.default_content()
 
-    @allure.step("Double click")
+    @allure.step('Double click')
     def action_double_click(self, element: WebElement):
         logger.info(
-            f"Double click on an element {element}"
+            f'Double click on an element "{element}"'
         )
         action = ActionChains(self.driver)
         action.double_click(element)
         action.perform()
 
-    @allure.step("Right click")
+    @allure.step('Right click')
     def action_right_click(self, element: WebElement):
         logger.info(
-            f"Right-click on an element {element}"
+            f'Right-click on an element "{element}"'
         )
         action = ActionChains(self.driver)
         action.context_click(element)
         action.perform()
 
-    @allure.step("Drag and drop by offset")
+    @allure.step('Drag and drop by offset')
     def action_drag_and_drop_by_offset(self, element: WebElement, x_coords: int, y_coords: int):
         logger.info(
-            f"Drag and drop an element {element.aria_role} by offset {x_coords} {y_coords}"
-        )        
+            f'Drag and drop an element "{element.aria_role}" by offset "{x_coords}" "{y_coords}"'
+        )
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(element, x_coords, y_coords)
         action.perform()
 
-    @allure.step("Drag and drop element to element")
+    @allure.step('Drag and drop element to element')
     def action_drag_and_drop_to_element(self, what, where):
         logger.info(
-            f"Drag element {what} and drop to {where}"
-        )         
+            f'Drag element "{what}" and drop to "{where}"'
+        )
         action = ActionChains(self.driver)
         action.drag_and_drop(what, where)
         action.perform()
 
-    @allure.step("Move cursor to element")
+    @allure.step('Move cursor to element')
     def action_move_to_element(self, element: WebElement):
         logger.info(
-            f"Move element {element}"
-        )         
+            f'Move to element "{element.accessible_name}"'
+        )
         action = ActionChains(self.driver)
         action.move_to_element(element)
         action.perform()
 
-    @allure.step("Remove footer")
+    @allure.step('Remove footer')
     def remove_footer(self):
         logger.info(
-            "Remove footer and fixedban"
-        )        
+            'Remove footer and fixedban'
+        )
         self.driver.execute_script(
-            "document.getElementsByTagName('footer')[0].remove();")
+            'document.getElementsByTagName("footer")[0].remove();')
         self.driver.execute_script(
-            "document.getElementById('fixedban').style.display = 'none'")
+            'document.getElementById("fixedban").style.display = "none"')

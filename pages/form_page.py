@@ -1,10 +1,12 @@
 import os
+from typing import List
 
 import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from locators.form_page_locators import FormPageLocators
+from models.models import Person
 from pages.base_page import BasePage
 from utils.generator import generated_person, generated_file, generated_subject
 from utils.routes import UIRoutes
@@ -14,11 +16,11 @@ class FormPage(BasePage):
 
     locators = FormPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.FORM)
 
-    @allure.step("Fill in all fields")
-    def fill_form_fields(self):
+    @allure.step('Fill in all fields')
+    def fill_form_fields(self) -> Person:
         person = next(generated_person())
         file_name, path = generated_file()
         subject = generated_subject()
@@ -41,8 +43,8 @@ class FormPage(BasePage):
         self.element_is_visible(self.locators.SUBMIT).click()
         return person
 
-    @allure.step("Get form result")
-    def form_result(self):
+    @allure.step('Get form result')
+    def form_result(self) -> List[str]:
         result_list = self.elements_are_visible(self.locators.RESULT_TABLE)
         data = []
         for item in result_list:

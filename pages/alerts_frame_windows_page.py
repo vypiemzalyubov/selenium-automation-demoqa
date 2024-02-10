@@ -1,5 +1,6 @@
 import random
 import time
+from typing import List, Tuple
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -19,14 +20,14 @@ class BrowserWindowsPage(BasePage):
 
     locators = BrowserWindowsPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.BROWSER_WINDOWS)
 
-    @allure.step("Check opened new tab or window")
-    def check_opened_interface(self, interface: str):
+    @allure.step('Check opened new tab or window')
+    def check_opened_interface(self, interface: str) -> str:
         available_intefaces = {
-            "tab": self.locators.NEW_TAB_BUTTON,
-            "window": self.locators.NEW_WINDOW_BUTTON
+            'tab': self.locators.NEW_TAB_BUTTON,
+            'window': self.locators.NEW_WINDOW_BUTTON
         }
         self.element_is_visible(available_intefaces[interface]).click()
         self.switch_to_window(1)
@@ -38,34 +39,34 @@ class AlertsPage(BasePage):
 
     locators = AlertsPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.ALERTS)
 
-    @allure.step("Get text from alert")
-    def check_see_alert(self):
+    @allure.step('Get text from alert')
+    def check_see_alert(self) -> str:
         self.element_is_visible(self.locators.SEE_ALERT_BUTTON).click()
         alert_text = self.switch_to_alert().text
         return alert_text
 
-    @allure.step("Check alert appear after 5 sec")
-    def check_alert_appear_after_5_sec(self):
+    @allure.step('Check alert appear after 5 sec')
+    def check_alert_appear_after_5_sec(self) -> str:
         self.element_is_visible(self.locators.APPEAR_ALERT_AFTER_5_SEC_BUTTON).click()
         alert_text = self.switch_to_alert().text
         return alert_text
 
-    @allure.step("Check action with alert")
-    def check_action_alert(self, action: str):
+    @allure.step('Check action with alert')
+    def check_action_alert(self, action: str) -> str:
         self.element_is_visible(self.locators.CONFIRM_BOX_ALERT_BUTTON).click()
-        if action == "accept":
+        if action == 'accept':
             self.switch_to_alert().accept()
         else:
             self.switch_to_alert().dismiss()
         text_result = self.element_is_present(self.locators.CONFIRM_RESULT).text
         return text_result
 
-    @allure.step("Check prompt alert")
-    def check_prompt_alert(self):
-        text = f"autotest{random.randint(0, 999)}"
+    @allure.step('Check prompt alert')
+    def check_prompt_alert(self) -> Tuple[str, str]:
+        text = f'autotest{random.randint(0, 999)}'
         self.element_is_visible(self.locators.PROMPT_BOX_ALERT_BUTTON).click()
         alert_window = self.switch_to_alert()
         alert_window.send_keys(text)
@@ -78,23 +79,23 @@ class FramesPage(BasePage):
 
     locators = FramesPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.FRAMES)
 
-    @allure.step("Check frame")
-    def check_frame(self, frame_number: str):
-        if frame_number == "frame1":
+    @allure.step('Check frame')
+    def check_frame(self, frame_number: str) -> List[str]:
+        if frame_number == 'frame1':
             frame = self.element_is_present(self.locators.FIRST_FRAME)
-            width = frame.get_attribute("width")
-            height = frame.get_attribute("height")
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
             self.switch_to_frame(frame)
             frame_text = self.element_is_present(self.locators.TITLE_FRAME).text
             self.switch_to_default_content()
             return [frame_text, width, height]
-        if frame_number == "frame2":
+        if frame_number == 'frame2':
             frame = self.element_is_present(self.locators.SECOND_FRAME)
-            width = frame.get_attribute("width")
-            height = frame.get_attribute("height")
+            width = frame.get_attribute('width')
+            height = frame.get_attribute('height')
             self.switch_to_frame(frame)
             frame_text = self.element_is_present(self.locators.TITLE_FRAME).text
             self.switch_to_default_content()
@@ -105,11 +106,11 @@ class NestedFramesPage(BasePage):
 
     locators = NestedFramesPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.NESTED_FRAMES)
 
-    @allure.step("Check nested frame")
-    def check_nested_frame(self):
+    @allure.step('Check nested frame')
+    def check_nested_frame(self) -> Tuple[str, str]:
         parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
         self.switch_to_frame(parent_frame)
         parent_text = self.element_is_present(self.locators.PARENT_TEXT).text
@@ -123,29 +124,29 @@ class ModalDialogsPage(BasePage):
 
     locators = ModalDialogsPageLocators()
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.MODAL_DIALOGS)
 
-    @allure.step("Check modal dialogs")
-    def check_modal_dialogs(self, size: str, method: str):
-        if size == "small":
+    @allure.step('Check modal dialogs')
+    def check_modal_dialogs(self, size: str, method: str) -> Tuple[str, str]:
+        if size == 'small':
             self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
             title_text = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
             body_text = self.element_is_visible(self.locators.BODY_SMALL_MODAL).text
-            self._closing_method(method, "SMALL_MODAL_CLOSE_BUTTON")
+            self._closing_method(method, 'SMALL_MODAL_CLOSE_BUTTON')
             return title_text, body_text
         else:
             self.element_is_visible(self.locators.LARGE_MODAL_BUTTON).click()
             title_text = self.element_is_visible(self.locators.TITLE_LARGE_MODAL).text
             body_text = self.element_is_visible(self.locators.BODY_LARGE_MODAL).text
-            self._closing_method(method, "LARGE_MODAL_CLOSE_BUTTON")
+            self._closing_method(method, 'LARGE_MODAL_CLOSE_BUTTON')
             return title_text, body_text
 
-    def _closing_method(self, method: str, locator_name: str):
+    def _closing_method(self, method: str, locator_name: str) -> None:
         locator = getattr(self.locators, locator_name)
-        if method == "button":
+        if method == 'button':
             self.element_is_visible(locator).click()
-        elif method == "cross":
+        elif method == 'cross':
             self.element_is_visible(self.locators.MODAL_CLOSE_CROSS).click()
         else:
             self.element_is_visible(self.locators.CLOSE_OVERLAY).click()
