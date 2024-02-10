@@ -14,14 +14,14 @@ from utils.settings import settings
 
 class BasePage:
 
-    def __init__(self, driver: WebDriver, page: str):
+    def __init__(self, driver: WebDriver, page: str) -> None:
         self.driver = driver
         self.page = page
         self.base_page = settings.base_page
         self.wait = WebDriverWait(driver, timeout=15, poll_frequency=1)
 
     @allure.step('Open a browser')
-    def open(self):
+    def open(self) -> None:
         logger.info(
             f'Opening page "{self.base_page}{self.page}"'
         )

@@ -31,7 +31,7 @@ class AccordianPage(BasePage):
         super().__init__(driver, page=UIRoutes.ACCORDEAN)
 
     @allure.step('Check accordian widget')
-    def check_accordian(self, accordian_number: str) -> list:
+    def check_accordian(self, accordian_number: str) -> Tuple[str, int]:
         accordian = {
             'first': {
                 'title': self.locators.SECTION_FIRST,
@@ -55,7 +55,7 @@ class AccordianPage(BasePage):
             section_title.click()
             section_content = self.element_is_visible(accordian[accordian_number]['content']).text
             self._check_invisible_accordean(accordian_number)
-        return [section_title.text, len(section_content)]
+        return section_title.text, len(section_content)
 
     def _check_invisible_accordean(self, accordian_number: str) -> None:
         if accordian_number == 'first':
@@ -134,7 +134,7 @@ class DatePickerPage(BasePage):
         super().__init__(driver, page=UIRoutes.DATE_PICKER)
 
     @allure.step('Change date')
-    def select_date(self) -> Tuple[str | None, str | None]:
+    def select_date(self) -> Tuple[str, str]:
         date = next(generated_date())
         input_date = self.element_is_visible(self.locators.DATE_INPUT)
         value_date_before = input_date.get_attribute('value')
@@ -146,7 +146,7 @@ class DatePickerPage(BasePage):
         return value_date_before, value_date_after
 
     @allure.step('Change select date and time')
-    def select_date_and_time(self) -> Tuple[str | None, str | None]:
+    def select_date_and_time(self) -> Tuple[str, str]:
         date = next(generated_date())
         input_date = self.element_is_visible(self.locators.DATE_AND_TIME_INPUT)
         value_date_before = input_date.get_attribute('value')
@@ -178,7 +178,7 @@ class SliderPage(BasePage):
         super().__init__(driver, page=UIRoutes.SLIDER)
 
     @allure.step('Change slider value')
-    def change_slider_value(self) -> Tuple[str | None, str | None]:
+    def change_slider_value(self) -> Tuple[str, str]:
         value_before = self.element_is_visible(self.locators.SLIDER_VALUE).get_attribute('value')
         slider_input = self.element_is_visible(self.locators.INPUT_SLIDER)
         self.action_drag_and_drop_by_offset(slider_input, random.randint(1, 100), 0)
@@ -275,7 +275,7 @@ class ToolTipsPage(BasePage):
             'section': {
                 'locator': self.locators.SECTION_LINK,
                 'hover': self.locators.TOOL_TIP_SECTION
-            }                                    
+            }
         }
         tool_tip_text = self._get_text_from_tool_tips(tool_tips[tool_tip]['locator'], tool_tips[tool_tip]['hover'])
         return tool_tip_text
