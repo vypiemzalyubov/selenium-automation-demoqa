@@ -82,3 +82,10 @@ class ToolTipsPageLocators:
 class MenuPageLocators:
     
     MENU_ITEM_LIST = (By.CSS_SELECTOR, 'ul[id="nav"] li a')
+
+
+class SelectMenuPageLocators:
+    
+    SELECT_OPTION = (By.XPATH, '(//div[@class=" css-yk16xz-control"])[1]')
+    GROUP2_OPTION1 = (By.XPATH, '//div[@id="react-select-2-option-1-0"]')
+    SINGLE_VALUE = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')

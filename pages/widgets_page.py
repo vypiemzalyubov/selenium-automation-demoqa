@@ -13,11 +13,12 @@ from locators.widgets_page_locators import (
     AccordianPageLocators,
     AutoCompletePageLocators,
     DatePickerPageLocators,
-    SliderPageLocators,
+    MenuPageLocators,
     ProgressBarPageLocators,
     TabsPageLocators,
-    ToolTipsPageLocators,
-    MenuPageLocators
+    ToolTipsPageLocators,    
+    SelectMenuPageLocators,
+    SliderPageLocators
 )
 from pages.base_page import BasePage
 from utils.routes import UIRoutes
@@ -304,3 +305,18 @@ class MenuPage(BasePage):
             self.action_move_to_element(item)
             data.append(item.text)
         return data
+
+
+class SelectMenuPage(BasePage):
+
+    locators = SelectMenuPageLocators()
+
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.SELECT_MENU)
+
+    @allure.step('Check dropdown item')
+    def check_dropdown(self) -> str:
+        dropdown_button = self.element_is_visible(self.locators.SELECT_OPTION).click()
+        option_button = self.element_is_visible(self.locators.GROUP2_OPTION1).click()
+        dropdown_value = self.element_is_visible(self.locators.SINGLE_VALUE).text
+        return dropdown_value

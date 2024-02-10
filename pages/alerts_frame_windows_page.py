@@ -1,16 +1,15 @@
 import random
-import time
 from typing import List, Tuple
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
 
 from locators.alerts_frame_windows_locators import (
-    BrowserWindowsPageLocators,
     AlertsPageLocators,
+    BrowserWindowsPageLocators,
     FramesPageLocators,
-    NestedFramesPageLocators,
-    ModalDialogsPageLocators
+    ModalDialogsPageLocators,
+    NestedFramesPageLocators
 )
 from pages.base_page import BasePage
 from utils.routes import UIRoutes

@@ -1,3 +1,4 @@
+import time
 import allure
 import pytest
 
@@ -5,11 +6,12 @@ from pages.widgets_page import (
     AccordianPage,
     AutoCompletePage,
     DatePickerPage,
-    SliderPage,
+    MenuPage,
     ProgressBarPage,
+    SelectMenuPage,
+    SliderPage,
     TabsPage,
-    ToolTipsPage,
-    MenuPage
+    ToolTipsPage
 )
 
 
@@ -197,3 +199,16 @@ class TestMenuPage:
             'Sub Sub Item 2', 'Main Item 3'
         ], \
             'Menu items do not exist or have not been selected'
+
+
+@allure.suite('Widgets')
+@allure.feature('Select Menu Page')
+class TestSelectMenuPage:
+
+    @allure.title('Check dropdown option in the Select menu')
+    def test_check_dropdown_option(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        value = select_menu_page.check_dropdown()
+        time.sleep(3)
+        print(value)

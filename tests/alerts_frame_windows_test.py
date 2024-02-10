@@ -2,11 +2,11 @@ import allure
 import pytest
 
 from pages.alerts_frame_windows_page import (
-    BrowserWindowsPage,
     AlertsPage,
+    BrowserWindowsPage,
     FramesPage,
-    NestedFramesPage,
-    ModalDialogsPage
+    ModalDialogsPage,
+    NestedFramesPage
 )
 
 
