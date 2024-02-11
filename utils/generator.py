@@ -32,8 +32,8 @@ def generated_file():
 
 
 def generated_subject():
-    subjects = ['Hindi', 'English', 'Maths', 'Physics', 'Chemistry', 
-                'Biology', 'Computer Science', 'Commerce', 'Accounting', 
+    subjects = ['Hindi', 'English', 'Maths', 'Physics', 'Chemistry',
+                'Biology', 'Computer Science', 'Commerce', 'Accounting',
                 'Economics', 'Arts', 'Social Studies', 'History', 'Civics']
     return subjects[random.randint(0, 13)]
 
@@ -52,3 +52,8 @@ def generated_date():
         day=fake_en.day_of_month(),
         time='12:00'
     )
+
+
+def generated_option(option: int) -> str:
+    return ['Group 1, option 1', 'Group 1, option 2', 'Group 2, option 1', 
+            'Group 2, option 2', 'A root option', 'Another root option',][option]

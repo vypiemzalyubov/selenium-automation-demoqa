@@ -1,3 +1,4 @@
+import random
 from selenium.webdriver.common.by import By
 
 
@@ -86,6 +87,5 @@ class MenuPageLocators:
 
 class SelectMenuPageLocators:
     
-    SELECT_OPTION = (By.XPATH, '(//div[@class=" css-yk16xz-control"])[1]')
-    GROUP2_OPTION1 = (By.XPATH, '//div[@id="react-select-2-option-1-0"]')
-    SINGLE_VALUE = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
+    SELECT_INPUT = (By.XPATH, '//input[@id="react-select-2-input"]')
+    RESULT_OPTION = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')

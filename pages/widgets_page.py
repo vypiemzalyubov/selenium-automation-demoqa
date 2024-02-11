@@ -8,7 +8,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from utils.generator import generated_color, generated_date
+from utils.generator import generated_color, generated_date, generated_option
 from locators.widgets_page_locators import (
     AccordianPageLocators,
     AutoCompletePageLocators,
@@ -316,7 +316,8 @@ class SelectMenuPage(BasePage):
 
     @allure.step('Check dropdown item')
     def check_dropdown(self) -> str:
-        dropdown_button = self.element_is_visible(self.locators.SELECT_OPTION).click()
-        option_button = self.element_is_visible(self.locators.GROUP2_OPTION1).click()
-        dropdown_value = self.element_is_visible(self.locators.SINGLE_VALUE).text
-        return dropdown_value
+        option_value = generated_option(random.randint(0, 5))
+        self.element_is_present(self.locators.SELECT_INPUT).send_keys(option_value)
+        self.element_is_visible(self.locators.SELECT_INPUT).send_keys(Keys.ENTER)
+        actual_value = self.element_is_present(self.locators.RESULT_OPTION).text
+        return option_value, actual_value

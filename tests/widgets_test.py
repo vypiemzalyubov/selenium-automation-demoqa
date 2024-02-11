@@ -205,10 +205,10 @@ class TestMenuPage:
 @allure.feature('Select Menu Page')
 class TestSelectMenuPage:
 
-    @allure.title('Check dropdown option in the Select menu')
-    def test_check_dropdown_option(self):
+    @allure.title('Check "Select Value" dropdown')
+    def test_check_select_value_dropdown(self):
         select_menu_page = SelectMenuPage(self.driver)
         select_menu_page.open()
-        value = select_menu_page.check_dropdown()
-        time.sleep(3)
-        print(value)
+        option_value, actual_value = select_menu_page.check_dropdown()
+        assert option_value == actual_value, \
+            "The value in dropdown has not changed"
