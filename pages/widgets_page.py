@@ -8,7 +8,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from utils.generator import generated_color, generated_date, generated_option
+from utils.generator import generated_color, generated_date, generated_dropdown_option
 from locators.widgets_page_locators import (
     AccordianPageLocators,
     AutoCompletePageLocators,
@@ -16,7 +16,7 @@ from locators.widgets_page_locators import (
     MenuPageLocators,
     ProgressBarPageLocators,
     TabsPageLocators,
-    ToolTipsPageLocators,    
+    ToolTipsPageLocators,
     SelectMenuPageLocators,
     SliderPageLocators
 )
@@ -314,10 +314,16 @@ class SelectMenuPage(BasePage):
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.SELECT_MENU)
 
-    @allure.step('Check dropdown item')
-    def check_dropdown(self) -> str:
-        option_value = generated_option(random.randint(0, 5))
-        self.element_is_present(self.locators.SELECT_INPUT).send_keys(option_value)
-        self.element_is_visible(self.locators.SELECT_INPUT).send_keys(Keys.ENTER)
-        actual_value = self.element_is_present(self.locators.RESULT_OPTION).text
-        return option_value, actual_value
+    @allure.step('Check dropdown option')
+    def check_dropdown(self, dropdown: str) -> str:
+        option_value = generated_dropdown_option(dropdown)
+        if dropdown == 'select_value':
+            self.element_is_present(self.locators.SELECT_INPUT_1).send_keys(option_value)
+            self.element_is_visible(self.locators.SELECT_INPUT_1).send_keys(Keys.ENTER)
+            actual_value = self.element_is_present(self.locators.RESULT_OPTION_1).text
+            return option_value, actual_value
+        else:
+            self.element_is_present(self.locators.SELECT_INPUT_2).send_keys(option_value)
+            self.element_is_visible(self.locators.SELECT_INPUT_2).send_keys(Keys.ENTER)
+            actual_value = self.element_is_present(self.locators.RESULT_OPTION_2).text
+            return option_value, actual_value

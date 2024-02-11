@@ -87,5 +87,9 @@ class MenuPageLocators:
 
 class SelectMenuPageLocators:
     
-    SELECT_INPUT = (By.XPATH, '//input[@id="react-select-2-input"]')
-    RESULT_OPTION = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
+    SELECT_INPUT_1 = (By.XPATH, '//input[@id="react-select-2-input"]')
+    RESULT_OPTION_1 = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
+    
+    SELECT_INPUT_2 = (By.XPATH, '//input[@id="react-select-3-input"]')
+    RESULT_OPTION_2 = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
+    

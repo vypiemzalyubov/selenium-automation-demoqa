@@ -54,6 +54,11 @@ def generated_date():
     )
 
 
-def generated_option(option: int) -> str:
-    return ['Group 1, option 1', 'Group 1, option 2', 'Group 2, option 1', 
-            'Group 2, option 2', 'A root option', 'Another root option',][option]
+def generated_dropdown_option(dropdown: str) -> str:
+    select_value = ['Group 1, option 1', 'Group 1, option 2', 'Group 2, option 1',
+                    'Group 2, option 2', 'A root option', 'Another root option',]
+    select_one = ['Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Prof.', 'Other']
+    if dropdown == 'select_value':
+        return select_value[random.randint(0, 5)]
+    else:
+        return select_one[random.randint(0, 5)]
