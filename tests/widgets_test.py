@@ -228,3 +228,21 @@ class TestSelectMenuPage:
         input_value, result_value = select_menu_page.check_old_dropdown()
         assert input_value == result_value, \
             'The value in "Old Style Select Menu" dropdown has not changed'
+
+    @allure.title('Check the multiselect dropdown is filled')
+    def test_fill_multi_dropdown(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        colors = select_menu_page.fill_multi_dropdown()
+        colors_result = select_menu_page.check_color_in_multi_dropdown()
+        assert colors == colors_result, \
+            'The added color is missing in the multiselect dropdown'        
+        
+    @allure.title('Check deletions from the multi dropdown by cross')
+    def test_remove_all_values_from_multi_dropdown_by_cross(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        select_menu_page.fill_multi_dropdown()
+        count_value = select_menu_page.remove_all_values_from_multi_dropdown()
+        assert count_value == 0, \
+            'Not all values have been deleted from multi dropdown'

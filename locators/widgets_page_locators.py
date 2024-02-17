@@ -95,3 +95,6 @@ class SelectMenuPageLocators:
     
     SELECT_OLD = (By.XPATH, '//select[@id="oldSelectMenu"]')
     
+    MULTI_DROPDOWN_SELECT = (By.XPATH, '//div[contains(text(), "Select...")]')
+    MULTI_DROPDOWN_VALUE = (By.XPATH, '//div[@class="css-1rhbuit-multiValue"]')
+    REMOVE_ALL_MULTI_DROPDOWN = (By.XPATH, '(//div[@class=" css-1gtu0rj-indicatorContainer"])[1]')

@@ -108,9 +108,7 @@ class AutoCompletePage(BasePage):
     @allure.step('Check colors in multi autocomplete')
     def check_color_in_multi(self) -> List[str]:
         color_list = self.elements_are_present(self.locators.MULTI_VALUE)
-        colors = []
-        for color in color_list:
-            colors.append(color.text)
+        colors = [color.text for color in color_list]
         return colors
 
     @allure.step('Fill single autocomplete input')
@@ -315,7 +313,7 @@ class SelectMenuPage(BasePage):
         super().__init__(driver, page=UIRoutes.SELECT_MENU)
 
     @allure.step('Check dropdown option')
-    def check_dropdown(self, dropdown: str) -> str:
+    def check_dropdown(self, dropdown: str) -> Tuple[int, int]:
         option_value = generated_dropdown_option(dropdown)
         if dropdown == 'select_value':
             self.element_is_present(self.locators.SELECT_INPUT_1).send_keys(option_value)
@@ -327,10 +325,33 @@ class SelectMenuPage(BasePage):
             self.element_is_visible(self.locators.SELECT_INPUT_2).send_keys(Keys.ENTER)
             actual_value = self.element_is_present(self.locators.RESULT_OPTION_2).text
             return option_value, actual_value
-        
+
     @allure.step('Check old dropdown option')
-    def check_old_dropdown(self) -> str:
+    def check_old_dropdown(self) -> Tuple[int, int]:
         input_value = str(random.randint(1, 10))
         self.select_element_by_value(self.locators.SELECT_OLD, input_value)
         result_value = self.element_is_present(self.locators.SELECT_OLD).get_attribute('value')
         return input_value, result_value
+
+    @allure.step('Fill multi dropdown input')
+    def fill_multi_dropdown(self) -> List[str]:
+        colors = random.sample(['Green', 'Blue', 'Black', 'Red'], k=random.randint(1, 4))
+        self.element_is_present(self.locators.MULTI_DROPDOWN_SELECT).click()
+        for color in colors:
+            self.element_is_clickable(('xpath', f'//div[contains(text(), "{color}")]')).click()
+        return colors
+
+    @allure.step('Check colors in multi dropdown')
+    def check_color_in_multi_dropdown(self) -> List[str]:
+        color_list = self.elements_are_present(self.locators.MULTI_DROPDOWN_VALUE)
+        colors = [color.text for color in color_list]
+        return colors
+
+    @allure.step('Remove all values from multi dropdown by cross')
+    def remove_all_values_from_multi_dropdown(self) -> Literal[0] | None:
+        self.element_is_visible(self.locators.REMOVE_ALL_MULTI_DROPDOWN).click()
+        try:
+            self.element_is_not_visible(self.locators.MULTI_DROPDOWN_VALUE)
+            return 0
+        except TimeoutException as e:
+            print(e)
