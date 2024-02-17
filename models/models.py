@@ -20,6 +20,10 @@ class Color(BaseModel):
     color_name:  List[str] | None = None
 
 
+class Cars(BaseModel):
+    car_name:  List[str] | None = None
+
+
 class Date(BaseModel):
     day: str | None = None
     month: str | None = None

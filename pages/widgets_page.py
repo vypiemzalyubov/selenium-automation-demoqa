@@ -1,3 +1,4 @@
+import platform
 import random
 import time
 from typing import List, Literal, Tuple
@@ -7,8 +8,9 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.select import Select
 
-from utils.generator import generated_color, generated_date, generated_dropdown_option
+from utils.generator import generated_car, generated_color, generated_date, generated_dropdown_option
 from locators.widgets_page_locators import (
     AccordianPageLocators,
     AutoCompletePageLocators,
@@ -326,14 +328,14 @@ class SelectMenuPage(BasePage):
             actual_value = self.element_is_present(self.locators.RESULT_OPTION_2).text
             return option_value, actual_value
 
-    @allure.step('Check old dropdown option')
-    def check_old_dropdown(self) -> Tuple[int, int]:
+    @allure.step('Check old style select menu option')
+    def check_old_select(self) -> Tuple[int, int]:
         input_value = str(random.randint(1, 10))
         self.select_element_by_value(self.locators.SELECT_OLD, input_value)
         result_value = self.element_is_present(self.locators.SELECT_OLD).get_attribute('value')
         return input_value, result_value
 
-    @allure.step('Fill multi dropdown input')
+    @allure.step('Fill multiselect drop down input')
     def fill_multi_dropdown(self) -> List[str]:
         colors = random.sample(['Green', 'Blue', 'Black', 'Red'], k=random.randint(1, 4))
         self.element_is_present(self.locators.MULTI_DROPDOWN_SELECT).click()
@@ -341,13 +343,17 @@ class SelectMenuPage(BasePage):
             self.element_is_clickable(('xpath', f'//div[contains(text(), "{color}")]')).click()
         return colors
 
-    @allure.step('Check colors in multi dropdown')
-    def check_color_in_multi_dropdown(self) -> List[str]:
-        color_list = self.elements_are_present(self.locators.MULTI_DROPDOWN_VALUE)
-        colors = [color.text for color in color_list]
-        return colors
+    @allure.step('Remove value from multiselect drop down')
+    def remove_value_from_multi_dropdown(self) -> Tuple[int, int]:
+        count_value_before = len(self.elements_are_present(self.locators.MULTI_DROPDOWN_VALUE))
+        remove_button_list = self.elements_are_visible(self.locators.MULTI_DROPDOWN_VALUE_REMOVE)
+        for value in remove_button_list:
+            value.click()
+            break
+        count_value_after = len(self.elements_are_present(self.locators.MULTI_DROPDOWN_VALUE))
+        return count_value_before, count_value_after
 
-    @allure.step('Remove all values from multi dropdown by cross')
+    @allure.step('Remove all values from multiselect drop down by cross')
     def remove_all_values_from_multi_dropdown(self) -> Literal[0] | None:
         self.element_is_visible(self.locators.REMOVE_ALL_MULTI_DROPDOWN).click()
         try:
@@ -355,3 +361,28 @@ class SelectMenuPage(BasePage):
             return 0
         except TimeoutException as e:
             print(e)
+
+    @allure.step('Check colors in multiselect drop down')
+    def check_color_in_multi_dropdown(self) -> List[str]:
+        color_list = self.elements_are_present(self.locators.MULTI_DROPDOWN_VALUE)
+        colors = [color.text for color in color_list]
+        return colors
+
+    @allure.step('Select value in standart multi select')
+    def select_standart_multi(self) -> int:
+        cars = random.sample(next(generated_car()).car_name, k=random.randint(2, 4))
+        for car in cars:
+            self.select_element_by_text(self.locators.STANDART_MULTI, car)
+        return len(cars)
+
+    @allure.step('Select all values in standart multi select')
+    def select_all_standart_multi(self) -> None:
+        os_name = platform.system()
+        CMD_CTRL = Keys.COMMAND if os_name == "Darwin" else Keys.CONTROL
+        self.element_is_visible(self.locators.STANDART_MULTI).send_keys(CMD_CTRL + "A")
+
+    @allure.step('Check all selected options in standart multi select')
+    def check_standart_multi(self) -> int:
+        all_selected = Select(self.element_is_visible(self.locators.STANDART_MULTI)).all_selected_options
+        selected_cars = [car.text for car in all_selected]
+        return len(selected_cars)

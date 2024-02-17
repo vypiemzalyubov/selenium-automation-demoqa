@@ -225,24 +225,51 @@ class TestSelectMenuPage:
     def test_check_old_style_select_dropdown(self):
         select_menu_page = SelectMenuPage(self.driver)
         select_menu_page.open()
-        input_value, result_value = select_menu_page.check_old_dropdown()
+        input_value, result_value = select_menu_page.check_old_select()
         assert input_value == result_value, \
             'The value in "Old Style Select Menu" dropdown has not changed'
 
-    @allure.title('Check the multiselect dropdown is filled')
+    @allure.title('Check the "Multiselect drop down" is filled')
     def test_fill_multi_dropdown(self):
         select_menu_page = SelectMenuPage(self.driver)
         select_menu_page.open()
         colors = select_menu_page.fill_multi_dropdown()
         colors_result = select_menu_page.check_color_in_multi_dropdown()
         assert colors == colors_result, \
-            'The added color is missing in the multiselect dropdown'        
-        
-    @allure.title('Check deletions from the multi dropdown by cross')
+            'The added color is missing in the "Multiselect drop down"'
+
+    @allure.title('Check deletions from the "Multiselect drop down"')
+    def test_remove_value_from_multi_dropdown(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        select_menu_page.fill_multi_dropdown()
+        count_value_before, count_value_after = select_menu_page.remove_value_from_multi_dropdown()
+        assert count_value_before != count_value_after, \
+            'Value was not deleted from "Multiselect drop down"'
+
+    @allure.title('Check deletions from the "Multiselect drop down" by cross')
     def test_remove_all_values_from_multi_dropdown_by_cross(self):
         select_menu_page = SelectMenuPage(self.driver)
         select_menu_page.open()
         select_menu_page.fill_multi_dropdown()
         count_value = select_menu_page.remove_all_values_from_multi_dropdown()
         assert count_value == 0, \
-            'Not all values have been deleted from multi dropdown'
+            'Not all values have been deleted from "Multiselect drop down"'
+
+    @allure.title('Check some parameters "Standart multi select" are selected')
+    def test_select_values_in_standart_multi(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        cars = select_menu_page.select_standart_multi()
+        selected_cars = select_menu_page.check_standart_multi()
+        assert cars == selected_cars, \
+            'The added car is missing in the "Standart multi select"'
+
+    @allure.title('Check all "Standart multi select" parameters are selected')
+    def test_select_all_values_in_standart_multi(self):
+        select_menu_page = SelectMenuPage(self.driver)
+        select_menu_page.open()
+        select_menu_page.select_all_standart_multi()
+        selected_cars = select_menu_page.check_standart_multi()
+        assert selected_cars == 4, \
+            'Not all values have been selected in "Standart multi select"'

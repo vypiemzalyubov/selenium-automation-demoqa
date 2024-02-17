@@ -4,8 +4,8 @@ import random
 from typing import Any, List, Tuple
 
 import allure
-from pydantic import EmailStr
 import requests
+from pydantic import EmailStr
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.webdriver import WebDriver
 

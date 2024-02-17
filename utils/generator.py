@@ -1,7 +1,7 @@
 import os
 import random
 from faker import Faker
-from models.models import Color, Date, Person
+from models.models import Cars, Color, Date, Person
 
 faker_ru = Faker('ru_RU')
 fake_en = Faker('En')
@@ -42,6 +42,12 @@ def generated_color():
     yield Color(
         color_name=['Red', 'Blue', 'Green', 'Yellow', 'Purple',
                     'Black', 'White', 'Voilet', 'Indigo', 'Magenta', 'Aqua']
+    )
+
+
+def generated_car():
+    yield Cars(
+        car_name=['Volvo', 'Saab', 'Opel', 'Audi']
     )
 
 
