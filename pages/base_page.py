@@ -94,13 +94,21 @@ class BasePage:
         )
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
 
+    @allure.step('Select element by text')
+    def select_element_by_text(self, element: WebElement, text: str) -> None:
+        logger.info(
+            f'Select element "{element}" by text "{text}"'
+        )
+        select = Select(self.element_is_present(element))
+        select.select_by_visible_text(text)
+
     @allure.step('Select element by value')
     def select_element_by_value(self, element: WebElement, value: str) -> None:
         logger.info(
             f'Select element "{element}" by value "{value}"'
         )
         select = Select(self.element_is_present(element))
-        select.select_by_visible_text(value)
+        select.select_by_value(value)
 
     @allure.step('Switch to new window')
     def switch_to_window(self, window_number: int):

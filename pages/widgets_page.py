@@ -140,8 +140,8 @@ class DatePickerPage(BasePage):
         input_date = self.element_is_visible(self.locators.DATE_INPUT)
         value_date_before = input_date.get_attribute('value')
         input_date.click()
-        self.select_element_by_value(self.locators.DATE_SELECT_MONTH, date.month)
-        self.select_element_by_value(self.locators.DATE_SELECT_YEAR, date.year)
+        self.select_element_by_text(self.locators.DATE_SELECT_MONTH, date.month)
+        self.select_element_by_text(self.locators.DATE_SELECT_YEAR, date.year)
         self._set_date_item_from_list(self.locators.DATE_SELECT_DAY_LIST, date.day)
         value_date_after = input_date.get_attribute('value')
         return value_date_before, value_date_after
@@ -327,3 +327,10 @@ class SelectMenuPage(BasePage):
             self.element_is_visible(self.locators.SELECT_INPUT_2).send_keys(Keys.ENTER)
             actual_value = self.element_is_present(self.locators.RESULT_OPTION_2).text
             return option_value, actual_value
+        
+    @allure.step('Check old dropdown option')
+    def check_old_dropdown(self) -> str:
+        input_value = str(random.randint(1, 10))
+        self.select_element_by_value(self.locators.SELECT_OLD, input_value)
+        result_value = self.element_is_present(self.locators.SELECT_OLD).get_attribute('value')
+        return input_value, result_value

@@ -93,3 +93,5 @@ class SelectMenuPageLocators:
     SELECT_INPUT_2 = (By.XPATH, '//input[@id="react-select-3-input"]')
     RESULT_OPTION_2 = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
     
+    SELECT_OLD = (By.XPATH, '//select[@id="oldSelectMenu"]')
+    
