@@ -1,4 +1,3 @@
-import time
 import allure
 import pytest
 
@@ -61,15 +60,23 @@ class TestSelectablePage:
 @allure.feature('Resizable Page')
 class TestResizablePage:
 
-    @allure.title('Check changed resizable boxes')
-    def test_resizable(self, driver):
-        resizable_page = ResizablePage(driver, 'https://demoqa.com/resizable')
+    @allure.title('Check changed "Resizable box"')
+    def test_resizable_box(self, driver):
+        resizable_page = ResizablePage(driver)
         resizable_page.open()
         max_box, min_box = resizable_page.change_size_resizable_box()
+        assert ('500px', '300px') == max_box, \
+            'Maximum size not equal to "500px", "300px"'
+        assert ('150px', '150px') == min_box, \
+            'Minimum size not equal to "150px", "150px"'
+
+    @allure.title('Check changed "Resizable"')
+    def test_resizable(self, driver):
+        resizable_page = ResizablePage(driver)
+        resizable_page.open()
         max_resize, min_resize = resizable_page.change_size_resizable()
-        assert ('500px', '300px') == max_box, "maximum size not equal to '500px', '300px'"
-        assert ('150px', '150px') == min_box, "minimum size not equal to '150px', '150px'"
-        assert min_resize != max_resize, "resizable has not been changed"
+        assert min_resize != max_resize, \
+            'Resizable has not been changed'
 
 
 @allure.suite('Interactions')

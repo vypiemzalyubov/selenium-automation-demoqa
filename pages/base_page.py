@@ -159,7 +159,7 @@ class BasePage:
     @allure.step('Drag and drop element by offset')
     def action_drag_and_drop_by_offset(self, element: WebElement, x_coords: int, y_coords: int) -> None:
         logger.info(
-            f'Drag and drop an element "{element.aria_role}" by offset "{x_coords}" "{y_coords}"'
+            f'Drag and drop an element "{element.tag_name}" by offset "{x_coords}" "{y_coords}"'
         )
         action = ActionChains(self.driver)
         action.drag_and_drop_by_offset(element, x_coords, y_coords)

@@ -27,6 +27,7 @@ class UIRoutes(str, Enum):
     SELECT_MENU = '/select-menu'
     SORTABLE = '/sortable'
     SELECTABLE = '/selectable'
+    RESIZABLE = '/resizable'
 
     def __str__(self) -> str:
         return self.value

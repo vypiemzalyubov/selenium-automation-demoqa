@@ -5,6 +5,7 @@ from typing import List, Tuple
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 
 from locators.interactions_page_locators import (
     SortablePageLocators,
@@ -90,35 +91,38 @@ class ResizablePage(BasePage):
 
     locators = ResizablePageLocators()
 
-    @allure.step('Get px from width and height')
-    def get_px_from_width_height(self, value_of_size):
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.RESIZABLE)
+
+    @allure.step('Change size resizable box')
+    def change_size_resizable_box(self) -> Tuple[Tuple[str, str], Tuple[str, str]]:
+        self.action_drag_and_drop_by_offset(self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), 400, 200)
+        max_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE_BOX))
+        self.action_drag_and_drop_by_offset(self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), -500, -300)
+        min_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE_BOX))
+        return max_size, min_size
+
+    @allure.step('Change size resizable')
+    def change_size_resizable(self) -> Tuple[Tuple[str, str], Tuple[str, str]]:
+        self.action_drag_and_drop_by_offset(self.element_is_visible(self.locators.RESIZABLE_HANDLE),
+                                            random.randint(1, 300), random.randint(1, 300))
+        max_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE))
+        self.action_drag_and_drop_by_offset(self.element_is_visible(self.locators.RESIZABLE_HANDLE),
+                                            random.randint(-200, -1), random.randint(-200, -1))
+        min_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE))
+        return max_size, min_size
+
+    @allure.step('Get pixel from width and height')
+    def _get_px_from_width_height(self, value_of_size: str) -> Tuple[str, str]:
         width = value_of_size.split(';')[0].split(':')[1].replace(' ', '')
         height = value_of_size.split(';')[1].split(':')[1].replace(' ', '')
         return width, height
 
     @allure.step('Get max and min size')
-    def get_max_min_size(self, element):
+    def _get_max_min_size(self, element: WebElement) -> str:
         size = self.element_is_present(element)
         size_value = size.get_attribute('style')
         return size_value
-
-    @allure.step('Change size resizable box')
-    def change_size_resizable_box(self):
-        self.action_drag_and_drop_by_offset(self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), 400, 200)
-        max_size = self.get_px_from_width_height(self.get_max_min_size(self.locators.RESIZABLE_BOX))
-        self.action_drag_and_drop_by_offset(self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), -500, -300)
-        min_size = self.get_px_from_width_height(self.get_max_min_size(self.locators.RESIZABLE_BOX))
-        return max_size, min_size
-
-    @allure.step('Change size resizable')
-    def change_size_resizable(self):
-        self.action_drag_and_drop_by_offset(self.element_is_visible(self.locators.RESIZABLE_HANDLE),
-                                            random.randint(1, 300), random.randint(1, 300))
-        max_size = self.get_px_from_width_height(self.get_max_min_size(self.locators.RESIZABLE))
-        self.action_drag_and_drop_by_offset(self.element_is_visible(self.locators.RESIZABLE_HANDLE),
-                                            random.randint(-200, -1), random.randint(-200, -1))
-        min_size = self.get_px_from_width_height(self.get_max_min_size(self.locators.RESIZABLE))
-        return max_size, min_size
 
 
 class DroppablePage(BasePage):
