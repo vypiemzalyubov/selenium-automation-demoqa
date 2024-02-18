@@ -47,7 +47,7 @@ class AccordianPage(BasePage):
             'third': {
                 'title': self.locators.SECTION_THIRD,
                 'content': self.locators.SECTION_CONTENT_THIRD
-            },
+            }
         }
         section_title = self.element_is_visible(accordian[accordian_number]['title'])
         section_title.click()

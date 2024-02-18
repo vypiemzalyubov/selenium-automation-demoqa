@@ -1,8 +1,10 @@
 import random
 import re
 import time
+from typing import List, Tuple
 
 import allure
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 from locators.interactions_page_locators import (
     SortablePageLocators,
@@ -12,37 +14,40 @@ from locators.interactions_page_locators import (
     DraggablePageLocators
 )
 from pages.base_page import BasePage
+from utils.routes import UIRoutes
 
 
 class SortablePage(BasePage):
 
     locators = SortablePageLocators()
 
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.SORTABLE)
+
     @allure.step('Get sortable items')
-    def get_sortable_items(self, elements):
+    def get_sortable_items(self, elements) -> List[str]:
         item_list = self.elements_are_visible(elements)
         return [item.text for item in item_list]
 
-    @allure.step('Change list order')
-    def change_list_order(self):
-        self.element_is_visible(self.locators.TAB_LIST).click()
-        order_before = self.get_sortable_items(self.locators.LIST_ITEM)
-        item_list = random.sample(self.elements_are_visible(self.locators.LIST_ITEM), k=2)
+    @allure.step('Change list or grid order')
+    def change_order(self, tab_name: str) -> Tuple[List[str], List[str]]:
+        tabs = {
+            'list': {
+                'tab': self.locators.TAB_LIST,
+                'item': self.locators.LIST_ITEM
+            },
+            'grid': {
+                'tab': self.locators.TAB_GRID,
+                'item': self.locators.GRID_ITEM
+            }
+        }
+        self.element_is_visible(tabs[tab_name]['tab']).click()
+        order_before = self.get_sortable_items(tabs[tab_name]['item'])
+        item_list = random.sample(self.elements_are_visible(tabs[tab_name]['item']), k=2)
         item_what = item_list[0]
         item_where = item_list[1]
         self.action_drag_and_drop_to_element(item_what, item_where)
-        order_after = self.get_sortable_items(self.locators.LIST_ITEM)
-        return order_before, order_after
-
-    @allure.step('Change grade order')
-    def change_grid_order(self):
-        self.element_is_visible(self.locators.TAB_GRID).click()
-        order_before = self.get_sortable_items(self.locators.GRID_ITEM)
-        item_list = random.sample(self.elements_are_visible(self.locators.GRID_ITEM), k=2)
-        item_what = item_list[0]
-        item_where = item_list[1]
-        self.action_drag_and_drop_to_element(item_what, item_where)
-        order_after = self.get_sortable_items(self.locators.GRID_ITEM)
+        order_after = self.get_sortable_items(tabs[tab_name]['item'])
         return order_before, order_after
 
 
@@ -147,7 +152,7 @@ class DroppablePage(BasePage):
     def drop_revert_draggable(self, type_drag):
         drags = {
             'will': {
-                'revert': self.locators.WILL_REVERT, 
+                'revert': self.locators.WILL_REVERT,
             },
             'not_will': {
                 'revert': self.locators.NOT_REVERT

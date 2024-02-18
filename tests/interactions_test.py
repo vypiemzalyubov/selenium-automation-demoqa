@@ -1,20 +1,31 @@
+import time
 import allure
+import pytest
 
-from pages.interactions_page import SortablePage, SelectablePage, ResizablePage, DroppablePage, DraggablePage
+from pages.interactions_page import (
+    SortablePage, 
+    SelectablePage, 
+    ResizablePage, 
+    DroppablePage, 
+    DraggablePage
+)
 
 
 @allure.suite('Interactions')
 @allure.feature('Sortable Page')
 class TestSortablePage:
 
-    @allure.title('Check changed sortable list and grid')
-    def test_sortable(self, driver):
-        sortable_page = SortablePage(driver, 'https://demoqa.com/sortable')
+    @allure.title('Check changed sortable list or grid')
+    @pytest.mark.parametrize(
+        'tab', 
+        ['list', 'grid']
+    )
+    def test_sortable(self, driver, tab):
+        sortable_page = SortablePage(driver)
         sortable_page.open()
-        list_before, list_after = sortable_page.change_list_order()
-        grid_before, grid_after = sortable_page.change_grid_order()
-        assert list_before != list_after, 'the order of the list has not been changed'
-        assert grid_before != grid_after, 'the order of the grid has not been changed'
+        sortable_before, sortable_after = sortable_page.change_order(tab)
+        assert sortable_before != sortable_after, \
+            f'The order of the {tab} has not been changed'
 
 
 @allure.suite('Interactions')

@@ -87,17 +87,22 @@ class MenuPageLocators:
 
 class SelectMenuPageLocators:
 
+    # select value
     SELECT_INPUT_1 = (By.XPATH, '//input[@id="react-select-2-input"]')
     RESULT_OPTION_1 = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
 
+    # select one
     SELECT_INPUT_2 = (By.XPATH, '//input[@id="react-select-3-input"]')
     RESULT_OPTION_2 = (By.XPATH, '//div[@class=" css-1uccc91-singleValue"]')
 
+    # old style select menu
     SELECT_OLD = (By.XPATH, '//select[@id="oldSelectMenu"]')
 
+    # multiselect drop down
     MULTI_DROPDOWN_SELECT = (By.XPATH, '//div[contains(text(), "Select...")]')
     MULTI_DROPDOWN_VALUE = (By.XPATH, '//div[@class="css-1rhbuit-multiValue"]')
     MULTI_DROPDOWN_VALUE_REMOVE = (By.XPATH, '//div[@class="css-xb97g8"]')
     REMOVE_ALL_MULTI_DROPDOWN = (By.XPATH, '(//div[@class=" css-1gtu0rj-indicatorContainer"])[1]')
 
+    # standard multi select
     STANDART_MULTI = (By.XPATH, '//select[@id="cars"]')

@@ -111,35 +111,35 @@ class BasePage:
         select.select_by_value(value)
 
     @allure.step('Switch to new window')
-    def switch_to_window(self, window_number: int):
+    def switch_to_window(self, window_number: int) -> None:
         logger.info(
             f'Switch to the window with the number "{window_number}"'
         )
         self.driver.switch_to.window(self.driver.window_handles[window_number])
 
     @allure.step('Switch to alert')
-    def switch_to_alert(self):
+    def switch_to_alert(self) -> None:
         logger.info(
             'Switch to alert'
         )
         return self.wait.until(EC.alert_is_present())
 
     @allure.step('Switch to frame')
-    def switch_to_frame(self, frame):
+    def switch_to_frame(self, frame) -> None:
         logger.info(
             f'Switch to frame'
         )
         self.wait.until(EC.frame_to_be_available_and_switch_to_it(frame))
 
     @allure.step('Switch to default content')
-    def switch_to_default_content(self):
+    def switch_to_default_content(self) -> None:
         logger.info(
             'Switch to default content'
         )
         self.driver.switch_to.default_content()
 
     @allure.step('Double click')
-    def action_double_click(self, element: WebElement):
+    def action_double_click(self, element: WebElement) -> None:
         logger.info(
             f'Double click on an element "{element}"'
         )
@@ -148,7 +148,7 @@ class BasePage:
         action.perform()
 
     @allure.step('Right click')
-    def action_right_click(self, element: WebElement):
+    def action_right_click(self, element: WebElement) -> None:
         logger.info(
             f'Right-click on an element "{element}"'
         )
@@ -156,8 +156,8 @@ class BasePage:
         action.context_click(element)
         action.perform()
 
-    @allure.step('Drag and drop by offset')
-    def action_drag_and_drop_by_offset(self, element: WebElement, x_coords: int, y_coords: int):
+    @allure.step('Drag and drop element by offset')
+    def action_drag_and_drop_by_offset(self, element: WebElement, x_coords: int, y_coords: int) -> None:
         logger.info(
             f'Drag and drop an element "{element.aria_role}" by offset "{x_coords}" "{y_coords}"'
         )
@@ -165,17 +165,17 @@ class BasePage:
         action.drag_and_drop_by_offset(element, x_coords, y_coords)
         action.perform()
 
-    @allure.step('Drag and drop element to element')
-    def action_drag_and_drop_to_element(self, what, where):
+    @allure.step('Drag and drop an element to another element')
+    def action_drag_and_drop_to_element(self, what: WebElement, where: WebElement) -> None:
         logger.info(
-            f'Drag element "{what}" and drop to "{where}"'
+            f'Drag element and drop element "{what.tag_name}" to element "{where.tag_name}"'
         )
         action = ActionChains(self.driver)
         action.drag_and_drop(what, where)
         action.perform()
 
     @allure.step('Move cursor to element')
-    def action_move_to_element(self, element: WebElement):
+    def action_move_to_element(self, element: WebElement) -> None:
         logger.info(
             f'Move to element "{element.accessible_name}"'
         )
@@ -184,7 +184,7 @@ class BasePage:
         action.perform()
 
     @allure.step('Remove footer')
-    def remove_footer(self):
+    def remove_footer(self) -> None:
         logger.info(
             'Remove footer and fixedban'
         )

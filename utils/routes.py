@@ -24,7 +24,8 @@ class UIRoutes(str, Enum):
     TABS = '/tabs'
     TOOL_TIPS = '/tool-tips'
     MENU = '/menu'
-    SELECT_MENU = "/select-menu"
+    SELECT_MENU = '/select-menu'
+    SORTABLE = '/sortable'
 
     def __str__(self) -> str:
         return self.value
