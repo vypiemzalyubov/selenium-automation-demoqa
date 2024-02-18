@@ -28,6 +28,7 @@ class UIRoutes(str, Enum):
     SORTABLE = '/sortable'
     SELECTABLE = '/selectable'
     RESIZABLE = '/resizable'
+    DROPPABLE = '/droppable'
 
     def __str__(self) -> str:
         return self.value

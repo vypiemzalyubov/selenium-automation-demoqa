@@ -129,6 +129,9 @@ class DroppablePage(BasePage):
 
     locators = DroppablePageLocators()
 
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.DROPPABLE)
+
     @allure.step('Drop simple div')
     def drop_simple(self):
         self.element_is_visible(self.locators.SIMPLE_TAB).click()
