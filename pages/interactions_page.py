@@ -24,11 +24,6 @@ class SortablePage(BasePage):
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.SORTABLE)
 
-    @allure.step('Get sortable items')
-    def get_sortable_items(self, elements) -> List[str]:
-        item_list = self.elements_are_visible(elements)
-        return [item.text for item in item_list]
-
     @allure.step('Change list or grid order')
     def change_order(self, tab_name: str) -> Tuple[List[str], List[str]]:
         tabs = {
@@ -42,13 +37,18 @@ class SortablePage(BasePage):
             }
         }
         self.element_is_visible(tabs[tab_name]['tab']).click()
-        order_before = self.get_sortable_items(tabs[tab_name]['item'])
+        order_before = self._get_sortable_items(tabs[tab_name]['item'])
         item_list = random.sample(self.elements_are_visible(tabs[tab_name]['item']), k=2)
         item_what = item_list[0]
         item_where = item_list[1]
         self.action_drag_and_drop_to_element(item_what, item_where)
-        order_after = self.get_sortable_items(tabs[tab_name]['item'])
+        order_after = self._get_sortable_items(tabs[tab_name]['item'])
         return order_before, order_after
+
+    @allure.step('Get sortable items')
+    def _get_sortable_items(self, elements) -> List[str]:
+        item_list = self.elements_are_visible(elements)
+        return [item.text for item in item_list]
 
 
 class SelectablePage(BasePage):
