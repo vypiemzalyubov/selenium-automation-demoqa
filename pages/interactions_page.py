@@ -55,24 +55,35 @@ class SelectablePage(BasePage):
 
     locators = SelectablePageLocators()
 
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.SELECTABLE)
+
+    @allure.step('Select list or grid item')
+    def select_item(self, tab_name: str, count: str) -> int:
+        tabs = {
+            'list': {
+                'tab': self.locators.TAB_LIST,
+                'item': self.locators.LIST_ITEM,
+                'active': self.locators.LIST_ITEM_ACTIVE
+            },
+            'grid': {
+                'tab': self.locators.TAB_GRID,
+                'item': self.locators.GRID_ITEM,
+                'active': self.locators.GRID_ITEM_ACTIVE
+            }
+        }        
+        self.element_is_visible(tabs[tab_name]['tab']).click()
+        self._click_selectable_item(tabs[tab_name]['item'], count)
+        active_elements = self.elements_are_visible(tabs[tab_name]['active'])
+        return len(active_elements)
+
     @allure.step('Click selectable item')
-    def click_selectable_item(self, elements):
+    def _click_selectable_item(self, elements: List[str], count: str) -> None:
         item_list = self.elements_are_visible(elements)
-        random.sample(item_list, k=1)[0].click()
-
-    @allure.step('Select list item')
-    def select_list_item(self):
-        self.element_is_visible(self.locators.TAB_LIST).click()
-        self.click_selectable_item(self.locators.LIST_ITEM)
-        active_element = self.element_is_visible(self.locators.LIST_ITEM_ACTIVE)
-        return active_element.text
-
-    @allure.step('Select grid item')
-    def select_grid_item(self):
-        self.element_is_visible(self.locators.TAB_GRID).click()
-        self.click_selectable_item(self.locators.GRID_ITEM)
-        active_element = self.element_is_visible(self.locators.GRID_ITEM_ACTIVE)
-        return active_element.text
+        if count == 'one':
+            random.sample(item_list, k=1)[0].click()
+        else:
+            [item.click() for item in item_list]    
 
 
 class ResizablePage(BasePage):

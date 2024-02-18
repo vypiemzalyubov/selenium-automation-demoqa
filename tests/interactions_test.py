@@ -32,14 +32,29 @@ class TestSortablePage:
 @allure.feature('Selectable Page')
 class TestSelectablePage:
 
-    @allure.title('Check changed selectable list and grid')
-    def test_selectable(self, driver):
-        selectable_page = SelectablePage(driver, 'https://demoqa.com/selectable')
+    @allure.title('Check changed selectable list or grid of a one item')
+    @pytest.mark.parametrize(
+        'tab,count', 
+        [('list', 'one'), ('grid', 'one')]
+    )    
+    def test_selectable_one_item(self, driver, tab, count):
+        selectable_page = SelectablePage(driver)
         selectable_page.open()
-        item_list = selectable_page.select_list_item()
-        item_grid = selectable_page.select_grid_item()
-        assert len(item_list) > 0, "no elements were selected"
-        assert len(item_grid) > 0, "no elements were selected"
+        item_length = selectable_page.select_item(tab, count)
+        assert item_length == 1, \
+            f'No elements were selected in {tab}'
+
+    @allure.title('Check changed selectable list or grid of all items')
+    @pytest.mark.parametrize(
+        'tab,count,length', 
+        [('list', 'all', 4), ('grid', 'all', 9)]
+    )    
+    def test_selectable_all_items(self, driver, tab, count, length):
+        selectable_page = SelectablePage(driver)
+        selectable_page.open()
+        item_length = selectable_page.select_item(tab, count)
+        assert item_length == length, \
+            f'Not all elements were selected in {tab}'
 
 
 @allure.suite('Interactions')
