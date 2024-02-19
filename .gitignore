@@ -16,6 +16,9 @@ venv.bak/
 # VSCode
 .vscode/
 
+# Pycharm
+.idea
+
 # Allure
 allure-results/
 docker-results/
