@@ -133,7 +133,7 @@ class DroppablePage(BasePage):
         super().__init__(driver, page=UIRoutes.DROPPABLE)
 
     @allure.step('Drop simple div')
-    def drop_simple(self):
+    def drop_simple(self) -> str:
         self.element_is_visible(self.locators.SIMPLE_TAB).click()
         drag_div = self.element_is_visible(self.locators.DRAG_ME_SIMPLE)
         drop_div = self.element_is_visible(self.locators.DROP_HERE_SIMPLE)
@@ -141,33 +141,40 @@ class DroppablePage(BasePage):
         return drop_div.text
 
     @allure.step('Drop accept div')
-    def drop_accept(self):
+    def drop_accept(self, accept: str) -> str:
+        accepts = {
+            "acceptable": self.locators.ACCEPTABLE,
+            "not_acceptable": self.locators.NOT_ACCEPTABLE
+        }
         self.element_is_visible(self.locators.ACCEPT_TAB).click()
-        acceptable_div = self.element_is_visible(self.locators.ACCEPTABLE)
-        not_acceptable_div = self.element_is_visible(self.locators.NOT_ACCEPTABLE)
+        accept_div = self.element_is_visible(accepts[accept])
         drop_div = self.element_is_visible(self.locators.DROP_HERE_ACCEPT)
-        self.action_drag_and_drop_to_element(not_acceptable_div, drop_div)
-        drop_text_not_accept = drop_div.text
-        self.action_drag_and_drop_to_element(acceptable_div, drop_div)
-        drop_text_accept = drop_div.text
-        return drop_text_not_accept, drop_text_accept
+        self.action_drag_and_drop_to_element(accept_div, drop_div)
+        drop_text = drop_div.text
+        return drop_text
 
     @allure.step('Drop prevent propogation div')
-    def drop_prevent_propogation(self):
+    def drop_prevent_propogation(self, propogation: str) -> Tuple[str, str]:
+        propogations = {
+            'greedy': {
+                'box': self.locators.GREEDY_INNER_BOX,
+                'text': self.locators.GREEDY_DROP_BOX_TEXT
+            },
+            'not_greedy': {
+                'box': self.locators.NOT_GREEDY_INNER_BOX,
+                'text': self.locators.NOT_GREEDY_DROP_BOX_TEXT
+            }            
+        }
         self.element_is_visible(self.locators.PREVENT_TAB).click()
         drag_div = self.element_is_visible(self.locators.DRAG_ME_PREVENT)
-        not_greedy_inner_box = self.element_is_visible(self.locators.NOT_GREEDY_INNER_BOX)
-        greedy_inner_box = self.element_is_visible(self.locators.GREEDY_INNER_BOX)
-        self.action_drag_and_drop_to_element(drag_div, not_greedy_inner_box)
-        text_not_greedy_box = self.element_is_visible(self.locators.NOT_GREEDY_DROP_BOX_TEXT).text
-        text_not_greedy_inner_box = not_greedy_inner_box.text
-        self.action_drag_and_drop_to_element(drag_div, greedy_inner_box)
-        text_greedy_box = self.element_is_visible(self.locators.GREEDY_DROP_BOX_TEXT).text
-        text_greedy_inner_box = greedy_inner_box.text
-        return text_not_greedy_box, text_not_greedy_inner_box, text_greedy_box, text_greedy_inner_box
+        inner_box = self.element_is_visible(propogations[propogation]['box'])
+        self.action_drag_and_drop_to_element(drag_div, inner_box)
+        outer_box_text = self.element_is_visible(propogations[propogation]['text']).text
+        inner_box_text = inner_box.text
+        return outer_box_text, inner_box_text
 
     @allure.step('Drag revert draggable div')
-    def drop_revert_draggable(self, type_drag):
+    def drop_revert_draggable(self, type_drag: str)-> Tuple[str, str]:
         drags = {
             'will': {
                 'revert': self.locators.WILL_REVERT,

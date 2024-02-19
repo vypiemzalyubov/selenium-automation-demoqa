@@ -91,40 +91,57 @@ class TestDroppablePage:
         assert text == 'Dropped!', \
             'The elements has not been dropped'
 
-    @allure.title('Check accept droppable')
-    def test_accept_droppable(self, driver):
+    @allure.title('Check accebtable div in "Accept" droppable')
+    def test_accept_droppable_accebtable(self, driver):
         droppable_page = DroppablePage(driver)
         droppable_page.open()
-        not_accept, accept = droppable_page.drop_accept()
-        assert not_accept == 'Drop here', \
-            'The dropped element has been accepted'
-        assert accept == 'Dropped!', \
+        accept_result = droppable_page.drop_accept('acceptable')
+        assert accept_result == 'Dropped!', \
             'The dropped element has not been accepted'
 
-    @allure.title('Check "Prevent Propogation" droppable')
-    def test_prevent_propogation_droppable(self, driver):
+    @allure.title('Check not accebtable div in "Accept" droppable')
+    def test_accept_droppable_not_accebtable(self, driver):
         droppable_page = DroppablePage(driver)
         droppable_page.open()
-        not_greedy, not_greedy_inner, greedy, greedy_inner = droppable_page.drop_prevent_propogation()
-        assert not_greedy == 'Dropped!', \
+        accept_result = droppable_page.drop_accept('not_acceptable')
+        assert accept_result == 'Drop here', \
+            'The dropped element has been accepted'
+
+    @allure.title('Check not greedy box in "Prevent Propogation" droppable')
+    def test_prevent_propogation_droppable_not_greedy(self, driver):
+        droppable_page = DroppablePage(driver)
+        droppable_page.open()
+        outer_box_text, inner_box_text = droppable_page.drop_prevent_propogation('not_greedy')
+        assert outer_box_text == 'Dropped!', \
             'The elements texts has not been changed'
-        assert not_greedy_inner == 'Dropped!', \
-            'The elements texts has not been changed'
-        assert greedy == 'Outer droppable', \
-            'The elements texts has been changed'
-        assert greedy_inner == 'Dropped!', \
+        assert inner_box_text == 'Dropped!', \
             'The elements texts has not been changed'
 
-    @allure.title('Check revert draggable droppable')
-    def test_revert_draggable_droppable(self, driver):
+    @allure.title('Check greedy box in "Prevent Propogation" droppable')
+    def test_prevent_propogation_droppable_greedy(self, driver):
         droppable_page = DroppablePage(driver)
         droppable_page.open()
-        will_after_move, will_after_revert = droppable_page.drop_revert_draggable('will')
-        not_will_after_move, not_will_after_revert = droppable_page.drop_revert_draggable('not_will')
-        assert will_after_move != will_after_revert, \
+        outer_box_text, inner_box_text = droppable_page.drop_prevent_propogation('greedy')
+        assert outer_box_text == 'Outer droppable', \
+            'The elements texts has been changed'
+        assert inner_box_text == 'Dropped!', \
+            'The elements texts has not been changed'
+
+    @allure.title('Check will revert in "Revert draggable" droppable')
+    def test_will_revert_draggable_droppable(self, driver):
+        droppable_page = DroppablePage(driver)
+        droppable_page.open()
+        position_after_move, position_after_revert = droppable_page.drop_revert_draggable('will')
+        assert position_after_move != position_after_revert, \
             'The elements has not reverted'
-        assert not_will_after_move == not_will_after_revert, \
-            'The elements has  reverted'
+
+    @allure.title('Check not will revert in "Revert draggable" droppable')
+    def test_not_will_revert_draggable_droppable(self, driver):
+        droppable_page = DroppablePage(driver)
+        droppable_page.open()
+        position_after_move, position_after_revert = droppable_page.drop_revert_draggable('not_will')
+        assert position_after_move == position_after_revert, \
+            'The elements has reverted'
 
 
 @allure.suite('Interactions')

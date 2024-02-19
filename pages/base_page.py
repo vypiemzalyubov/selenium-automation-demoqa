@@ -168,7 +168,7 @@ class BasePage:
     @allure.step('Drag and drop an element to another element')
     def action_drag_and_drop_to_element(self, what: WebElement, where: WebElement) -> None:
         logger.info(
-            f'Drag element and drop element "{what.tag_name}" to element "{where.tag_name}"'
+            f'Drag and drop an element "{what.tag_name}" to element "{where.tag_name}"'
         )
         action = ActionChains(self.driver)
         action.drag_and_drop(what, where)
