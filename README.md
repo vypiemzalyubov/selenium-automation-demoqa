@@ -21,6 +21,7 @@ selenium-automation-demoqa/
 ├── tests
 │   ├── __init__.py
 │   ├── alerts_frame_windows_test.py
+│   ├── conftest.py
 │   ├── elements_test.py
 │   ├── form_test.py
 │   ├── interactions_test.py
@@ -34,7 +35,6 @@ selenium-automation-demoqa/
 ├── .gitignore
 ├── Dockerfile
 ├── LICENSE
-├── conftest.py
 ├── pytest.ini
 ├── README.md
 ├── requirements.txt
