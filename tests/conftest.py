@@ -37,3 +37,9 @@ def driver(request: pytest.FixtureRequest):
     request.cls.driver = driver
     yield driver
     driver.quit()
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_configure(config):
+    alluredir = getattr(config.option, "allure_report_dir", None)
+    if not alluredir:
+        setattr(config.option, "allure_report_dir", "allure-results")
