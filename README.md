@@ -33,6 +33,7 @@ selenium-automation-demoqa/
 │   └── settings.py
 ├── env.example
 ├── .gitignore
+├── docker-compose.yml
 ├── Dockerfile
 ├── LICENSE
 ├── pytest.ini

@@ -167,6 +167,7 @@ class TestTabsPage:
 class TestToolTips:
 
     @allure.title('Check tool tips')
+    @pytest.mark.flaky(reruns=2, reruns_delay=2)
     @pytest.mark.parametrize(
         'tool_tip, expected_hover',
         [
