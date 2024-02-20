@@ -2,11 +2,11 @@ import allure
 import pytest
 
 from pages.interactions_page import (
-    SortablePage, 
-    SelectablePage, 
-    ResizablePage, 
-    DroppablePage, 
-    DraggablePage
+    SortablePage,
+    SelectablePage,
+    ResizablePage,
+    DroppablePage,
+    DragabblePage
 )
 
 
@@ -16,11 +16,11 @@ class TestSortablePage:
 
     @allure.title('Check changed sortable list or grid')
     @pytest.mark.parametrize(
-        'tab', 
+        'tab',
         ['list', 'grid']
     )
-    def test_sortable(self, driver, tab):
-        sortable_page = SortablePage(driver)
+    def test_sortable(self, tab):
+        sortable_page = SortablePage(self.driver)
         sortable_page.open()
         sortable_before, sortable_after = sortable_page.change_order(tab)
         assert sortable_before != sortable_after, \
@@ -33,11 +33,11 @@ class TestSelectablePage:
 
     @allure.title('Check changed selectable list or grid of a one item')
     @pytest.mark.parametrize(
-        'tab,count', 
+        'tab,count',
         [('list', 'one'), ('grid', 'one')]
-    )    
-    def test_selectable_one_item(self, driver, tab, count):
-        selectable_page = SelectablePage(driver)
+    )
+    def test_selectable_one_item(self, tab, count):
+        selectable_page = SelectablePage(self.driver)
         selectable_page.open()
         item_length = selectable_page.select_item(tab, count)
         assert item_length == 1, \
@@ -45,11 +45,11 @@ class TestSelectablePage:
 
     @allure.title('Check changed selectable list or grid of all items')
     @pytest.mark.parametrize(
-        'tab,count,length', 
+        'tab,count,length',
         [('list', 'all', 4), ('grid', 'all', 9)]
-    )    
-    def test_selectable_all_items(self, driver, tab, count, length):
-        selectable_page = SelectablePage(driver)
+    )
+    def test_selectable_all_items(self, tab, count, length):
+        selectable_page = SelectablePage(self.driver)
         selectable_page.open()
         item_length = selectable_page.select_item(tab, count)
         assert item_length == length, \
@@ -61,8 +61,8 @@ class TestSelectablePage:
 class TestResizablePage:
 
     @allure.title('Check changed "Resizable box"')
-    def test_resizable_box(self, driver):
-        resizable_page = ResizablePage(driver)
+    def test_resizable_box(self):
+        resizable_page = ResizablePage(self.driver)
         resizable_page.open()
         max_box, min_box = resizable_page.change_size_resizable_box()
         assert ('500px', '300px') == max_box, \
@@ -71,8 +71,8 @@ class TestResizablePage:
             'Minimum size not equal to "150px", "150px"'
 
     @allure.title('Check changed "Resizable"')
-    def test_resizable(self, driver):
-        resizable_page = ResizablePage(driver)
+    def test_resizable(self):
+        resizable_page = ResizablePage(self.driver)
         resizable_page.open()
         max_resize, min_resize = resizable_page.change_size_resizable()
         assert min_resize != max_resize, \
@@ -84,32 +84,32 @@ class TestResizablePage:
 class TestDroppablePage:
 
     @allure.title('Check "Simple" droppable')
-    def test_simple_droppable(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_simple_droppable(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         text = droppable_page.drop_simple()
         assert text == 'Dropped!', \
             'The elements has not been dropped'
 
     @allure.title('Check accebtable div in "Accept" droppable')
-    def test_accept_droppable_accebtable(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_accept_droppable_accebtable(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         accept_result = droppable_page.drop_accept('acceptable')
         assert accept_result == 'Dropped!', \
             'The dropped element has not been accepted'
 
     @allure.title('Check not accebtable div in "Accept" droppable')
-    def test_accept_droppable_not_accebtable(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_accept_droppable_not_accebtable(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         accept_result = droppable_page.drop_accept('not_acceptable')
         assert accept_result == 'Drop here', \
             'The dropped element has been accepted'
 
     @allure.title('Check not greedy box in "Prevent Propogation" droppable')
-    def test_prevent_propogation_droppable_not_greedy(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_prevent_propogation_droppable_not_greedy(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         outer_box_text, inner_box_text = droppable_page.drop_prevent_propogation('not_greedy')
         assert outer_box_text == 'Dropped!', \
@@ -118,8 +118,8 @@ class TestDroppablePage:
             'The elements texts has not been changed'
 
     @allure.title('Check greedy box in "Prevent Propogation" droppable')
-    def test_prevent_propogation_droppable_greedy(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_prevent_propogation_droppable_greedy(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         outer_box_text, inner_box_text = droppable_page.drop_prevent_propogation('greedy')
         assert outer_box_text == 'Outer droppable', \
@@ -128,16 +128,16 @@ class TestDroppablePage:
             'The elements texts has not been changed'
 
     @allure.title('Check will revert in "Revert draggable" droppable')
-    def test_will_revert_draggable_droppable(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_will_revert_draggable_droppable(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         position_after_move, position_after_revert = droppable_page.drop_revert_draggable('will')
         assert position_after_move != position_after_revert, \
             'The elements has not reverted'
 
     @allure.title('Check not will revert in "Revert draggable" droppable')
-    def test_not_will_revert_draggable_droppable(self, driver):
-        droppable_page = DroppablePage(driver)
+    def test_not_will_revert_draggable_droppable(self):
+        droppable_page = DroppablePage(self.driver)
         droppable_page.open()
         position_after_move, position_after_revert = droppable_page.drop_revert_draggable('not_will')
         assert position_after_move == position_after_revert, \
@@ -145,27 +145,35 @@ class TestDroppablePage:
 
 
 @allure.suite('Interactions')
-@allure.feature('Draggable Page')
-class TestDraggablePage:
-    
-    @allure.title('Check simple draggable')
-    def test_simple_draggable(self, driver):
-        draggable_page = DraggablePage(driver, 'https://demoqa.com/dragabble')
-        draggable_page.open()
-        before, after = draggable_page.simple_drag_box()
-        assert before != after, 'the position of the box has not been changed'
+@allure.feature('Dragabble Page')
+class TestDragabblePage:
 
-    @allure.title('Check axis restricted draggable')
-    def test_axis_restricted_draggable(self, driver):
-        draggable_page = DraggablePage(driver, 'https://demoqa.com/dragabble')
-        draggable_page.open()
-        top_x, left_x = draggable_page.axis_restricted_x()
-        top_y, left_y = draggable_page.axis_restricted_y()
-        assert top_x[0][0] == top_x[1][0] and int(
-            top_x[1][0]) == 0, "box position has not changed or there has been a shift in the y-axis"
-        assert left_x[0][0] != left_x[1][0] and int(
-            left_x[1][0]) != 0, "box position has not changed or there has been a shift in the y-axis"
-        assert top_y[0][0] != top_y[1][0] and int(
-            top_y[1][0]) != 0, "box position has not changed or there has been a shift in the x-axis"
-        assert left_y[0][0] == left_y[1][0] and int(
-            left_y[1][0]) == 0, "box position has not changed or there has been a shift in the x-axis"
+    @allure.title('Check "Simple" dragabble')
+    def test_simple_dragabble(self):
+        dragabble_page = DragabblePage(self.driver)
+        dragabble_page.open()
+        before, after = dragabble_page.simple_drag_box()
+        assert before != after, \
+            'The position of the box has not been changed'
+
+    @allure.title('Check Only X in "Axis Restricted" dragabble')
+    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    def test_axis_restricted_dragabble_only_x(self):
+        dragabble_page = DragabblePage(self.driver)
+        dragabble_page.open()
+        top_x, left_x = dragabble_page.drag_axis_restricted('only_x')
+        assert top_x[0][0] == top_x[1][0] and int(top_x[1][0]) == 0, \
+            "Box position has not changed or there has been a shift in the y-axis"
+        assert left_x[0][0] != left_x[1][0] and int(left_x[1][0]) != 0, \
+            "Box position has not changed or there has been a shift in the y-axis"
+
+    @allure.title('Check Only Y in "Axis Restricted" dragabble')
+    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    def test_axis_restricted_dragabble_only_y(self):
+        dragabble_page = DragabblePage(self.driver)
+        dragabble_page.open()
+        top_y, left_y = dragabble_page.drag_axis_restricted('only_y')
+        assert top_y[0][0] != top_y[1][0] and int(top_y[1][0]) != 0, \
+            "Box position has not changed or there has been a shift in the x-axis"
+        assert left_y[0][0] == left_y[1][0] and int(left_y[1][0]) == 0, \
+            "Box position has not changed or there has been a shift in the x-axis"

@@ -72,7 +72,7 @@ class SelectablePage(BasePage):
                 'item': self.locators.GRID_ITEM,
                 'active': self.locators.GRID_ITEM_ACTIVE
             }
-        }        
+        }
         self.element_is_visible(tabs[tab_name]['tab']).click()
         self._click_selectable_item(tabs[tab_name]['item'], count)
         active_elements = self.elements_are_visible(tabs[tab_name]['active'])
@@ -84,7 +84,7 @@ class SelectablePage(BasePage):
         if count == 'one':
             random.sample(item_list, k=1)[0].click()
         else:
-            [item.click() for item in item_list]    
+            [item.click() for item in item_list]
 
 
 class ResizablePage(BasePage):
@@ -163,7 +163,7 @@ class DroppablePage(BasePage):
             'not_greedy': {
                 'box': self.locators.NOT_GREEDY_INNER_BOX,
                 'text': self.locators.NOT_GREEDY_DROP_BOX_TEXT
-            }            
+            }
         }
         self.element_is_visible(self.locators.PREVENT_TAB).click()
         drag_div = self.element_is_visible(self.locators.DRAG_ME_PREVENT)
@@ -176,15 +176,11 @@ class DroppablePage(BasePage):
     @allure.step('Drag revert draggable div')
     def drop_revert_draggable(self, type_drag: str)-> Tuple[str, str]:
         drags = {
-            'will': {
-                'revert': self.locators.WILL_REVERT,
-            },
-            'not_will': {
-                'revert': self.locators.NOT_REVERT
-            },
+            'will': self.locators.WILL_REVERT,
+            'not_will': self.locators.NOT_REVERT
         }
         self.element_is_visible(self.locators.REVERT_TAB).click()
-        revert = self.element_is_visible(drags[type_drag]['revert'])
+        revert = self.element_is_visible(drags[type_drag])
         drop_div = self.element_is_visible(self.locators.DROP_HERE_REVERT)
         self.action_drag_and_drop_to_element(revert, drop_div)
         position_after_move = revert.get_attribute('style')
@@ -193,51 +189,47 @@ class DroppablePage(BasePage):
         return position_after_move, position_after_revert
 
 
-class DraggablePage(BasePage):
+class DragabblePage(BasePage):
 
     locators = DraggablePageLocators()
 
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, page=UIRoutes.DRAGABBLE)
+
+    @allure.step('Simple drag and drop')
+    def simple_drag_box(self) -> Tuple[str, str]:
+        self.element_is_visible(self.locators.SIMPLE_TAB).click()
+        drag_div = self.element_is_visible(self.locators.DRAG_ME)
+        position_before, position_after = self._get_before_and_after_position(drag_div)
+        return position_before, position_after
+
+    @allure.step('Drag axis restricted element')
+    def drag_axis_restricted(self, type_only: str) -> Tuple[List[List[str]], List[List[str]]]:
+        only = {
+            'only_x': self.locators.ONLY_X,
+            'only_y': self.locators.ONLY_Y
+        }
+        self.element_is_visible(self.locators.AXIS_TAB).click()
+        only_element = self.element_is_visible(only[type_only])
+        position_before, position_after = self._get_before_and_after_position(only_element)
+        top_before = self._get_top_position(position_before)
+        top_after = self._get_top_position(position_after)
+        left_before = self._get_left_position(position_before)
+        left_after = self._get_left_position(position_after)
+        return [top_before, top_after], [left_before, left_after]
+
     @allure.step('Get before and after positions')
-    def get_before_and_after_position(self, drag_element):
+    def _get_before_and_after_position(self, drag_element: WebElement) -> Tuple[str, str]:
         self.action_drag_and_drop_by_offset(drag_element, random.randint(0, 50), random.randint(0, 50))
         before_position = drag_element.get_attribute('style')
         self.action_drag_and_drop_by_offset(drag_element, random.randint(0, 50), random.randint(0, 50))
         after_position = drag_element.get_attribute('style')
         return before_position, after_position
 
-    @allure.step('Simple drag and drop')
-    def simple_drag_box(self):
-        self.element_is_visible(self.locators.SIMPLE_TAB).click()
-        drag_div = self.element_is_visible(self.locators.DRAG_ME)
-        before_position, after_position = self.get_before_and_after_position(drag_div)
-        return before_position, after_position
-
     @allure.step('Get top position')
-    def get_top_position(self, positions):
-        return re.findall(r'\d[0-9]|\d', positions.split(';')[2])
+    def _get_top_position(self, positions: str) -> List[str]:
+        return re.findall(r"[0-9]+", positions.split(';')[2])
 
     @allure.step('Get left position')
-    def get_left_position(self, positions):
-        return re.findall(r'\d[0-9]|\d', positions.split(';')[1])
-
-    @allure.step('Drag only_x')
-    def axis_restricted_x(self):
-        self.element_is_visible(self.locators.AXIS_TAB).click()
-        only_x = self.element_is_visible(self.locators.ONLY_X)
-        position_x = self.get_before_and_after_position(only_x)
-        top_x_before = self.get_top_position(position_x[0])
-        top_x_after = self.get_top_position(position_x[1])
-        left_x_before = self.get_left_position(position_x[0])
-        left_x_after = self.get_left_position(position_x[1])
-        return [top_x_before, top_x_after], [left_x_before, left_x_after]
-
-    @allure.step('Drag only_y')
-    def axis_restricted_y(self):
-        self.element_is_visible(self.locators.AXIS_TAB).click()
-        only_y = self.element_is_visible(self.locators.ONLY_Y)
-        position_x = self.get_before_and_after_position(only_y)
-        top_y_before = self.get_top_position(position_x[0])
-        top_y_after = self.get_top_position(position_x[1])
-        left_y_before = self.get_left_position(position_x[0])
-        left_y_after = self.get_left_position(position_x[1])
-        return [top_y_before, top_y_after], [left_y_before, left_y_after]
+    def _get_left_position(self, positions: str) -> List[str]:
+        return re.findall(r"[0-9]+", positions.split(';')[1])
