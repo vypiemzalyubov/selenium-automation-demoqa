@@ -90,7 +90,7 @@ class BasePage:
     @allure.step('Go to specified element')
     def go_to_element(self, element: WebElement) -> None:
         logger.info(
-            f'Scroll to element "{element.accessible_name}"'
+            f'Scroll to element "{element.tag_name}"'
         )
         self.driver.execute_script('arguments[0].scrollIntoView();', element)
 
