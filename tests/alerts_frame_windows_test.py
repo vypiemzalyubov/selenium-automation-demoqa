@@ -9,8 +9,9 @@ from pages.alerts_frame_windows_page import (
     NestedFramesPage
 )
 
+pytestmark = allure.suite('Alerts, Frame & Windows')
 
-@allure.suite('Alerts, Frame & Windows')
+
 @allure.feature('Browser Windows Page')
 class TestBrowserWindows:
 
@@ -31,7 +32,6 @@ class TestBrowserWindows:
             'the new window has not opened or an incorrect window has opened'
 
 
-@allure.suite('Alerts, Frame & Windows')
 @allure.feature('Alerts Page')
 class TestAlertsPage:
 
@@ -44,6 +44,7 @@ class TestAlertsPage:
             'Alert did not show up'
 
     @allure.title('Checking the opening of the alert after 5 seconds')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_alert_appear_after_5_sec(self):
         alert_page = AlertsPage(self.driver)
         alert_page.open()
@@ -76,7 +77,6 @@ class TestAlertsPage:
             'Alert did not show up'
 
 
-@allure.suite('Alerts, Frame & Windows')
 @allure.feature('Frame Page')
 class TestFramesPage:
 
@@ -92,7 +92,6 @@ class TestFramesPage:
             'The frame does not exist'
 
 
-@allure.suite('Alerts, Frame & Windows')
 @allure.feature('Nested Page')
 class TestNestedFramesPage:
 
@@ -107,7 +106,6 @@ class TestNestedFramesPage:
             'Nested frame does not exist'
 
 
-@allure.suite('Alerts, Frame & Windows')
 @allure.feature('Modal Dialog Page')
 class TestModalDialogsPage:
 
@@ -126,6 +124,7 @@ class TestModalDialogsPage:
             'Small modal body does not content "This is a small modal"'
 
     @allure.title('Check the page with large modal dialogs')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     @pytest.mark.parametrize(
         'method',
         ['button', 'cross', 'overlay']

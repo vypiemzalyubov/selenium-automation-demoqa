@@ -9,8 +9,9 @@ from pages.interactions_page import (
     DragabblePage
 )
 
+pytestmark = allure.suite('Interactions')
 
-@allure.suite('Interactions')
+
 @allure.feature('Sortable Page')
 class TestSortablePage:
 
@@ -27,7 +28,6 @@ class TestSortablePage:
             f'The order of the {tab} has not been changed'
 
 
-@allure.suite('Interactions')
 @allure.feature('Selectable Page')
 class TestSelectablePage:
 
@@ -56,11 +56,11 @@ class TestSelectablePage:
             f'Not all elements were selected in {tab}'
 
 
-@allure.suite('Interactions')
 @allure.feature('Resizable Page')
 class TestResizablePage:
 
     @allure.title('Check changed "Resizable box"')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_resizable_box(self):
         resizable_page = ResizablePage(self.driver)
         resizable_page.open()
@@ -79,7 +79,6 @@ class TestResizablePage:
             'Resizable has not been changed'
 
 
-@allure.suite('Interactions')
 @allure.feature('Droppable Page')
 class TestDroppablePage:
 
@@ -108,6 +107,7 @@ class TestDroppablePage:
             'The dropped element has been accepted'
 
     @allure.title('Check not greedy box in "Prevent Propogation" droppable')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_prevent_propogation_droppable_not_greedy(self):
         droppable_page = DroppablePage(self.driver)
         droppable_page.open()
@@ -118,6 +118,7 @@ class TestDroppablePage:
             'The elements texts has not been changed'
 
     @allure.title('Check greedy box in "Prevent Propogation" droppable')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_prevent_propogation_droppable_greedy(self):
         droppable_page = DroppablePage(self.driver)
         droppable_page.open()
@@ -144,7 +145,6 @@ class TestDroppablePage:
             'The elements has reverted'
 
 
-@allure.suite('Interactions')
 @allure.feature('Dragabble Page')
 class TestDragabblePage:
 

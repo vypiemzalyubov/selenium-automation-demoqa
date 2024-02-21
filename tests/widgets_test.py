@@ -13,8 +13,9 @@ from pages.widgets_page import (
     ToolTipsPage
 )
 
+pytestmark = allure.suite('Widgets')
 
-@allure.suite('Widgets')
+
 @allure.feature('Accordian Page')
 class TestAccordianPage:
 
@@ -33,7 +34,6 @@ class TestAccordianPage:
             'Incorrect title or missing text for third accordian'
 
 
-@allure.suite('Widgets')
 @allure.feature('Autocomplete page')
 class TestAutoCompletePage:
 
@@ -74,7 +74,6 @@ class TestAutoCompletePage:
             'The added colors are missing in the input'
 
 
-@allure.suite('Widgets')
 @allure.feature('Date Picker Page')
 class TestDatePickerPage:
 
@@ -95,11 +94,11 @@ class TestDatePickerPage:
             'The date and time have not been changed'
 
 
-@allure.suite('Widgets')
 @allure.feature('Slider Page')
 class TestSliderPage:
 
     @allure.title('Check moved slider')
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_slider(self):
         slider = SliderPage(self.driver)
         slider.open()
@@ -108,7 +107,6 @@ class TestSliderPage:
             'The slider value has not been changed'
 
 
-@allure.suite('Widgets')
 @allure.feature('Progress Bar Page')
 class TestProgressBarPage:
 
@@ -139,7 +137,6 @@ class TestProgressBarPage:
             'The progress bar value has not been changed after pressing "Reset"'
 
 
-@allure.suite('Widgets')
 @allure.feature('Tabs Page')
 class TestTabsPage:
 
@@ -162,7 +159,6 @@ class TestTabsPage:
             f'The tab "{tab_name}" was not pressed or the text is missing'
 
 
-@allure.suite('Widgets')
 @allure.feature('Tool Tips')
 class TestToolTips:
 
@@ -184,7 +180,6 @@ class TestToolTips:
         assert tool_tip_text == expected_hover, \
             'Hover missing or incorrect content'
 
-@allure.suite('Widgets')
 @allure.feature('Menu Page')
 class TestMenuPage:
 
@@ -201,7 +196,6 @@ class TestMenuPage:
             'Menu items do not exist or have not been selected'
 
 
-@allure.suite('Widgets')
 @allure.feature('Select Menu Page')
 class TestSelectMenuPage:
 

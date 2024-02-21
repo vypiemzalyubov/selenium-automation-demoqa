@@ -1,6 +1,9 @@
+from datetime import datetime
 import platform
 from typing import Generator
 
+import allure
+from allure_commons.types import AttachmentType
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -73,6 +76,9 @@ def driver(request: pytest.FixtureRequest) -> Generator[ChromeWebDriver | Firefo
 
     request.cls.driver = driver
     yield driver
+    allure.attach(body=driver.get_screenshot_as_png(),
+                  name=f"Screenshot {datetime.today()}",
+                  attachment_type=AttachmentType.PNG)
     driver.quit()
 
 

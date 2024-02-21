@@ -2,8 +2,9 @@ import allure
 
 from pages.form_page import FormPage
 
+pytestmark = allure.suite('Forms')
 
-@allure.suite('Forms')
+
 @allure.feature('Form Page')
 class TestFormPage:
 
