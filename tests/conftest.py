@@ -66,7 +66,7 @@ def driver(request: pytest.FixtureRequest) -> Generator[ChromeWebDriver | Firefo
 
 
         if platform.system() == 'Windows':
-            driver = webdriver.Firefox()
+            driver = webdriver.Firefox(options=firefox_options)
         else:
             service = Service('/snap/bin/geckodriver')
             driver = webdriver.Firefox(options=firefox_options, service=service)

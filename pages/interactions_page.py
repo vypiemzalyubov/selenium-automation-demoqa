@@ -204,7 +204,7 @@ class DragabblePage(BasePage):
         return position_before, position_after
 
     @allure.step('Drag axis restricted element')
-    def drag_axis_restricted(self, type_only: str) -> Tuple[List[List[str]], List[List[str]]]:
+    def drag_axis_restricted(self, type_only: str) -> Tuple[str, str, str, str]:
         only = {
             'only_x': self.locators.ONLY_X,
             'only_y': self.locators.ONLY_Y
@@ -216,7 +216,7 @@ class DragabblePage(BasePage):
         top_after = self._get_top_position(position_after)
         left_before = self._get_left_position(position_before)
         left_after = self._get_left_position(position_after)
-        return [top_before, top_after], [left_before, left_after]
+        return top_before[0], top_after[0], left_before[0], left_after[0]
 
     @allure.step('Get before and after positions')
     def _get_before_and_after_position(self, drag_element: WebElement) -> Tuple[str, str]:

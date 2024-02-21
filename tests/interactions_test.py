@@ -161,10 +161,10 @@ class TestDragabblePage:
     def test_axis_restricted_dragabble_only_x(self):
         dragabble_page = DragabblePage(self.driver)
         dragabble_page.open()
-        top_x, left_x = dragabble_page.drag_axis_restricted('only_x')
-        assert top_x[0][0] == top_x[1][0] and int(top_x[1][0]) == 0, \
+        top_before, top_after, left_before, left_after = dragabble_page.drag_axis_restricted('only_x')
+        assert top_before == top_after and int(top_after) == 0, \
             "Box position has not changed or there has been a shift in the y-axis"
-        assert left_x[0][0] != left_x[1][0] and int(left_x[1][0]) != 0, \
+        assert left_before != left_after and int(left_before) != 0, \
             "Box position has not changed or there has been a shift in the y-axis"
 
     @allure.title('Check Only Y in "Axis Restricted" dragabble')
@@ -172,8 +172,8 @@ class TestDragabblePage:
     def test_axis_restricted_dragabble_only_y(self):
         dragabble_page = DragabblePage(self.driver)
         dragabble_page.open()
-        top_y, left_y = dragabble_page.drag_axis_restricted('only_y')
-        assert top_y[0][0] != top_y[1][0] and int(top_y[1][0]) != 0, \
+        top_before, top_after, left_before, left_after = dragabble_page.drag_axis_restricted('only_y')
+        assert top_before != top_after and top_after != 0, \
             "Box position has not changed or there has been a shift in the x-axis"
-        assert left_y[0][0] == left_y[1][0] and int(left_y[1][0]) == 0, \
+        assert left_before == left_after and int(left_after) == 0, \
             "Box position has not changed or there has been a shift in the x-axis"
