@@ -167,7 +167,7 @@ class TestTabsPage:
 class TestToolTips:
 
     @allure.title('Check tool tips')
-    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     @pytest.mark.parametrize(
         'tool_tip, expected_hover',
         [
@@ -239,7 +239,7 @@ class TestSelectMenuPage:
             'The added color is missing in the "Multiselect drop down"'
 
     @allure.title('Check deletions from the "Multiselect drop down"')
-    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_remove_value_from_multi_dropdown(self):
         select_menu_page = SelectMenuPage(self.driver)
         select_menu_page.open()

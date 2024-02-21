@@ -157,7 +157,7 @@ class TestDragabblePage:
             'The position of the box has not been changed'
 
     @allure.title('Check Only X in "Axis Restricted" dragabble')
-    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_axis_restricted_dragabble_only_x(self):
         dragabble_page = DragabblePage(self.driver)
         dragabble_page.open()
@@ -168,7 +168,7 @@ class TestDragabblePage:
             "Box position has not changed or there has been a shift in the y-axis"
 
     @allure.title('Check Only Y in "Axis Restricted" dragabble')
-    @pytest.mark.flaky(reruns=2, reruns_delay=1)
+    @pytest.mark.flaky(reruns=1, reruns_delay=1)
     def test_axis_restricted_dragabble_only_y(self):
         dragabble_page = DragabblePage(self.driver)
         dragabble_page.open()
