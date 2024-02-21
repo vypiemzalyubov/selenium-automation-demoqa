@@ -1,10 +1,16 @@
+import platform
+from typing import Generator
+
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options as ChromeOption
-from selenium.webdriver.firefox.options import Options as FirefoxOption
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
+from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
+from selenium.webdriver.firefox.options import Options as FirefoxOptions
+from selenium.webdriver.firefox.service import Service
 
 
-def pytest_addoption(parser):
+def pytest_addoption(parser) -> None:
     parser.addoption('--headless',
                      default='false',
                      help='Run tests in headless mode')
@@ -17,10 +23,10 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture(scope='function', autouse=True)
-def driver(request: pytest.FixtureRequest):
-    chrome_options = ChromeOption()
-    firefox_options = FirefoxOption()    
-    
+def driver(request: pytest.FixtureRequest) -> Generator[ChromeWebDriver | FirefoxWebDriver | None, None, None]:
+    chrome_options = ChromeOptions()
+    firefox_options = FirefoxOptions()
+
     browser = request.config.getoption('--browser')
     headless = request.config.getoption('--headless')
     window_size = request.config.getoption('--window-size')
@@ -42,7 +48,7 @@ def driver(request: pytest.FixtureRequest):
         chrome_options.page_load_strategy = 'eager'
 
         driver = webdriver.Chrome(options=chrome_options)
-    
+
     elif browser == 'firefox':
         if headless == 'true':
             firefox_options.add_argument('--headless')
@@ -52,21 +58,26 @@ def driver(request: pytest.FixtureRequest):
             width, height = window_size.split(',')
             firefox_options.add_argument(f'--width={width}')
             firefox_options.add_argument(f'--height={height}')
-        
+
         firefox_options.add_argument('--ignore-certificate-errors')
         firefox_options.add_argument('--no-sandbox')
         firefox_options.add_argument('--disable-dev-shm-usage')
         firefox_options.page_load_strategy = 'eager'
-        
-        driver = webdriver.Firefox(options=firefox_options)
-    
+
+
+        if platform.system() == 'Windows':
+            driver = webdriver.Firefox()
+        else:
+            service = Service('/snap/bin/geckodriver')
+            driver = webdriver.Firefox(options=firefox_options, service=service)
+
     request.cls.driver = driver
     yield driver
     driver.quit()
 
 
 @pytest.hookimpl(tryfirst=True)
-def pytest_configure(config):
-    alluredir = getattr(config.option, "allure_report_dir", None)
+def pytest_configure(config) -> None:
+    alluredir = getattr(config.option, 'allure_report_dir', None)
     if not alluredir:
-        setattr(config.option, "allure_report_dir", "allure-results")
+        setattr(config.option, 'allure_report_dir', 'allure-results')
