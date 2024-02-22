@@ -25,7 +25,6 @@ from utils.routes import UIRoutes
 
 
 class TextBoxPage(BasePage):
-
     locators = TextBoxPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -55,7 +54,6 @@ class TextBoxPage(BasePage):
 
 
 class CheckBoxPage(BasePage):
-
     locators = CheckBoxPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -89,7 +87,6 @@ class CheckBoxPage(BasePage):
 
 
 class RadioButtonPage(BasePage):
-
     locators = RadioButtonPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -110,7 +107,6 @@ class RadioButtonPage(BasePage):
 
 
 class WebTablePage(BasePage):
-
     locators = WebTablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -192,7 +188,6 @@ class WebTablePage(BasePage):
 
 
 class ButtonsPage(BasePage):
-
     locators = ButtonsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -218,7 +213,6 @@ class ButtonsPage(BasePage):
 
 
 class LinksPage(BasePage):
-
     locators = LinksPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -247,7 +241,6 @@ class LinksPage(BasePage):
 
 
 class UploadAndDownloadPage(BasePage):
-
     locators = UploadAndDownloadPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -265,7 +258,7 @@ class UploadAndDownloadPage(BasePage):
     def download_file(self) -> bool:
         image_link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
         link_byte = base64.b64decode(image_link)
-        path_name_file = fr'{os.getcwd()}\utils\image_file{random.randint(0,999)}.jpg'
+        path_name_file = fr'{os.getcwd()}\utils\image_file{random.randint(0, 999)}.jpg'
         with open(path_name_file, 'wb+') as f:
             offset = link_byte.find(b'\xff\xd8')
             f.write(link_byte[offset:])
@@ -276,7 +269,6 @@ class UploadAndDownloadPage(BasePage):
 
 
 class DynamicPropertiesPage(BasePage):
-
     locators = DynamicPropertiesPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:

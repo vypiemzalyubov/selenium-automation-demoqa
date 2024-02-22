@@ -14,5 +14,5 @@ class TestFormPage:
         form_page.open()
         person_info = form_page.fill_form_fields()
         result_info = form_page.form_result()
-        assert [person_info.firstname + ' ' + person_info.lastname, person_info.email] == [result_info[0], result_info[1]], \
-            'The form has not been filled'
+        assert [person_info.firstname + ' ' + person_info.lastname, person_info.email] \
+               == [result_info[0], result_info[1]], 'The form has not been filled'

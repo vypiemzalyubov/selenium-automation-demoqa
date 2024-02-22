@@ -17,11 +17,11 @@ class Person(BaseModel):
 
 
 class Color(BaseModel):
-    color_name:  List[str] | None = None
+    color_name: List[str] | None = None
 
 
 class Cars(BaseModel):
-    car_name:  List[str] | None = None
+    car_name: List[str] | None = None
 
 
 class Date(BaseModel):

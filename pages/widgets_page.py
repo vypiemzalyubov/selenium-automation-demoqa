@@ -27,7 +27,6 @@ from utils.routes import UIRoutes
 
 
 class AccordianPage(BasePage):
-
     locators = AccordianPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -73,7 +72,6 @@ class AccordianPage(BasePage):
 
 
 class AutoCompletePage(BasePage):
-
     locators = AutoCompletePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -128,7 +126,6 @@ class AutoCompletePage(BasePage):
 
 
 class DatePickerPage(BasePage):
-
     locators = DatePickerPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -172,7 +169,6 @@ class DatePickerPage(BasePage):
 
 
 class SliderPage(BasePage):
-
     locators = SliderPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -188,7 +184,6 @@ class SliderPage(BasePage):
 
 
 class ProgressBarPage(BasePage):
-
     locators = ProgressBarPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -214,12 +209,12 @@ class ProgressBarPage(BasePage):
             reset_button.click()
             value_after = self.element_is_present(self.locators.PROGRESS_BAR_VALUE).get_attribute('aria-valuenow')
         else:
-            value_after = self.element_is_present(self.locators.PROGRESS_BAR_SUCCESS_VALUE).get_attribute('aria-valuenow')
+            value_after = self.element_is_present(self.locators.PROGRESS_BAR_SUCCESS_VALUE).get_attribute(
+                'aria-valuenow')
         return value_before, value_after
 
 
 class TabsPage(BasePage):
-
     locators = TabsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -252,7 +247,6 @@ class TabsPage(BasePage):
 
 
 class ToolTipsPage(BasePage):
-
     locators = ToolTipsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -290,8 +284,8 @@ class ToolTipsPage(BasePage):
         text = tool_tip_text.text
         return text
 
-class MenuPage(BasePage):
 
+class MenuPage(BasePage):
     locators = MenuPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -308,7 +302,6 @@ class MenuPage(BasePage):
 
 
 class SelectMenuPage(BasePage):
-
     locators = SelectMenuPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:

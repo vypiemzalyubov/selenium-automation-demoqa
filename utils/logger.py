@@ -3,7 +3,6 @@ import logging
 logger = logging.getLogger('Logger')
 logger.setLevel(logging.INFO)
 
-
 handler = logging.StreamHandler()
 handler.setLevel(logging.INFO)
 

@@ -13,7 +13,6 @@ from utils.routes import UIRoutes
 
 
 class FormPage(BasePage):
-
     locators = FormPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:

@@ -180,6 +180,7 @@ class TestToolTips:
         assert tool_tip_text == expected_hover, \
             'Hover missing or incorrect content'
 
+
 @allure.feature('Menu Page')
 class TestMenuPage:
 

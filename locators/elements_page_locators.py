@@ -2,7 +2,6 @@ from selenium.webdriver.common.by import By
 
 
 class TextBoxPageLocators:
-
     # form fields
     FULL_NAME = (By.CSS_SELECTOR, 'input[id="userName"]')
     EMAIL = (By.CSS_SELECTOR, 'input[id="userEmail"]')
@@ -18,7 +17,6 @@ class TextBoxPageLocators:
 
 
 class CheckBoxPageLocators:
-
     EXPAND_ALL_BUTTON = (By.CSS_SELECTOR, 'button[title="Expand all"]')
     ITEM_LIST = (By.CSS_SELECTOR, 'span[class="rct-title"]')
     CHECKED_ITEMS = (By.CSS_SELECTOR, 'svg[class="rct-icon rct-icon-check"]')
@@ -27,7 +25,6 @@ class CheckBoxPageLocators:
 
 
 class RadioButtonPageLocators:
-
     YES_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="yesRadio"]')
     IMPRESSIVE_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="impressiveRadio"]')
     NO_RADIOBUTTON = (By.CSS_SELECTOR, 'label[class^="custom-control"][for="noRadio"]')
@@ -35,7 +32,6 @@ class RadioButtonPageLocators:
 
 
 class WebTablePageLocators:
-
     # add person form
     ADD_BUTTON = (By.CSS_SELECTOR, 'button[id="addNewRecordButton"]')
     FIRSTNAME_INPUT = (By.CSS_SELECTOR, 'input[id="firstName"]')
@@ -59,7 +55,6 @@ class WebTablePageLocators:
 
 
 class ButtonsPageLocators:
-
     DOUBLE_BUTTON = (By.XPATH, '//button[text()="Double Click Me"]')
     RIGHT_CLICK_BUTTON = (By.XPATH, '//button[text()="Right Click Me"]')
     CLICK_ME_BUTTON = (By.XPATH, '//button[text()="Click Me"]')
@@ -71,7 +66,6 @@ class ButtonsPageLocators:
 
 
 class LinksPageLocators:
-
     # new tab
     SIMPLE_LINK = (By.XPATH, '//a[@id="simpleLink"]')
     DYNAMIC_LINK = (By.XPATH, '//a[@id="dynamicLink"]')
@@ -90,7 +84,6 @@ class LinksPageLocators:
 
 
 class UploadAndDownloadPageLocators:
-
     UPLOAD_FILE = (By.CSS_SELECTOR, 'input[id="uploadFile"]')
     UPLOADED_RESULT = (By.CSS_SELECTOR, 'p[id="uploadedFilePath"]')
 
@@ -98,7 +91,6 @@ class UploadAndDownloadPageLocators:
 
 
 class DynamicPropertiesPageLocators:
-
     COLOR_CHANGE_BUTTON_BEFORE = (By.CSS_SELECTOR, 'button[id="colorChange"]')
     COLOR_CHANGE_BUTTON_AFTER = (By.CSS_SELECTOR, 'button[class*="text-danger"]')
     VISIBLE_AFTER_FIVE_SECONDS_BUTTON = (By.CSS_SELECTOR, 'button[id="visibleAfter"]')

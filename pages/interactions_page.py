@@ -19,7 +19,6 @@ from utils.routes import UIRoutes
 
 
 class SortablePage(BasePage):
-
     locators = SortablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -53,7 +52,6 @@ class SortablePage(BasePage):
 
 
 class SelectablePage(BasePage):
-
     locators = SelectablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -88,7 +86,6 @@ class SelectablePage(BasePage):
 
 
 class ResizablePage(BasePage):
-
     locators = ResizablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -126,7 +123,6 @@ class ResizablePage(BasePage):
 
 
 class DroppablePage(BasePage):
-
     locators = DroppablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -174,7 +170,7 @@ class DroppablePage(BasePage):
         return outer_box_text, inner_box_text
 
     @allure.step('Drag revert draggable div')
-    def drop_revert_draggable(self, type_drag: str)-> Tuple[str, str]:
+    def drop_revert_draggable(self, type_drag: str) -> Tuple[str, str]:
         drags = {
             'will': self.locators.WILL_REVERT,
             'not_will': self.locators.NOT_REVERT
@@ -190,7 +186,6 @@ class DroppablePage(BasePage):
 
 
 class DragabblePage(BasePage):
-
     locators = DraggablePageLocators()
 
     def __init__(self, driver: WebDriver) -> None:

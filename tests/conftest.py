@@ -67,7 +67,6 @@ def driver(request: pytest.FixtureRequest) -> Generator[ChromeWebDriver | Firefo
         firefox_options.add_argument('--disable-dev-shm-usage')
         firefox_options.page_load_strategy = 'eager'
 
-
         if platform.system() == 'Windows':
             driver = webdriver.Firefox(options=firefox_options)
         else:

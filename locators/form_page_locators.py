@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 
 
 class FormPageLocators:
-
+    # registration form
     FIRST_NAME = (By.CSS_SELECTOR, '#firstName')
     LAST_NAME = (By.CSS_SELECTOR, '#lastName')
     EMAIL = (By.CSS_SELECTOR, '#userEmail')

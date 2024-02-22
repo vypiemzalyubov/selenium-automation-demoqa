@@ -11,7 +11,7 @@ Faker.seed()
 def generated_person():
     yield Person(
         full_name=faker_ru.first_name() + ' ' + faker_ru.last_name() +
-        ' ' + faker_ru.middle_name(),
+                  ' ' + faker_ru.middle_name(),
         firstname=faker_ru.first_name(),
         lastname=faker_ru.last_name(),
         age=random.randint(10, 80),
@@ -25,9 +25,9 @@ def generated_person():
 
 
 def generated_file():
-    path = fr'{os.getcwd()}\utils\text_file{random.randint(0,999)}.txt'
+    path = fr'{os.getcwd()}\utils\text_file{random.randint(0, 999)}.txt'
     with open(path, 'w+') as file:
-        file.write(f'Hello {random.randint(0,999)}')
+        file.write(f'Hello {random.randint(0, 999)}')
     return file.name, path
 
 
@@ -62,7 +62,7 @@ def generated_date():
 
 def generated_dropdown_option(dropdown: str) -> str:
     select_value = ['Group 1, option 1', 'Group 1, option 2', 'Group 2, option 1',
-                    'Group 2, option 2', 'A root option', 'Another root option',]
+                    'Group 2, option 2', 'A root option', 'Another root option', ]
     select_one = ['Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Prof.', 'Other']
     if dropdown == 'select_value':
         return select_value[random.randint(0, 5)]

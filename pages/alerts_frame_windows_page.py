@@ -16,7 +16,6 @@ from utils.routes import UIRoutes
 
 
 class BrowserWindowsPage(BasePage):
-
     locators = BrowserWindowsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -35,7 +34,6 @@ class BrowserWindowsPage(BasePage):
 
 
 class AlertsPage(BasePage):
-
     locators = AlertsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -75,7 +73,6 @@ class AlertsPage(BasePage):
 
 
 class FramesPage(BasePage):
-
     locators = FramesPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -102,7 +99,6 @@ class FramesPage(BasePage):
 
 
 class NestedFramesPage(BasePage):
-
     locators = NestedFramesPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
@@ -120,7 +116,6 @@ class NestedFramesPage(BasePage):
 
 
 class ModalDialogsPage(BasePage):
-
     locators = ModalDialogsPageLocators()
 
     def __init__(self, driver: WebDriver) -> None:
