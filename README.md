@@ -1,5 +1,7 @@
 # Selenium Automation DEMOQA
 
+Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page Object Model
+
 ## Project Structure:
 ```
 selenium-automation-demoqa/
