@@ -16,7 +16,7 @@ def pytest_addoption(parser) -> None:
                      help='Run tests in headless mode')
     parser.addoption('--browser',
                      default='chrome',
-                     help='Choose browser: Chrome, Firefox or Remote')
+                     help='Choose browser: Chrome or Firefox')
     parser.addoption('--window-size',
                      default='1920,1080',
                      help='Window size in format "width,height"')

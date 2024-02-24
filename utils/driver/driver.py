@@ -1,4 +1,3 @@
-import os
 import platform
 
 from selenium import webdriver
@@ -9,8 +8,6 @@ from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
 from selenium.webdriver.firefox.service import Service
 
 from utils.driver.options import driver_options, headless_option, window_size_option
-
-host = os.environ.get('MAIN_HOST')
 
 
 def driver_config(browser: str, headless: str, window_size: str) -> ChromeWebDriver | FirefoxWebDriver:
@@ -37,9 +34,5 @@ def driver_config(browser: str, headless: str, window_size: str) -> ChromeWebDri
                     service = Service('/snap/bin/geckodriver')
                     driver = webdriver.Firefox(
                         options=firefox_options, service=service)
-
-        case 'remote':
-            driver = webdriver.Remote(
-                command_executor=f"http://{host}:4444/wd/hub", options=chrome_options)
 
     return driver
