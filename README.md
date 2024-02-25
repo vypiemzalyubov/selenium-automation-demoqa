@@ -50,7 +50,7 @@ selenium-automation-demoqa/
 
 ```bash
 # Build an image named "selenium-runner"
-sudo docker build --no-cache -t image-selenium .
+docker build --no-cache -t image-selenium .
 
 # Starts the container, bind mount a volume and automatically deletes on exit
 docker run --rm --name selenium-runner -v /selenium-automation-demoqa/docker-results/:/allure-results/ image-selenium
