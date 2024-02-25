@@ -49,7 +49,7 @@ selenium-automation-demoqa/
 ## Running in Docker
 
 ```bash
-# Build an image named "selenium-runner"
+# Build an image named "image-selenium"
 docker build --no-cache -t image-selenium .
 
 # Starts the container, bind mount a volume and automatically deletes on exit
