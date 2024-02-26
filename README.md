@@ -5,6 +5,9 @@ Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page
 ## Project Structure:
 ```
 selenium-automation-demoqa/
+├─ .github/
+│  ├─ workflows/
+│  │  ├─ run_tests.yml
 ├── locators
 │   ├── alerts_frame_windows_locators.py
 │   ├── elements_page_locators.py
