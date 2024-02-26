@@ -40,8 +40,8 @@ selenium-automation-demoqa/
 │   ├── routes.py
 │   └── settings.py
 ├── env.example
+├── .flake8
 ├── .gitignore
-├── docker-compose.yml
 ├── Dockerfile
 ├── LICENSE
 ├── pytest.ini

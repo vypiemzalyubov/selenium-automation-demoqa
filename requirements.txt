@@ -1,6 +1,7 @@
 allure-pytest~=2.13.2
 email-validator~=2.1.0.post1
 faker~=22.5.0
+flake8~=7.0.0
 pydantic~=2.6.0
 pydantic-settings~=2.1.0
 pytest~=7.4.4

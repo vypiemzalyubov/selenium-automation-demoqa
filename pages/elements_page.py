@@ -235,7 +235,7 @@ class LinksPage(BasePage):
     @allure.step('Check broken link')
     def check_broken_link(self, locator_name: str) -> str:
         locator = getattr(self.locators, locator_name)
-        broken_link = self.element_is_visible(locator).click()
+        self.element_is_visible(locator).click()
         response_field = self.element_is_present(self.locators.RESPONSE_FIELD)
         return response_field.text
 
