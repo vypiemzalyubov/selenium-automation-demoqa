@@ -77,8 +77,15 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Chrome
-        run: sudo apt-get install google-chrome-stable
+      - name: Install Chrome, Firefox and Git on OS
+        uses: shreyash-Pandey-Katni/Chrome-Firefox-git-install-action@v2
+        with:
+          chrome: true
+          firefox: true
+          git: false
+
+      # - name: Install Chrome
+      #   run: sudo apt-get install google-chrome-stable
 
       - name: Install dependencies
         run: pip install -r requirements.txt
