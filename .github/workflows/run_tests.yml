@@ -62,7 +62,7 @@ jobs:
           path:
             allure-results
           retention-days: 1
-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
+
   test:
     runs-on: ubuntu-latest
     # needs: download-history
