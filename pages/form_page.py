@@ -1,5 +1,4 @@
 import os
-from typing import List
 
 import allure
 from selenium.webdriver import Keys
@@ -43,7 +42,7 @@ class FormPage(BasePage):
         return person
 
     @allure.step('Get form result')
-    def form_result(self) -> List[str]:
+    def form_result(self) -> list[str]:
         result_list = self.elements_are_visible(self.locators.RESULT_TABLE)
         data = []
         for item in result_list:

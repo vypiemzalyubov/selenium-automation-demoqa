@@ -10,12 +10,13 @@ from selenium.webdriver.firefox.service import Service
 from utils.driver.options import driver_options, headless_option, window_size_option
 
 
-def driver_config(browser: str, headless: str, window_size: str) -> ChromeWebDriver | FirefoxWebDriver:
+def driver_config(
+    browser: str, headless: str, window_size: str
+) -> ChromeWebDriver | FirefoxWebDriver:
     chrome_options = ChromeOptions()
     firefox_options = FirefoxOptions()
 
     match browser:
-
         case 'chrome':
             driver_options(chrome_options, browser)
             headless_option(chrome_options, headless)
@@ -32,7 +33,6 @@ def driver_config(browser: str, headless: str, window_size: str) -> ChromeWebDri
                     driver = webdriver.Firefox(options=firefox_options)
                 case _:
                     service = Service('/snap/bin/geckodriver')
-                    driver = webdriver.Firefox(
-                        options=firefox_options, service=service)
+                    driver = webdriver.Firefox(options=firefox_options, service=service)
 
     return driver

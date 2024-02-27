@@ -44,6 +44,7 @@ selenium-automation-demoqa/
 ├── .gitignore
 ├── Dockerfile
 ├── LICENSE
+├── pyproject.toml
 ├── pytest.ini
 ├── README.md
 ├── requirements.txt

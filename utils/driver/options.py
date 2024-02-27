@@ -8,8 +8,7 @@ def driver_options(driver_options: ChromeOptions | FirefoxOptions, browser: str)
             driver_options.add_argument('--ignore-certificate-errors')
             driver_options.add_argument('--no-sandbox')
             driver_options.add_argument('--disable-dev-shm-usage')
-            driver_options.add_argument(
-                '--disable-blink-features=AutomationControlled')
+            driver_options.add_argument('--disable-blink-features=AutomationControlled')
             driver_options.add_argument('--user-agent=Selenium')
             driver_options.page_load_strategy = 'eager'
         case 'firefox':
@@ -25,7 +24,9 @@ def headless_option(driver_options: ChromeOptions | FirefoxOptions, headless: st
             driver_options.add_argument('--headless')
 
 
-def window_size_option(driver_options: ChromeOptions | FirefoxOptions, window_size: str, browser: str):
+def window_size_option(
+    driver_options: ChromeOptions | FirefoxOptions, window_size: str, browser: str
+):
     match window_size:
         case 'max':
             driver_options.add_argument('--start-maximized')

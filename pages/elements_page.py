@@ -1,7 +1,7 @@
 import base64
 import os
 import random
-from typing import Any, List, Tuple
+from typing import Any
 
 import allure
 import requests
@@ -17,7 +17,7 @@ from locators.elements_page_locators import (
     RadioButtonPageLocators,
     TextBoxPageLocators,
     UploadAndDownloadPageLocators,
-    WebTablePageLocators
+    WebTablePageLocators,
 )
 from pages.base_page import BasePage
 from utils.generator import generated_file, generated_person
@@ -31,7 +31,7 @@ class TextBoxPage(BasePage):
         super().__init__(driver, page=UIRoutes.TEXT_BOX)
 
     @allure.step('Fill in all fields')
-    def fill_all_fields(self) -> Tuple[str | None, EmailStr | None, str | None, str | None]:
+    def fill_all_fields(self) -> tuple[str | None, EmailStr | None, str | None, str | None]:
         person_info = next(generated_person())
         full_name = person_info.full_name
         email = person_info.email
@@ -45,11 +45,15 @@ class TextBoxPage(BasePage):
         return full_name, email, current_address, permanent_address
 
     @allure.step('Check filled form')
-    def check_filled_form(self) -> Tuple[str, str, str, str]:
+    def check_filled_form(self) -> tuple[str, str, str, str]:
         full_name = self.element_is_present(self.locators.CREATED_FULLNAME).text.split(':')[1]
         email = self.element_is_present(self.locators.CREATED_EMAIL).text.split(':')[1]
-        current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(':')[1]
-        permanent_address = self.element_is_present(self.locators.CREATED_PERMANENT_ADSRESS).text.split(':')[1]
+        current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(
+            ':'
+        )[1]
+        permanent_address = self.element_is_present(
+            self.locators.CREATED_PERMANENT_ADSRESS
+        ).text.split(':')[1]
         return full_name, email, current_address, permanent_address
 
 
@@ -97,7 +101,7 @@ class RadioButtonPage(BasePage):
         choices = {
             'yes': self.locators.YES_RADIOBUTTON,
             'impressive': self.locators.IMPRESSIVE_RADIOBUTTON,
-            'no': self.locators.NO_RADIOBUTTON
+            'no': self.locators.NO_RADIOBUTTON,
         }
         self.element_is_visible(choices[choice]).click()
 
@@ -113,7 +117,7 @@ class WebTablePage(BasePage):
         super().__init__(driver, page=UIRoutes.WEB_TABLES)
 
     @allure.step('Add new person')
-    def add_new_person(self) -> List[str]:
+    def add_new_person(self) -> list[str]:
         count = 1
         while count != 0:
             person_info = next(generated_person())
@@ -135,7 +139,7 @@ class WebTablePage(BasePage):
         return [firstname, lastname, str(age), email, str(salary), department]
 
     @allure.step('Check added people')
-    def check_new_added_person(self) -> List[List[str]]:
+    def check_new_added_person(self) -> list[list[str]]:
         people_list = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
         data = [item.text.splitlines() for item in people_list]
         return data
@@ -145,7 +149,7 @@ class WebTablePage(BasePage):
         self.element_is_visible(self.locators.SEARCH_INPUT).send_keys(key_word)
 
     @allure.step('Check found person')
-    def check_search_person(self) -> List[str]:
+    def check_search_person(self) -> list[str]:
         delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
         row = delete_button.find_element('xpath', self.locators.ROW_PARENT)
         return row.text.splitlines()
@@ -169,7 +173,7 @@ class WebTablePage(BasePage):
         return self.element_is_present(self.locators.NO_ROWS_FOUND).text
 
     @allure.step('Select up to some rows')
-    def select_rows_count(self) -> List[str]:
+    def select_rows_count(self) -> list[str]:
         self.remove_footer()
         count = [5, 10, 20, 50, 100]
         data = []
@@ -219,7 +223,9 @@ class LinksPage(BasePage):
         super().__init__(driver, page=UIRoutes.LINKS)
 
     @allure.step('Check simple link')
-    def check_new_tab_link(self, locator_name: str) -> Tuple[str | None, str] | tuple[str | None, int]:
+    def check_new_tab_link(
+        self, locator_name: str
+    ) -> tuple[str | None, str] | tuple[str | None, int]:
         locator = getattr(self.locators, locator_name)
         new_tab_link = self.element_is_visible(locator)
         link_href = new_tab_link.get_attribute('href')
@@ -247,7 +253,7 @@ class UploadAndDownloadPage(BasePage):
         super().__init__(driver, page=UIRoutes.UPLOAD_DOWNLOAD)
 
     @allure.step('Upload file')
-    def upload_file(self) -> Tuple[str | Any, str]:
+    def upload_file(self) -> tuple[str | Any, str]:
         file_name, path = generated_file()
         self.element_is_present(self.locators.UPLOAD_FILE).send_keys(path)
         os.remove(path)
@@ -258,7 +264,7 @@ class UploadAndDownloadPage(BasePage):
     def download_file(self) -> bool:
         image_link = self.element_is_present(self.locators.DOWNLOAD_FILE).get_attribute('href')
         link_byte = base64.b64decode(image_link)
-        path_name_file = fr'{os.getcwd()}\utils\image_file{random.randint(0, 999)}.jpg'
+        path_name_file = rf'{os.getcwd()}\utils\image_file{random.randint(0, 999)}.jpg'
         with open(path_name_file, 'wb+') as f:
             offset = link_byte.find(b'\xff\xd8')
             f.write(link_byte[offset:])
@@ -283,7 +289,7 @@ class DynamicPropertiesPage(BasePage):
         return True
 
     @allure.step('Check changed of color')
-    def check_changed_of_color(self) -> Tuple[str, str]:
+    def check_changed_of_color(self) -> tuple[str, str]:
         color_button_before = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON_BEFORE)
         color_before = color_button_before.value_of_css_property('color')
         color_button_after = self.element_is_present(self.locators.COLOR_CHANGE_BUTTON_AFTER)

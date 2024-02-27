@@ -1,5 +1,7 @@
 import os
 import random
+from typing import Any
+from collections.abc import Generator
 from faker import Faker
 from models.models import Cars, Color, Date, Person
 
@@ -8,10 +10,9 @@ fake_en = Faker('En')
 Faker.seed()
 
 
-def generated_person():
+def generated_person() -> Generator[Person, Any, None]:
     yield Person(
-        full_name=faker_ru.first_name() + ' ' + faker_ru.last_name() +
-                  ' ' + faker_ru.middle_name(),
+        full_name=faker_ru.first_name() + ' ' + faker_ru.last_name() + ' ' + faker_ru.middle_name(),
         firstname=faker_ru.first_name(),
         lastname=faker_ru.last_name(),
         age=random.randint(10, 80),
@@ -24,45 +25,70 @@ def generated_person():
     )
 
 
-def generated_file():
-    path = fr'{os.getcwd()}\utils\text_file{random.randint(0, 999)}.txt'
+def generated_file() -> tuple[str | Any, str]:
+    path = rf'{os.getcwd()}\utils\text_file{random.randint(0, 999)}.txt'
     with open(path, 'w+') as file:
         file.write(f'Hello {random.randint(0, 999)}')
     return file.name, path
 
 
-def generated_subject():
-    subjects = ['Hindi', 'English', 'Maths', 'Physics', 'Chemistry',
-                'Biology', 'Computer Science', 'Commerce', 'Accounting',
-                'Economics', 'Arts', 'Social Studies', 'History', 'Civics']
+def generated_subject() -> str:
+    subjects = [
+        'Hindi',
+        'English',
+        'Maths',
+        'Physics',
+        'Chemistry',
+        'Biology',
+        'Computer Science',
+        'Commerce',
+        'Accounting',
+        'Economics',
+        'Arts',
+        'Social Studies',
+        'History',
+        'Civics',
+    ]
     return subjects[random.randint(0, 13)]
 
 
-def generated_color():
+def generated_color() -> Generator[Color, Any, None]:
     yield Color(
-        color_name=['Red', 'Blue', 'Green', 'Yellow', 'Purple',
-                    'Black', 'White', 'Voilet', 'Indigo', 'Magenta', 'Aqua']
+        color_name=[
+            'Red',
+            'Blue',
+            'Green',
+            'Yellow',
+            'Purple',
+            'Black',
+            'White',
+            'Voilet',
+            'Indigo',
+            'Magenta',
+            'Aqua',
+        ]
     )
 
 
-def generated_car():
-    yield Cars(
-        car_name=['Volvo', 'Saab', 'Opel', 'Audi']
-    )
+def generated_car() -> Generator[Cars, Any, None]:
+    yield Cars(car_name=['Volvo', 'Saab', 'Opel', 'Audi'])
 
 
-def generated_date():
+def generated_date() -> Generator[Date, Any, None]:
     yield Date(
-        year=fake_en.year(),
-        month=fake_en.month_name(),
-        day=fake_en.day_of_month(),
-        time='12:00'
+        year=fake_en.year(), month=fake_en.month_name(), day=fake_en.day_of_month(), time='12:00'
     )
 
 
 def generated_dropdown_option(dropdown: str) -> str:
-    select_value = ['Group 1, option 1', 'Group 1, option 2', 'Group 2, option 1',
-                    'Group 2, option 2', 'A root option', 'Another root option', ]
+    select_value = [
+        'Group 1, option 1',
+        'Group 1, option 2',
+        'Group 2, option 1',
+        'Group 2, option 2',
+        'A root option',
+        'Another root option',
+    ]
     select_one = ['Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Prof.', 'Other']
     if dropdown == 'select_value':
         return select_value[random.randint(0, 5)]

@@ -1,5 +1,4 @@
 import random
-from typing import List, Tuple
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
@@ -9,7 +8,7 @@ from locators.alerts_frame_windows_locators import (
     BrowserWindowsPageLocators,
     FramesPageLocators,
     ModalDialogsPageLocators,
-    NestedFramesPageLocators
+    NestedFramesPageLocators,
 )
 from pages.base_page import BasePage
 from utils.routes import UIRoutes
@@ -25,7 +24,7 @@ class BrowserWindowsPage(BasePage):
     def check_opened_interface(self, interface: str) -> str:
         available_intefaces = {
             'tab': self.locators.NEW_TAB_BUTTON,
-            'window': self.locators.NEW_WINDOW_BUTTON
+            'window': self.locators.NEW_WINDOW_BUTTON,
         }
         self.element_is_visible(available_intefaces[interface]).click()
         self.switch_to_window(1)
@@ -62,7 +61,7 @@ class AlertsPage(BasePage):
         return text_result
 
     @allure.step('Check prompt alert')
-    def check_prompt_alert(self) -> Tuple[str, str]:
+    def check_prompt_alert(self) -> tuple[str, str]:
         text = f'autotest{random.randint(0, 999)}'
         self.element_is_visible(self.locators.PROMPT_BOX_ALERT_BUTTON).click()
         alert_window = self.switch_to_alert()
@@ -79,7 +78,7 @@ class FramesPage(BasePage):
         super().__init__(driver, page=UIRoutes.FRAMES)
 
     @allure.step('Check frame')
-    def check_frame(self, frame_number: str) -> List[str]:
+    def check_frame(self, frame_number: str) -> list[str]:
         if frame_number == 'frame1':
             frame = self.element_is_present(self.locators.FIRST_FRAME)
             width = frame.get_attribute('width')
@@ -105,7 +104,7 @@ class NestedFramesPage(BasePage):
         super().__init__(driver, page=UIRoutes.NESTED_FRAMES)
 
     @allure.step('Check nested frame')
-    def check_nested_frame(self) -> Tuple[str, str]:
+    def check_nested_frame(self) -> tuple[str, str]:
         parent_frame = self.element_is_present(self.locators.PARENT_FRAME)
         self.switch_to_frame(parent_frame)
         parent_text = self.element_is_present(self.locators.PARENT_TEXT).text
@@ -122,7 +121,7 @@ class ModalDialogsPage(BasePage):
         super().__init__(driver, page=UIRoutes.MODAL_DIALOGS)
 
     @allure.step('Check modal dialogs')
-    def check_modal_dialogs(self, size: str, method: str) -> Tuple[str, str]:
+    def check_modal_dialogs(self, size: str, method: str) -> tuple[str, str]:
         if size == 'small':
             self.element_is_visible(self.locators.SMALL_MODAL_BUTTON).click()
             title_text = self.element_is_visible(self.locators.TITLE_SMALL_MODAL).text
