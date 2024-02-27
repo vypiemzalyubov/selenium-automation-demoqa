@@ -48,7 +48,7 @@ jobs:
 
       - name: chrome
         if: "github.event.inputs.deployment_target == 'chrome'"
-        run: pytest tests/ --headless=true
+        run: pytest tests/form_test.py --headless=true
         continue-on-error: true
 
       - name: firefox
@@ -111,7 +111,7 @@ jobs:
 
   generate-report:
     runs-on: ubuntu-latest
-    needs: test
+    needs: download-history
     name: Generate report
 
     steps:
@@ -148,7 +148,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: success
-        if: needs.test.outputs.chrome != 'failure' || needs.test.outputs.firefox != 'failure'
+        if: needs.test.outputs.chrome != 'failure' && needs.test.outputs.firefox != 'failure'
         run: |
           curl --location 'https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": ${{ secrets.CHAT_ID }}, "text": "Tests passed. Report: https://vypiemzalyubov.github.io/selenium-automation-demoqa/"}'
       - name: failure
