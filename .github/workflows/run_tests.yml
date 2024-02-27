@@ -94,12 +94,12 @@ jobs:
 
       - name: Run the tests in the Chrome browser
         if: "github.event.inputs.deployment_target == 'chrome'"
-        run: pytest tests/alerts_frame_windows_test.py --headless=true
+        run: pytest --headless=true
         continue-on-error: true
 
       - name: Run the tests in the Firefox browser
         if: "github.event.inputs.deployment_target == 'firefox'"
-        run: pytest tests/ --headless=true --browser=firefox
+        run: pytest --headless=true --browser=firefox
         continue-on-error: true
 
       - name: Store allure results
