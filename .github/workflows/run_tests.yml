@@ -94,7 +94,7 @@ jobs:
 
       - name: chrome
         if: "github.event.inputs.deployment_target == 'chrome'"
-        run: pytest tests/form_test.py --headless=true
+        run: pytest tests/alerts_frame_windows_test.py --headless=true
         continue-on-error: true
 
       - name: firefox
