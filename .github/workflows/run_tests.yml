@@ -90,7 +90,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
 
       - name: chrome
         if: "github.event.inputs.deployment_target == 'chrome'"
@@ -122,7 +122,7 @@ jobs:
       - run: sudo wget https://github.com/allure-framework/allure2/releases/download/2.23.1/allure-2.23.1.tgz && sudo tar -zxvf allure-2.23.1.tgz -C /opt/ && sudo ln -s /opt/allure-2.23.1/bin/allure /usr/bin/allure
       
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
       - run: allure generate -c allure-results -o _site
 
       - name: Store generated report
@@ -139,7 +139,7 @@ jobs:
 
     steps:
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
