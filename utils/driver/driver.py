@@ -27,12 +27,12 @@ def driver_config(
             driver_options(firefox_options, browser)
             headless_option(firefox_options, headless)
             window_size_option(firefox_options, window_size, browser)
-            driver = webdriver.Firefox(options=firefox_options)
-            # match platform.system():
-            #     case 'Windows':
-            #         driver = webdriver.Firefox(options=firefox_options)
-            #     case _:
-            #         service = Service('/snap/bin/geckodriver')
-            #         driver = webdriver.Firefox(options=firefox_options, service=service)
+
+            match platform.system():
+                case 'Windows':
+                    driver = webdriver.Firefox(options=firefox_options)
+                case _:
+                    service = Service('/snap/bin/geckodriver')
+                    driver = webdriver.Firefox(options=firefox_options, service=service)
 
     return driver
