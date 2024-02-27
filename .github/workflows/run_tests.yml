@@ -55,6 +55,13 @@ jobs:
         run: pytest tests/ --headless=true --browser=firefox
         continue-on-error: true
 
+      - name: Store allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
+          retention-days: 1
+
   download-history:
     runs-on: ubuntu-latest
     name: Download history
@@ -96,8 +103,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: allure-results
-          path:
-            allure-results
+          path: allure-results
           retention-days: 1
 
   generate-report:
@@ -114,6 +120,13 @@ jobs:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
       - run: allure generate -c allure-results -o _site
+
+      - name: Store generated report
+        uses: actions/upload-artifact@v4
+        with:
+          name: _site
+          path: _site
+          retention-days: 1
 
   publish-report:
     runs-on: ubuntu-latest
