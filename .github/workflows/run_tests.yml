@@ -148,12 +148,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1.2.9
 
-      - name: success
+      - name: Success
         if: needs.test.outputs.chrome != 'failure' && needs.test.outputs.firefox != 'failure'
         run: |
-          echo needs.test.outputs.chrome
           curl --location 'https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": ${{ secrets.CHAT_ID }}, "text": "Tests PASSED. Report: https://vypiemzalyubov.github.io/selenium-automation-demoqa/"}'
-      - name: failure
+      - name: Failure
         if: needs.test.outputs.chrome == 'failure' || needs.test.outputs.firefox == 'failure'
         run: |
           curl --location 'https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": ${{ secrets.CHAT_ID }}, "text": "Tests FAILED. Report: https://vypiemzalyubov.github.io/selenium-automation-demoqa/"}'
