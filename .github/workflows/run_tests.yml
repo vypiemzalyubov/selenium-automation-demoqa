@@ -55,12 +55,12 @@ jobs:
         run: pytest tests/ --headless=true --browser=firefox
         continue-on-error: true
 
-      - name: Store allure results
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: allure-results
-          retention-days: 1
+      # - name: Store allure results
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: allure-results
+      #     path: allure-results
+      #     retention-days: 1
 
   download-history:
     runs-on: ubuntu-latest
