@@ -92,12 +92,12 @@ jobs:
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
 
-      - name: chrome
+      - name: Run the tests in the Chrome browser
         if: "github.event.inputs.deployment_target == 'chrome'"
         run: pytest tests/alerts_frame_windows_test.py --headless=true
         continue-on-error: true
 
-      - name: firefox
+      - name: Run the tests in the Firefox browser
         if: "github.event.inputs.deployment_target == 'firefox'"
         run: pytest tests/ --headless=true --browser=firefox
         continue-on-error: true
