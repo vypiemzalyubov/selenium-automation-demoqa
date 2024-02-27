@@ -98,7 +98,7 @@ jobs:
       - name: Running tests in Chrome
         id: chrome
         if: "github.event.inputs.deployment_target == 'chrome'"
-        run: pytest tests/alerts_frame_windows_test.py --headless=true
+        run: pytest --headless=true
         continue-on-error: true
 
       - name: Running tests in Firefox
@@ -146,14 +146,14 @@ jobs:
 
     steps:
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@4.0.0
+        uses: actions/deploy-pages@v1.2.9
 
       - name: Success
         if: needs.test.outputs.chrome != 'failure' || needs.test.outputs.firefox != 'failure'
