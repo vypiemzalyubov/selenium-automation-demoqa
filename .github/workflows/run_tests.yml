@@ -146,7 +146,7 @@ jobs:
       
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v1.2.9
 
       - name: success
         if: needs.test.outputs.chrome != 'failure' && needs.test.outputs.firefox != 'failure'
