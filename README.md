@@ -33,13 +33,9 @@ selenium-automation-demoqa/
 │   ├── routes.py
 │   └── settings.py
 ├── env.example
-├── .flake8
-├── .gitignore
+├── ...
 ├── Dockerfile
-├── LICENSE
-├── pyproject.toml
-├── pytest.ini
-├── README.md
+├── ...
 ├── requirements.txt
 ```
 
