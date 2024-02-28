@@ -9,28 +9,21 @@ selenium-automation-demoqa/
 │  ├─ workflows/
 │  │  ├─ run_tests.yml
 ├── locators
-│   ├── alerts_frame_windows_locators.py
+│   ├── ...
 │   ├── elements_page_locators.py
-│   ├── form_page_locators.py
-|   ├── interactions_page_locators.py
-│   └── widgets_page_locators.py
+│   ├── ...
 ├── models
 │   ├── models.py
 ├── pages
-│   ├── alerts_frame_windows_page.py
+│   ├── ...
 │   ├── base_page.py
 │   ├── elements_page.py
-│   ├── form_page.py
-│   ├── interactions_page.py
-│   └── widgets_page.py
+│   ├── ...
 ├── tests
-│   ├── __init__.py
-│   ├── alerts_frame_windows_test.py
+│   ├── ...
 │   ├── conftest.py
 │   ├── elements_test.py
-│   ├── form_test.py
-│   ├── interactions_test.py
-│   └── widgets_test.py
+│   ├── ...
 ├── utils
 │   ├── driver
 │   │   ├── driver.py
