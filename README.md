@@ -81,3 +81,7 @@ docker run --rm --name selenium-runner -v /selenium-automation-demoqa/docker-res
     - firefox
   ```
 - View [**Allure test results**](https://vypiemzalyubov.github.io/selenium-automation-demoqa/) after completing the GitHub Actions workflow
+
+## GitLab
+
+See this project on [**GitLab**](https://gitlab.com/vypiemzalyubov/selenium-automation-demoqa)
