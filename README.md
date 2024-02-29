@@ -5,9 +5,9 @@ Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page
 ## Project Structure:
 ```
 selenium-automation-demoqa/
-├─ .github/
-│  ├─ workflows/
-│  │  ├─ run_tests.yml
+├── .github/
+│   ├── workflows
+│   │   ├── run_tests.yml
 ├── locators
 │   ├── ...
 │   ├── elements_page_locators.py
@@ -32,11 +32,9 @@ selenium-automation-demoqa/
 │   ├── logger.py
 │   ├── routes.py
 │   └── settings.py
-├── env.example
 ├── ...
 ├── Dockerfile
-├── ...
-├── requirements.txt
+└── requirements.txt
 ```
 
 ## Getting Started
