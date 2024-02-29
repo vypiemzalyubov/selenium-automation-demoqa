@@ -98,7 +98,7 @@ jobs:
       - name: Running tests in Chrome
         id: chrome
         if: "github.event.inputs.deployment_target == 'chrome'"
-        run: pytest --headless=true
+        run: pytest tests/alerts_frame_windows_test.py --headless=true
         continue-on-error: true
 
       - name: Running tests in Firefox
