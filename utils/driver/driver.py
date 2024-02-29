@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
 from selenium.webdriver.firefox.service import Service
-from webdriver_manager.firefox import GeckoDriverManager
 
 from utils.driver.options import driver_options, headless_option, window_size_option
 
@@ -33,7 +32,7 @@ def driver_config(
                 case 'Windows':
                     driver = webdriver.Firefox(options=firefox_options)
                 case _:
-                    service = Service(executable_path=GeckoDriverManager().install())
-                    driver = webdriver.Firefox(service=service, options=firefox_options)
+                    service = Service('/snap/bin/geckodriver')
+                    driver = webdriver.Firefox(options=firefox_options, service=service)
 
     return driver
