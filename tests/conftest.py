@@ -27,7 +27,7 @@ def pytest_addoption(parser: 'Parser') -> None:
 @pytest.fixture(scope='function', autouse=True)
 def driver(
     request: 'FixtureRequest',
-) -> Generator[ChromeWebDriver | FirefoxWebDriver, None, None]:
+) -> Generator[ChromeWebDriver | FirefoxWebDriver]:
     driver = driver_config(
         request.config.getoption('--browser'),
         request.config.getoption('--headless'),
