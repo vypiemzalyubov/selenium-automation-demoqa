@@ -156,7 +156,7 @@ jobs:
         uses: actions/deploy-pages@v1.2.9
 
       - name: Success
-        if: needs.test.outputs.chrome == 'true' || needs.test.outputs.firefox == 'true'
+        if: needs.test.outputs.chrome != 'failure' && needs.test.outputs.firefox != 'failure'
         run: |
           curl --location 'https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage' --header 'Content-Type: application/json' --data '{"chat_id": ${{ secrets.CHAT_ID }}, "text": "Tests PASSED. Report: https://vypiemzalyubov.github.io/selenium-automation-demoqa/"}'
       - name: Failure
