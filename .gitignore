@@ -25,3 +25,6 @@ docker-results/
 
 # Debug
 debug.py
+
+# Ruff
+.ruff_cache
