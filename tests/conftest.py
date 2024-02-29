@@ -1,16 +1,21 @@
 from datetime import datetime
+from typing import TYPE_CHECKING
 from collections.abc import Generator
 
 import allure
-from allure_commons.types import AttachmentType
 import pytest
+from allure_commons.types import AttachmentType
 from selenium.webdriver.chrome.webdriver import WebDriver as ChromeWebDriver
 from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
 
 from utils.driver.driver import driver_config
 
+if TYPE_CHECKING:
+	from _pytest.config.argparsing import Parser
+	from _pytest.fixtures import FixtureRequest
 
-def pytest_addoption(parser) -> None:
+
+def pytest_addoption(parser: 'Parser') -> None:
     parser.addoption('--headless', default='false', help='Run tests in headless mode')
     parser.addoption('--browser', default='chrome', help='Choose browser: Chrome or Firefox')
     parser.addoption(
@@ -20,7 +25,7 @@ def pytest_addoption(parser) -> None:
 
 @pytest.fixture(scope='function', autouse=True)
 def driver(
-    request: pytest.FixtureRequest,
+    request: 'FixtureRequest',
 ) -> Generator[ChromeWebDriver | FirefoxWebDriver, None, None]:
     driver = driver_config(
         request.config.getoption('--browser'),
