@@ -11,8 +11,9 @@ from selenium.webdriver.firefox.webdriver import WebDriver as FirefoxWebDriver
 from utils.driver.driver import driver_config
 
 if TYPE_CHECKING:
-	from _pytest.config.argparsing import Parser
-	from _pytest.fixtures import FixtureRequest
+    from _pytest.config import Config
+    from _pytest.config.argparsing import Parser
+    from _pytest.fixtures import FixtureRequest
 
 
 def pytest_addoption(parser: 'Parser') -> None:
@@ -43,7 +44,7 @@ def driver(
 
 
 @pytest.hookimpl(tryfirst=True)
-def pytest_configure(config) -> None:
+def pytest_configure(config: 'Config') -> None:
     alluredir = getattr(config.option, 'allure_report_dir', None)
     if not alluredir:
         setattr(config.option, 'allure_report_dir', 'allure-results')
