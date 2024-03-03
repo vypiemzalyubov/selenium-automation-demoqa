@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  automation-demoqa:
+    image: python:3.11-slim-bullseye
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/src
+    command: /bin/sh -c "ls -la && pytest --headless=true"
+    working_dir: /src
