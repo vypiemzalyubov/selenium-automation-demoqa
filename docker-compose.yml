@@ -2,8 +2,9 @@ version: "3.8"
 
 services:
   runner:
-    build: .
-    image: image-selenium
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: selenium-runner
     volumes:
       - ./allure-results:/src/allure-results
