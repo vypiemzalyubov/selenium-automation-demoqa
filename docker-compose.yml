@@ -1,9 +1,9 @@
-version: '3.8'
+version: "3.8"
 
 services:
   runner:
     build: .
-    image: runner-image
-    container_name: selenium-demoqa
+    image: image-selenium
+    container_name: selenium-runner
     volumes:
       - ./allure-results:/src/allure-results

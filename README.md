@@ -33,6 +33,7 @@ selenium-automation-demoqa/
 │   ├── routes.py
 │   └── settings.py
 ├── ...
+├── docker-compose.yml
 ├── Dockerfile
 └── requirements.txt
 ```
@@ -68,6 +69,9 @@ docker build --no-cache -t image-selenium .
 
 # Starts the container, bind mount a volume and automatically deletes on exit
 docker run --rm --name selenium-runner -v /selenium-automation-demoqa/docker-results/:/allure-results/ image-selenium
+
+# Running with Docker Compose
+docker-compose up
 ```
 
 ## Github workflow
