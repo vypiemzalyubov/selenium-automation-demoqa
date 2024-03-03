@@ -8,5 +8,5 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./:/src
-    command: "pytest --headless=true"
+    command: /bin/sh -c "pytest --headless=true"
     working_dir: /src
