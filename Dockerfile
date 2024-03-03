@@ -1,6 +1,5 @@
 FROM python:3.11
 WORKDIR /src
-USER root
 RUN mkdir allure-results
 COPY . /src/
 RUN pip install -r requirements.txt
