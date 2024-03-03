@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  app:
+  runner:
     build: .
-    ports:
-      - "8080:8080"
+    image: runner-image
+    container_name: selenium-demoqa
     volumes:
       - ./allure-results:/src/allure-results
