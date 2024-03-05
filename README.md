@@ -8,10 +8,6 @@ selenium-automation-demoqa/
 ├── .github/
 │   ├── workflows
 │   │   ├── run_tests.yml
-├── locators
-│   ├── ...
-│   ├── elements_page_locators.py
-│   ├── ...
 ├── models
 │   ├── models.py
 ├── pages

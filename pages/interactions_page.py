@@ -4,21 +4,25 @@ import time
 
 import allure
 from selenium.webdriver.chrome.webdriver import WebDriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from locators.interactions_page_locators import (
-    SortablePageLocators,
-    SelectablePageLocators,
-    ResizablePageLocators,
-    DroppablePageLocators,
-    DraggablePageLocators,
-)
 from pages.base_page import BasePage
 from utils.routes import UIRoutes
 
 
 class SortablePage(BasePage):
-    locators = SortablePageLocators()
+    TAB_LIST = (By.CSS_SELECTOR, 'a[id="demo-tab-list"]')
+    LIST_ITEM = (
+        By.CSS_SELECTOR,
+        'div[id="demo-tabpane-list"] div[class="list-group-item list-group-item-action"]',
+    )
+
+    TAB_GRID = (By.CSS_SELECTOR, 'a[id="demo-tab-grid"]')
+    GRID_ITEM = (
+        By.CSS_SELECTOR,
+        'div[id="demo-tabpane-grid"] div[class="list-group-item list-group-item-action"]',
+    )
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.SORTABLE)
@@ -26,14 +30,8 @@ class SortablePage(BasePage):
     @allure.step('Change list or grid order')
     def change_order(self, tab_name: str) -> tuple[list[str], list[str]]:
         tabs = {
-            'list': {
-                'tab': self.locators.TAB_LIST, 
-                'item': self.locators.LIST_ITEM
-            },
-            'grid': {
-                'tab': self.locators.TAB_GRID, 
-                'item': self.locators.GRID_ITEM
-            },
+            'list': {'tab': self.TAB_LIST, 'item': self.LIST_ITEM},
+            'grid': {'tab': self.TAB_GRID, 'item': self.GRID_ITEM},
         }
         self.element_is_visible(tabs[tab_name]['tab']).click()
         order_before = self._get_sortable_items(tabs[tab_name]['item'])
@@ -51,7 +49,25 @@ class SortablePage(BasePage):
 
 
 class SelectablePage(BasePage):
-    locators = SelectablePageLocators()
+    TAB_LIST = (By.CSS_SELECTOR, "a[id='demo-tab-list']")
+    LIST_ITEM = (
+        By.CSS_SELECTOR,
+        'ul[id="verticalListContainer"] li[class="mt-2 list-group-item list-group-item-action"]',
+    )
+    LIST_ITEM_ACTIVE = (
+        By.CSS_SELECTOR,
+        'ul[id="verticalListContainer"] li[class="mt-2 list-group-item active list-group-item-action"]',
+    )
+
+    TAB_GRID = (By.CSS_SELECTOR, 'a[id="demo-tab-grid"]')
+    GRID_ITEM = (
+        By.CSS_SELECTOR,
+        'div[id="gridContainer"]  li[class="list-group-item list-group-item-action"]',
+    )
+    GRID_ITEM_ACTIVE = (
+        By.CSS_SELECTOR,
+        'div[id="gridContainer"]  li[class="list-group-item active list-group-item-action"]',
+    )
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.SELECTABLE)
@@ -60,14 +76,14 @@ class SelectablePage(BasePage):
     def select_item(self, tab_name: str, count: str) -> int:
         tabs = {
             'list': {
-                'tab': self.locators.TAB_LIST,
-                'item': self.locators.LIST_ITEM,
-                'active': self.locators.LIST_ITEM_ACTIVE,
+                'tab': self.TAB_LIST,
+                'item': self.LIST_ITEM,
+                'active': self.LIST_ITEM_ACTIVE,
             },
             'grid': {
-                'tab': self.locators.TAB_GRID,
-                'item': self.locators.GRID_ITEM,
-                'active': self.locators.GRID_ITEM_ACTIVE,
+                'tab': self.TAB_GRID,
+                'item': self.GRID_ITEM,
+                'active': self.GRID_ITEM_ACTIVE,
             },
         }
         self.element_is_visible(tabs[tab_name]['tab']).click()
@@ -85,7 +101,16 @@ class SelectablePage(BasePage):
 
 
 class ResizablePage(BasePage):
-    locators = ResizablePageLocators()
+    RESIZABLE_BOX_HANDLE = (
+        By.CSS_SELECTOR,
+        'div[class="constraint-area"] span[class="react-resizable-handle react-resizable-handle-se"]',
+    )
+    RESIZABLE_BOX = (By.CSS_SELECTOR, 'div[id="resizableBoxWithRestriction"]')
+    RESIZABLE_HANDLE = (
+        By.CSS_SELECTOR,
+        'div[id="resizable"] span[class="react-resizable-handle react-resizable-handle-se"]',
+    )
+    RESIZABLE = (By.CSS_SELECTOR, 'div[id="resizable"]')
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.RESIZABLE)
@@ -93,33 +118,29 @@ class ResizablePage(BasePage):
     @allure.step('Change size resizable box')
     def change_size_resizable_box(self) -> tuple[tuple[str, str], tuple[str, str]]:
         self.action_drag_and_drop_by_offset(
-            self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), 400, 200
+            self.element_is_present(self.RESIZABLE_BOX_HANDLE), 400, 200
         )
-        max_size = self._get_px_from_width_height(
-            self._get_max_min_size(self.locators.RESIZABLE_BOX)
-        )
+        max_size = self._get_px_from_width_height(self._get_max_min_size(self.RESIZABLE_BOX))
         self.action_drag_and_drop_by_offset(
-            self.element_is_present(self.locators.RESIZABLE_BOX_HANDLE), -500, -300
+            self.element_is_present(self.RESIZABLE_BOX_HANDLE), -500, -300
         )
-        min_size = self._get_px_from_width_height(
-            self._get_max_min_size(self.locators.RESIZABLE_BOX)
-        )
+        min_size = self._get_px_from_width_height(self._get_max_min_size(self.RESIZABLE_BOX))
         return max_size, min_size
 
     @allure.step('Change size resizable')
     def change_size_resizable(self) -> tuple[tuple[str, str], tuple[str, str]]:
         self.action_drag_and_drop_by_offset(
-            self.element_is_visible(self.locators.RESIZABLE_HANDLE),
+            self.element_is_visible(self.RESIZABLE_HANDLE),
             random.randint(1, 300),
             random.randint(1, 300),
         )
-        max_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE))
+        max_size = self._get_px_from_width_height(self._get_max_min_size(self.RESIZABLE))
         self.action_drag_and_drop_by_offset(
-            self.element_is_visible(self.locators.RESIZABLE_HANDLE),
+            self.element_is_visible(self.RESIZABLE_HANDLE),
             random.randint(-200, -1),
             random.randint(-200, -1),
         )
-        min_size = self._get_px_from_width_height(self._get_max_min_size(self.locators.RESIZABLE))
+        min_size = self._get_px_from_width_height(self._get_max_min_size(self.RESIZABLE))
         return max_size, min_size
 
     @allure.step('Get pixel from width and height')
@@ -136,28 +157,51 @@ class ResizablePage(BasePage):
 
 
 class DroppablePage(BasePage):
-    locators = DroppablePageLocators()
+    # simple
+    SIMPLE_TAB = (By.CSS_SELECTOR, 'a[id="droppableExample-tab-simple"]')
+    DRAG_ME_SIMPLE = (By.CSS_SELECTOR, 'div[id="draggable"]')
+    DROP_HERE_SIMPLE = (By.CSS_SELECTOR, '#simpleDropContainer #droppable')
+
+    # accept
+    ACCEPT_TAB = (By.CSS_SELECTOR, 'a[id="droppableExample-tab-accept"]')
+    ACCEPTABLE = (By.CSS_SELECTOR, 'div[id="acceptable"]')
+    NOT_ACCEPTABLE = (By.CSS_SELECTOR, 'div[id="notAcceptable"]')
+    DROP_HERE_ACCEPT = (By.CSS_SELECTOR, '#acceptDropContainer #droppable')
+
+    # prevent Propogation
+    PREVENT_TAB = (By.CSS_SELECTOR, 'a[id="droppableExample-tab-preventPropogation"]')
+    NOT_GREEDY_DROP_BOX_TEXT = (By.CSS_SELECTOR, 'div[id="notGreedyDropBox"] p:nth-child(1)')
+    NOT_GREEDY_INNER_BOX = (By.CSS_SELECTOR, 'div[id="notGreedyInnerDropBox"]')
+    GREEDY_DROP_BOX_TEXT = (By.CSS_SELECTOR, 'div[id="greedyDropBox"] p:nth-child(1)')
+    GREEDY_INNER_BOX = (By.CSS_SELECTOR, 'div[id="greedyDropBoxInner"]')
+    DRAG_ME_PREVENT = (By.CSS_SELECTOR, '#ppDropContainer #dragBox')
+
+    # revert Draggable
+    REVERT_TAB = (By.CSS_SELECTOR, 'a[id="droppableExample-tab-revertable"]')
+    WILL_REVERT = (By.CSS_SELECTOR, 'div[id="revertable"]')
+    NOT_REVERT = (By.CSS_SELECTOR, 'div[id="notRevertable"]')
+    DROP_HERE_REVERT = (By.CSS_SELECTOR, '#revertableDropContainer #droppable')
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.DROPPABLE)
 
     @allure.step('Drop simple div')
     def drop_simple(self) -> str:
-        self.element_is_visible(self.locators.SIMPLE_TAB).click()
-        drag_div = self.element_is_visible(self.locators.DRAG_ME_SIMPLE)
-        drop_div = self.element_is_visible(self.locators.DROP_HERE_SIMPLE)
+        self.element_is_visible(self.SIMPLE_TAB).click()
+        drag_div = self.element_is_visible(self.DRAG_ME_SIMPLE)
+        drop_div = self.element_is_visible(self.DROP_HERE_SIMPLE)
         self.action_drag_and_drop_to_element(drag_div, drop_div)
         return drop_div.text
 
     @allure.step('Drop accept div')
     def drop_accept(self, accept: str) -> str:
         accepts = {
-            'acceptable': self.locators.ACCEPTABLE,
-            'not_acceptable': self.locators.NOT_ACCEPTABLE,
+            'acceptable': self.ACCEPTABLE,
+            'not_acceptable': self.NOT_ACCEPTABLE,
         }
-        self.element_is_visible(self.locators.ACCEPT_TAB).click()
+        self.element_is_visible(self.ACCEPT_TAB).click()
         accept_div = self.element_is_visible(accepts[accept])
-        drop_div = self.element_is_visible(self.locators.DROP_HERE_ACCEPT)
+        drop_div = self.element_is_visible(self.DROP_HERE_ACCEPT)
         self.action_drag_and_drop_to_element(accept_div, drop_div)
         drop_text = drop_div.text
         return drop_text
@@ -166,16 +210,16 @@ class DroppablePage(BasePage):
     def drop_prevent_propogation(self, propogation: str) -> tuple[str, str]:
         propogations = {
             'greedy': {
-                'box': self.locators.GREEDY_INNER_BOX,
-                'text': self.locators.GREEDY_DROP_BOX_TEXT,
+                'box': self.GREEDY_INNER_BOX,
+                'text': self.GREEDY_DROP_BOX_TEXT,
             },
             'not_greedy': {
-                'box': self.locators.NOT_GREEDY_INNER_BOX,
-                'text': self.locators.NOT_GREEDY_DROP_BOX_TEXT,
+                'box': self.NOT_GREEDY_INNER_BOX,
+                'text': self.NOT_GREEDY_DROP_BOX_TEXT,
             },
         }
-        self.element_is_visible(self.locators.PREVENT_TAB).click()
-        drag_div = self.element_is_visible(self.locators.DRAG_ME_PREVENT)
+        self.element_is_visible(self.PREVENT_TAB).click()
+        drag_div = self.element_is_visible(self.DRAG_ME_PREVENT)
         inner_box = self.element_is_visible(propogations[propogation]['box'])
         self.action_drag_and_drop_to_element(drag_div, inner_box)
         outer_box_text = self.element_is_visible(propogations[propogation]['text']).text
@@ -184,10 +228,10 @@ class DroppablePage(BasePage):
 
     @allure.step('Drag revert draggable div')
     def drop_revert_draggable(self, type_drag: str) -> tuple[str, str]:
-        drags = {'will': self.locators.WILL_REVERT, 'not_will': self.locators.NOT_REVERT}
-        self.element_is_visible(self.locators.REVERT_TAB).click()
+        drags = {'will': self.WILL_REVERT, 'not_will': self.NOT_REVERT}
+        self.element_is_visible(self.REVERT_TAB).click()
         revert = self.element_is_visible(drags[type_drag])
-        drop_div = self.element_is_visible(self.locators.DROP_HERE_REVERT)
+        drop_div = self.element_is_visible(self.DROP_HERE_REVERT)
         self.action_drag_and_drop_to_element(revert, drop_div)
         position_after_move = revert.get_attribute('style')
         time.sleep(1)
@@ -196,22 +240,29 @@ class DroppablePage(BasePage):
 
 
 class DragabblePage(BasePage):
-    locators = DraggablePageLocators()
+    # simple
+    SIMPLE_TAB = (By.CSS_SELECTOR, 'a[id="draggableExample-tab-simple"]')
+    DRAG_ME = (By.CSS_SELECTOR, 'div[id="draggableExample-tabpane-simple"] div[id="dragBox"]')
+
+    # axis Restricted
+    AXIS_TAB = (By.CSS_SELECTOR, 'a[id="draggableExample-tab-axisRestriction"]')
+    ONLY_X = (By.CSS_SELECTOR, 'div[id="restrictedX"]')
+    ONLY_Y = (By.CSS_SELECTOR, 'div[id="restrictedY"]')
 
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver, page=UIRoutes.DRAGABBLE)
 
     @allure.step('Simple drag and drop')
     def simple_drag_box(self) -> tuple[str, str]:
-        self.element_is_visible(self.locators.SIMPLE_TAB).click()
-        drag_div = self.element_is_visible(self.locators.DRAG_ME)
+        self.element_is_visible(self.SIMPLE_TAB).click()
+        drag_div = self.element_is_visible(self.DRAG_ME)
         position_before, position_after = self._get_before_and_after_position(drag_div)
         return position_before, position_after
 
     @allure.step('Drag axis restricted element')
     def drag_axis_restricted(self, type_only: str) -> tuple[str, str, str, str]:
-        only = {'only_x': self.locators.ONLY_X, 'only_y': self.locators.ONLY_Y}
-        self.element_is_visible(self.locators.AXIS_TAB).click()
+        only = {'only_x': self.ONLY_X, 'only_y': self.ONLY_Y}
+        self.element_is_visible(self.AXIS_TAB).click()
         only_element = self.element_is_visible(only[type_only])
         position_before, position_after = self._get_before_and_after_position(only_element)
         top_before = self._get_top_position(position_before)

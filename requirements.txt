@@ -6,6 +6,7 @@ pydantic~=2.6.0
 pydantic-settings~=2.1.0
 pytest~=7.4.4
 pytest-rerunfailures~=13.0
+pytest-xdist~=3.5.0
 requests~=2.31.0
 ruff~=0.2.2
 selenium~=4.16.0
