@@ -1,8 +1,10 @@
 import os
 import random
-from typing import Any
 from collections.abc import Generator
+from typing import Any
+
 from faker import Faker
+
 from models.models import Cars, Color, Date, Person
 
 faker_ru = Faker('ru_RU')

@@ -2,11 +2,11 @@ import allure
 import pytest
 
 from pages.interactions_page import (
-    SortablePage,
-    SelectablePage,
-    ResizablePage,
-    DroppablePage,
     DragabblePage,
+    DroppablePage,
+    ResizablePage,
+    SelectablePage,
+    SortablePage,
 )
 
 pytestmark = allure.suite('Interactions')

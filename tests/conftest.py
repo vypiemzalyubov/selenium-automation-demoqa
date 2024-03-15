@@ -1,6 +1,6 @@
+from collections.abc import Generator
 from datetime import datetime
 from typing import TYPE_CHECKING
-from collections.abc import Generator
 
 import allure
 import pytest

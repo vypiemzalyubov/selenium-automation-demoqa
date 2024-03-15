@@ -11,13 +11,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.select import Select
 
+from pages.base_page import BasePage
 from utils.generator import (
     generated_car,
     generated_color,
     generated_date,
     generated_dropdown_option,
 )
-from pages.base_page import BasePage
 from utils.routes import UIRoutes
 
 

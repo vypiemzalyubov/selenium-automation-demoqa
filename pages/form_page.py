@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 
 from models.models import Person
 from pages.base_page import BasePage
-from utils.generator import generated_person, generated_file, generated_subject
+from utils.generator import generated_file, generated_person, generated_subject
 from utils.routes import UIRoutes
 
 
