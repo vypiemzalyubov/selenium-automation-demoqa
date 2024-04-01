@@ -71,6 +71,9 @@ pip install -r requirements.txt
   ```bash
   allure serve
   ```
+<p align="center">
+  <img width="93%" src='https://i.postimg.cc/VLNhHcSj/allure.png' alt='allure'/>
+</p>
 
 ## Running in Docker
 
