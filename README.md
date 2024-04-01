@@ -10,6 +10,7 @@ Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page
   <img width="5%" src="https://avatars0.githubusercontent.com/u/983927?v=3&s=400" title="Selenium" alt="Selenium">
   <img width="5%" src="https://biercoff.com/content/images/2017/08/allure-logo.png" title="Allure Report" alt="Allure Report">
   <img width="5%" src="https://avatars.githubusercontent.com/u/110818415?s=200&v=4" title="Pydantic" alt="Pydantic">
+  <img width="5%" src="https://i.postimg.cc/fbsyvkVW/requests.png" title="Requests" alt="Requests">
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/github/github-original.svg" title="GitHub" alt="GitHub">
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/githubactions/githubactions-original.svg" title="GitHub Actions" alt="GitHub Actions">
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/docker/docker-original.svg" title="Docker" alt="Docker">
