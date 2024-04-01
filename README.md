@@ -84,7 +84,7 @@ docker run --rm --name selenium-runner -v /selenium-automation-demoqa/docker-res
 docker-compose up
 ```
 
-## Github workflow
+## GitHub workflow
 - Go to [**"Run workflow"**](https://github.com/vypiemzalyubov/selenium-automation-demoqa/actions/workflows/run_tests.yml) in GitHub Actions
 
   ```yml
