@@ -14,6 +14,7 @@ Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/github/github-original.svg" title="GitHub" alt="GitHub">
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/githubactions/githubactions-original.svg" title="GitHub Actions" alt="GitHub Actions">
   <img width="5%" src="https://github.com/devicons/devicon/blob/master/icons/docker/docker-original.svg" title="Docker" alt="Docker">
+  <img width="5%" src="https://img.stackshare.io/service/3136/thumb_retina_docker-compose.png" title="Docker Compose" alt="Docker Compose">
   <img width="4%" src="https://docs.astral.sh/ruff/assets/bolt.svg" title="Ruff" alt="Ruff">
 </p>
 
