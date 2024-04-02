@@ -1,5 +1,9 @@
 # Selenium Automation DEMOQA
 
+[![Python](https://img.shields.io/badge/python-3.11-blue)](https://www.python.org/downloads/release/python-3110/)
+[![Build](https://github.com/franneck94/Python-Project-Template/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/vypiemzalyubov/selenium-automation-demoqa/actions)
+[![License MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/vypiemzalyubov/selenium-automation-demoqa/blob/main/LICENSE)
+
 Automation of [DEMOQA](https://demoqa.com/) site testing using Selenium and Page Object Model
 
 ## Used technologies
