@@ -103,5 +103,6 @@ docker-compose up
   ```
 - View [**Allure test results**](https://vypiemzalyubov.github.io/selenium-automation-demoqa/) after completing the GitHub Actions workflow
 
+---
 
 > See this project on [**GitLab**](https://gitlab.com/vypiemzalyubov/selenium-automation-demoqa)
