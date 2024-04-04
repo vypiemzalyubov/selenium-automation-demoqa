@@ -7,4 +7,4 @@ services:
       dockerfile: Dockerfile
     container_name: selenium-runner
     volumes:
-      - ./allure-results:/src/allure-results
+      - ./docker-results/:/src/allure-results/

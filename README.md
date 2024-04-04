@@ -84,10 +84,10 @@ pip install -r requirements.txt
 
 ```bash
 # Build an image named "image-selenium"
-docker build --no-cache -t image-selenium .
+docker build -t image-selenium .
 
 # Starts the container, bind mount a volume and automatically deletes on exit
-docker run --rm --name selenium-runner -v /selenium-automation-demoqa/docker-results/:/allure-results/ image-selenium
+docker run --rm --name selenium-runner -v $(pwd)/docker-results/:/src/allure-results/ image-selenium
 
 # Running with Docker Compose
 docker-compose up
@@ -103,6 +103,5 @@ docker-compose up
   ```
 - View [**Allure test results**](https://vypiemzalyubov.github.io/selenium-automation-demoqa/) after completing the GitHub Actions workflow
 
-## GitLab
 
-See this project on [**GitLab**](https://gitlab.com/vypiemzalyubov/selenium-automation-demoqa)
+> See this project on [**GitLab**](https://gitlab.com/vypiemzalyubov/selenium-automation-demoqa)
